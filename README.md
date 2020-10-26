@@ -1,7 +1,20 @@
 # cam-el
-> Foundational Web Components
+> Foundational Web Components with Smooth Character
+
+<p align="center">
+  <img width="240" height="240" src="https://i.imgur.com/9b3r9LK.png">
+</p>
 
 These components should help with boilerplate html layout. They're built to be modern, maximally helpful, and minimally intrusive.
+
+## Usage
+```bash
+npm i @auzmartist/cam-el
+```
+
+```js
+import {CamBox} from '@auzmartist/cam-el'
+```
 
 ## Components
 As per web components spec, all components are hyphenated. All `cam-el` components are prefixed with `cam-`.
