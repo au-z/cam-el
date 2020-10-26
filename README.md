@@ -17,7 +17,7 @@ Example:
 </cam-box>
 ```
 
-![cam-box](https://imgur.com/Kd3quCq)
+![cam-box](https://i.imgur.com/Kd3quCq.png)
 
 #### Attributes
 - **m**: margin `"xy | x y"`
