@@ -42,13 +42,4 @@ Example:
 #### CSS Variables
 - `var(--cam-unit, 8px)`: the size of a margin and padding unit
 
-#### CSS Parts
-- `box`: the outer div element for application of other ::part styles
-
-```css
-cam-box::part(box) {
-	border: 1px solid gray;
-}
-```
-
 

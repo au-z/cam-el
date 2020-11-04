@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --env.prod --config ./build/webpack.config.js --progress --hide-modules",
+    "build:watch": "webpack --watch --env.prod --config ./build/webpack.config.js --progress --hide-modules",
     "dev": "webpack-dev-server --env.dev --config ./build/webpack.config.js --open --hot --quiet",
     "prepublishOnly": "npm run build"
   },
