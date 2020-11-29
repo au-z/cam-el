@@ -1,5 +1,5 @@
 import {Hybrids, define, html} from 'hybrids'
-import CamEl from './cam-el'
+import CamEl, { camelRender } from './cam-el'
 
 const CamBox: Hybrids<any> = {
 	...CamEl,
@@ -8,21 +8,20 @@ const CamBox: Hybrids<any> = {
 	flex: '',
 	item: false,
 	inline: false,
+	wrap: '',
 	justify: ({flex}) => flex.split(' ')?.[0],
 	align: ({flex, justify}) => flex.split(' ')?.[1] || justify,
-	render: ({mx, my, px, py, flex, inline, justify, align, dir}) => html`
+	render: camelRender(({flex, inline, justify, align, dir, wrap}) => html`
 	<slot></slot>
 	<style>
 		:host {
-			box-sizing: border-box;
-			margin: calc(${mx} * var(--cam-unit, 8px)) calc(${my} * var(--cam-unit, 8px));
-			padding: calc(${px} * var(--cam-unit, 8px)) calc(${py} * var(--cam-unit, 8px));
 			display: ${flex ? (inline ? 'inline-flex' : 'flex') : (inline ? 'inline-block' : 'block')};
 			${justify && `justify-content: ${justify};`}
 			${align && `align-items: ${align};`}
 			${dir && `flex-direction: ${dir};`}
+			${wrap && `flex-wrap: ${wrap};`}
 		}
-	<style>`,
+	<style>`),
 }
 
 define('cam-box', CamBox)

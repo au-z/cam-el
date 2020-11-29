@@ -5,15 +5,59 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>cam-el</title>
 	<style>
-		cam-box::part(box) {
+		cam-box {
 			border: 1px solid #ddd
+		}
+		body {
+			min-height: 100vh;
+			font-family: 'Inter', Arial, sans-serif;
+			color: #8A91B4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			background: #F6F8Fe;
+			@media(max-width: 800px) {
+				flex-direction: column;
+			}
 		}
 	</style>
 </head>
 <body>
-	<cam-box m="2" flex="space-evenly center">
-		<cam-box p="2 4">Foo</cam-box>
+	<cam-box m="2" p="4" flex="center flex-start" dir="column" wrap="wrap">
+		<cam-box flex="space-between center" style="width: 100%">
+			<label>Email</label>
+			<cam-input p="2 0" type="email" size="20"></cam-input>
+		</cam-box>
+		<cam-box flex="space-between center" style="width: 100%">
+			<label>Password</label>
+			<cam-input p="2 0" type="password" size="20"></cam-input>
+		</cam-box>
+	</cam-box>
+	<cam-box m="2" flex="space-evenly center" wrap="wrap">
+		<cam-input p="2" id="text" value="hello"></cam-input>
+		<cam-input p="2" id="number" type="number" width="4"></cam-input>
+		<cam-input p="2" type="checkbox" label="checkbox"></cam-input>
+		<cam-input p="2" type="checkbox" label="checkbox" disabled></cam-input>
+		<cam-input p="2" type="checkbox" label="toggle" toggle></cam-input>
+		<cam-input p="2" type="checkbox" label="toggle" toggle disabled></cam-input>
+		<cam-input p="2" type="range" value="5"></cam-input>
+		<cam-input p="2" type="date" value="04/14/1992"></cam-input>
 		<cam-box p="2 4">Bar</cam-box>
 	</cam-box>
+	<cam-box m="2" flex="space-evenly center" wrap="wrap">
+		<cam-radio-group name="contact">
+			<cam-input p="2" type="radio" label="email" value="email"></cam-input>
+			<cam-input p="2" type="radio" label="phone" value="phone"></cam-input>
+			<cam-input p="2" type="radio" label="text" value="text"></cam-input>
+		</cam-radio-group>
+	</cam-box>
+	<script>
+		function log(e) {console.log(`Event: '${e.type}' detail:`, e.detail, e)}
+		document.getElementsByTagName('cam-input')
+			.forEach((el) => el.addEventListener('input', log))
+		document.getElementsByTagName('cam-radio-group')
+			.forEach((el) => el.addEventListener('input', log))
+	</script>
 </body>
 </html>

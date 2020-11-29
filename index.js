@@ -1,1 +1,1 @@
-module.exports = require('./dist/am-elements.min.js')
+module.exports = require('./dist/cam-el.min.js')

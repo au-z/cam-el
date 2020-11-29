@@ -9,7 +9,7 @@ module.exports = (env) => ({
 	mode: env.prod ? 'production' : 'development',
 	devtool: env.prod ? 'cheap-eval-source-map' : 'source-map',
 	entry: {
-		'am-elements': resolve('src/index.ts'),
+		'cam-el': resolve('src/index.ts'),
 	},
 	output: {
 		path: resolve('dist'),
