@@ -48,13 +48,13 @@ An unopinionated input element which adds useful functionality and smooths over 
 - **m**: margin `"xy | x y"`
 - **p**: padding `"xy | x y"`
 - **disabled**: disables the input
-- **label**: an optional label text to prepend to the input
+- **slot**: An optional slot on the left of the input for a label or other content
 - **value**: the current value of the input
 
 #### General Events
 - **oninput**: CustomEvent wherein the detail is the current value of the input.
 
-#### Text Input
+#### Text
 Proxies the text input.
 
 ```html
@@ -81,7 +81,7 @@ Examples:
 
 #### Attributes
 - **toggle**: An alternate UI resembling a horizontal slider
-- **checked**: If the checkbox or toggle is 
+- **checked**: Indicates if the checkbox is checked or toggle is on
 
 #### Radio Input
 Because inputs do not share a "name" attribute across shadow DOMs, it's recommended to wrap groups of these in <cam-radio-group> to enforce mutual exclusion and subscribe to the group element's `oninput` event.
@@ -92,6 +92,12 @@ Because inputs do not share a "name" attribute across shadow DOMs, it's recommen
 	<cam-input type="radio" label="text" value="text"></cam-input>
 </cam-radio-group>
 ```
+
+#### Email
+Proxies the email input
+
+#### Password
+Proxies the password input
 
 One could make `<input>` work their full time job. Other `<input>` variants and improved browser/accessibility support are in development as-needed. Submit an issue if there's something missing you'd like to use.
 
