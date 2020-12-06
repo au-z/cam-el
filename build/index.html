@@ -31,9 +31,38 @@
 		.sign-in cam-input::part(input) {
 			width: 200px;
 		}
+
+		cam-swatch::part(swatch) {
+			width: 100px;
+			height: 100px;
+		}
+
+		cam-hsl {
+			margin: 8px;
+		}
 	</style>
 </head>
 <body>
+	<cam-box m="2" flex="center">
+		<cam-swatch r="3" g="25" b="38"></cam-swatch>
+		<cam-swatch r="70" g="129"b="137"></cam-swatch>
+		<cam-swatch h="169" s="24" l="57"></cam-swatch>
+		<cam-swatch h="175" s="20" l="68"></cam-swatch>
+		<cam-swatch hex="F4E9CD"></cam-swatch>
+	</cam-box>
+	<cam-box m="2" flex="center">
+		<cam-swatch r="3" g="25" b="38" hide-label></cam-swatch>
+		<cam-swatch r="70" g="129"b="137" hide-label></cam-swatch>
+		<cam-swatch h="169" s="24" l="57" hide-label></cam-swatch>
+		<cam-swatch h="175" s="20" l="68" hide-label></cam-swatch>
+		<cam-swatch hex="F4E9CD" hide-label></cam-swatch>
+	</cam-box>
+
+	<cam-box m="2" flex="center">
+		<cam-hsl h="17" s="78" l="73"></cam-hsl>
+		<cam-hsl h="240" s="29" l="22"></cam-hsl>
+	</cam-box>
+
 	<cam-box class="sign-in" m="2" p="4" flex="center flex-start" dir="column" wrap="wrap">
 		<cam-input p="2 0" type="email" size="20" slot>
 			<label>Email</label>
@@ -59,8 +88,6 @@
 			<label>toggle</label>
 		</cam-input>
 		<cam-input p="2" type="range" value="5"></cam-input>
-		<cam-input p="2" type="date" value="04/14/1992"></cam-input>
-		<cam-box p="2 4">Bar</cam-box>
 	</cam-box>
 
 	<cam-box m="2" flex="space-evenly center" wrap="wrap">

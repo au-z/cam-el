@@ -1,6 +1,6 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Foundational Web Components",
   "main": "index.js",
   "scripts": {

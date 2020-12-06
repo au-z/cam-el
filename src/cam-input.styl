@@ -15,6 +15,7 @@
 		--background: #fff;
 		--disabled: #F6F8FF;
 		--disabled-inner: #E1E6F9;
+
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		height: 21px;
@@ -64,15 +65,6 @@
 		&:focus {
 			box-shadow: 0 0 0 var(--focus);
 		}
-		&:not(.toggle) {
-			width: 21px;
-			&:after {
-				opacity: var(--o, 0);
-			}
-			&:checked {
-				--o: 1;
-			}
-		}
 		& + label {
 			font-size: 14px;
 			line-height: 21px;
@@ -83,11 +75,25 @@
 		}
 	}
 
+	input[type='number'],
+	input[type='checkbox'],
+	input[type='radio'] {
+		&:not(.toggle) {
+			width: 21px;
+			&:after {
+				opacity: var(--o, 0);
+			}
+			&:checked {
+				--o: 1;
+			}
+		}
+	}
+
 	input[data-type='text'],
 	input[data-type='email'],
 	input[data-type='password'],
 	input[type='number'] {
-		min-width: 100px
+		width: inherit
 		padding-left: var(--cam-unit, 8px)
 		border-radius: 6px
 	}
