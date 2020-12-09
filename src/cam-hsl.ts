@@ -14,15 +14,21 @@ const ref = (defaultVal) => ({
 const CamHsl: Hybrids<any> = {
 	h: {
 		...ref(190),
-		observe: (host) => dispatch(host, 'change', {detail: `#${host.hex}`, bubbles: true, composed: true}),
+		observe: (host) => dispatch(host, 'change', {detail: {
+			h: host.h, s: host.s, l: host.l, hex: `#${host.hex}`
+		}, bubbles: true, composed: true}),
 	},
 	s: {
 		...ref(100),
-		observe: (host) => dispatch(host, 'change', {detail: `#${host.hex}`, bubbles: true, composed: true}),
+		observe: (host) => dispatch(host, 'change', {detail: {
+			h: host.h, s: host.s, l: host.l, hex: `#${host.hex}`
+		}, bubbles: true, composed: true}),
 	},
 	l: {
 		...ref(50),
-		observe: (host) => dispatch(host, 'change', {detail: `#${host.hex}`, bubbles: true, composed: true}),
+		observe: (host) => dispatch(host, 'change', {detail: {
+			h: host.h, s: host.s, l: host.l, hex: `#${host.hex}`
+		}, bubbles: true, composed: true}),
 	},
 
 	hex: ({h, s, l}) => rgb_hex(hsl_rgb([h / 360, s / 100, l / 100])),
