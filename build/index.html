@@ -61,6 +61,7 @@
 	<cam-box m="2" flex="center">
 		<cam-hsl h="17" s="78" l="73"></cam-hsl>
 		<cam-hsl h="240" s="29" l="22"></cam-hsl>
+		<cam-hsl h="269" s="40" l="89"></cam-hsl>
 	</cam-box>
 
 	<cam-box class="sign-in" m="2" p="4" flex="center flex-start" dir="column" wrap="wrap">
@@ -74,7 +75,7 @@
 
 	<cam-box m="2" flex="space-evenly center" wrap="wrap">
 		<cam-input p="2" id="text" value="hello"></cam-input>
-		<cam-input p="2" id="number" type="number" width="4"></cam-input>
+		<cam-input p="2" id="number" type="number" max="100"></cam-input>
 		<cam-input p="2" type="checkbox" slot>
 			<label>checkbox</label>
 		</cam-input>
@@ -109,6 +110,8 @@
 			.forEach((el) => el.addEventListener('input', log))
 		document.getElementsByTagName('cam-radio-group')
 			.forEach((el) => el.addEventListener('input', log))
+		document.getElementsByTagName('cam-hsl')
+			.forEach((el) => el.addEventListener('change', log))
 	</script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-@require './style/mixins.styl'
+@import './style/mixins.styl'
+@import './style/theme.styl'
 
 @supports(-webkit-appearance: none) or (-moz-appearance: none) {
 	input[data-type='text'],
@@ -7,15 +8,6 @@
 	input[type='number'],
 	input[type='checkbox'],
 	input[type='radio'] {
-		--active: #275EFE;
-		--active-inner: #fff;
-		--focus: 2px rgba(39, 94, 254, .3);
-		--border: #BBC1E1;
-		--border-hover: #275EFE;
-		--background: #fff;
-		--disabled: #F6F8FF;
-		--disabled-inner: #E1E6F9;
-
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		height: 21px;
@@ -25,8 +17,8 @@
 		position: relative;
 		margin: 0;
 		cursor: pointer;
-		border: 1px solid var(--bc, var(--border));
-		background: var(--b, var(--background));
+		border: var(--bc, var(--cam-input-border));
+		background: var(--b, var(--cam-input-bg, var(--cam-input-bg)));
 		transition: background .3s, border-color .3s, box-shadow .2s;
 		&:after {
 			content: '';
@@ -37,19 +29,19 @@
 			transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
 		}
 		&:checked {
-			--b: var(--active);
-			--bc: var(--active);
+			--b: var(--cam-input-active);
+			--bc: var(--cam-input-active);
 			--d-o: .3s;
 			--d-t: .6s;
 			--d-t-e: cubic-bezier(.2, .85, .32, 1.2);
 		}
 		&:disabled {
-			--b: var(--disabled);
+			--b: var(--cam-input-disabled);
 			cursor: not-allowed;
 			opacity: .9;
 			&:checked {
-				--b: var(--disabled-inner);
-				--bc: var(--border);
+				--b: var(--cam-input-disabled-inner);
+				--bc: var(--cam-input-border);
 			}
 			& + label {
 				cursor: not-allowed;
@@ -58,12 +50,12 @@
 		&:hover {
 			&:not(:checked) {
 				&:not(:disabled) {
-					--bc: var(--border-hover);
+					--bc: var(--cam-input-border-hover);
 				}
 			}
 		}
 		&:focus {
-			box-shadow: 0 0 0 var(--focus);
+			box-shadow: 0 0 0 var(--cam-input-focus);
 		}
 		& + label {
 			font-size: 14px;
@@ -75,7 +67,6 @@
 		}
 	}
 
-	input[type='number'],
 	input[type='checkbox'],
 	input[type='radio'] {
 		&:not(.toggle) {
@@ -97,16 +88,25 @@
 		padding-left: var(--cam-unit, 8px)
 		border-radius: 6px
 	}
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+	}
+	input[type=number] {
+		-moz-appearance:textfield; /* Firefox */
+	}
+
 	input[type='checkbox'] {
 		&:not(.toggle) {
 			border-radius: 6px;
 			&:after {
 				wh(5px, 9px)
-				border: 2px solid var(--active-inner);
+				border: 2px solid var(--cam-input-active-inner);
 				border-top: 0;
 				border-left: 0;
-				left: 6px;
-				top: 2px;
+				left: 7px;
+				top: 2.5px;
 				transform: rotate(var(--r, 45deg));
 			}
 			&:checked {
@@ -119,12 +119,12 @@
 			&:after {
 				circle(15px);
 				left: 2px;
-				top: 2px;
-				background: var(--ab, var(--border));
+				top: 2.5px;
+				background: var(--ab, var(--cam-input-inner-bg));
 				transform: translateX(var(--x, 0));
 			}
 			&:checked {
-				--ab: var(--active-inner);
+				--ab: var(--cam-input-active-inner);
 				--x: 17px;
 			}
 			&:disabled {
@@ -142,7 +142,7 @@
 			width: 19px;
 			height: 19px;
 			border-radius: 50%;
-			background: var(--active-inner);
+			background: var(--cam-input-active-inner);
 			opacity: 0;
 			transform: scale(var(--s, .8));
 		}

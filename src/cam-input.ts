@@ -71,23 +71,27 @@ function onChange(host, e) {
 }
 
 function renderInput(host) {
-	const slotted = (input) => !host.slot ? input : html`<cam-box flex="flex-start center">
-		<slot></slot>
-		${input}
-	</cam-box>`
+	const slotted = (input) => !host.slot ? input : html`
+		<cam-box flex="flex-start center">
+			<slot></slot>
+			${input}
+		</cam-box>
+	`
 
 	switch (host.type) {
 		case 'number': return slotted(renderNumber(host))
-		default: return slotted(html`<input id="${host.id}" part="input" type="${host.type}" data-type="${host.type}"
-			checked="${host.checked}"
-			class="${{toggle: host.toggle}}"
-			disabled="${host.disabled}"
-			placeholder="${host.placeholder}"
-			size="${host.size}"
-			value="${host.parsed}"
-			oninput="${onInput}"
-			onchange="${onChange}"
-		/>`)
+		default: return slotted(html`
+			<input id="${host.id}" part="input" type="${host.type}" data-type="${host.type}"
+				checked="${host.checked}"
+				class="${{toggle: host.toggle}}"
+				disabled="${host.disabled}"
+				placeholder="${host.placeholder}"
+				size="${host.size}"
+				value="${host.parsed}"
+				oninput="${onInput}"
+				onchange="${onChange}"
+			/>
+		`)
 	}
 }
 

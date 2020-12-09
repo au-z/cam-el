@@ -48,6 +48,7 @@ const CamSwatch: Hybrids<any> = {
 	render: ({calcHex, color, textColor, hideLabel}) => html`
 		<div part="swatch" style="background-color: ${color}; color: ${textColor};">
 			${!hideLabel && html`<span part="label">${calcHex.toUpperCase()}</span>`}
+			<slot></slot>
 		</div>
 		<style>
 		div {
@@ -62,6 +63,9 @@ const CamSwatch: Hybrids<any> = {
 			font-size: 1rem;
 			opacity: 0.6;
 			letter-spacing: 0.15rem;
+		}
+		cam-input::part(input) {
+			color: ${textColor};
 		}
 		</style>
 	`,

@@ -1,6 +1,30 @@
-cam-input[type='number'] {
-	&::part(input) {
-		min-width: 30px
-		padding: 4 8px
-	}
+@import './style/mixins.styl'
+@import './style/theme.styl'
+
+*,*:after,*:before {box-sizing: border-box}
+
+.cam-hsl {
+	position: relative
+}
+
+form {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 4px;
+	padding: 4px 8px;
+}
+
+cam-swatch cam-input {
+	--cam-input-bg: initial;
+	--cam-input-border: 1px solid transparent;
+	--cam-input-border-hover: 1px solid transparent;
+	--cam-input-text-color: inherit;
+}
+cam-swatch small {
+	font-family: 'Consolas', monospace;
+}
+cam-input::part(input) {
+	color: inherit;
+	opacity: 0.7;
+	width: 30px;
 }
