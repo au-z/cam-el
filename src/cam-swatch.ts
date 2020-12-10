@@ -8,6 +8,7 @@ const CamSwatch: Hybrids<any> = {
 	r: property(0),
 	g: property(0),
 	b: property(0),
+	a: property(1),
 	hideLabel: false,
 	hex: property('000000'),
 
@@ -36,28 +37,55 @@ const CamSwatch: Hybrids<any> = {
 		else return '000000'
 	},
 
-	textColor: ({type, h, s, l, r, g, b, hex}) => {
-		if(type === 'hsl') return `hsl(${h}, ${s / 2}%, ${(l + 61) % 100}%)`
+	textColor: ({type, h, s, l, r, g, b, a}) => {
+		if(type === 'hsl') return `hsl(${h}, ${s / 2}%, ${(l + 61) % 100 * a}%)`
 		if(type === 'rgb') {
 			const [h, s, l] = rgb_hsl([r, g, b])
-			return `hsl(${h * 360}, ${s * 50}%, ${(l * 100 + 61) % 100}%)`
+			return `hsl(${h * 360}, ${s * 50}%, ${(l * 100 + 61) % 100 * a}%)`
 		}
 		if(type === 'hex') return `black`
 	},
 
-	render: ({calcHex, color, textColor, hideLabel}) => html`
-		<div part="swatch" style="background-color: ${color}; color: ${textColor};">
+	render: ({a, calcHex, color, textColor, hideLabel}) => html`
+		<div part="swatch" style="color: ${textColor};">
+			<div class="transparent-bg"></div>
+			<div class="swatch"></div>
+
 			${!hideLabel && html`<span part="label">${calcHex.toUpperCase()}</span>`}
 			<slot></slot>
 		</div>
 		<style>
 		div {
+			position: relative;
 			min-width: 40px;
 			min-height: 40px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			overflow: hidden;
 		}
+
+		.transparent-bg,
+		.swatch {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			z-index: -1;
+		}
+		.transparent-bg {
+			background: #fff;
+			background-image: linear-gradient(45deg, #f6f6f6 25%, transparent 25%), linear-gradient(-45deg, #f6f6f6 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f6f6f6 75%), linear-gradient(-45deg, transparent 75%, #f6f6f6 75%);
+			background-size: 16px 16px;
+			background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+			z-index: -2;
+		}
+		.swatch {
+			background: ${color};
+			opacity: ${a};
+		}
+
 		span {
 			padding: 4px 12px;
 			font-size: 1rem;

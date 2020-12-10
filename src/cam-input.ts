@@ -1,4 +1,4 @@
-import {Hybrids, define, html, dispatch} from 'hybrids'
+import {Hybrids, define, html, dispatch, property} from 'hybrids'
 import CamEl, {camelRender} from './cam-el'
 import styles from './cam-input.styl'
 
@@ -48,6 +48,24 @@ function renderNumber({id, disabled, parsed, min, max, readonly, step, wrap}) {
 	/>`
 }
 
+function renderRange({id, disabled, parsed, min, max, step, readonly}) {
+	console.log(min, max, step, parsed)
+	const onInput = (host, e) => {
+		e.stopPropagation()
+		dispatch(host, 'input', {detail: e.target.value, bubbles: true, composed: true})
+	}
+
+	return html`<input id="${id}" part="input" type="range"
+		value="${parsed}"
+		disabled="${disabled}"
+		max="${max}"
+		min="${min}"
+		readonly="${readonly}"
+		step="${step}"
+		oninput="${onInput}"
+	/>`
+}
+
 function onRadioInput(host, e) {
 	if(!e.target.checked) return
 	return dispatch(host, 'input', {detail: e.target.value, bubbles: true, composed: true})
@@ -80,6 +98,7 @@ function renderInput(host) {
 
 	switch (host.type) {
 		case 'number': return slotted(renderNumber(host))
+		case 'range': return slotted(renderRange(host))
 		default: return slotted(html`
 			<input id="${host.id}" part="input" type="${host.type}" data-type="${host.type}"
 				checked="${host.checked}"
@@ -97,7 +116,8 @@ function renderInput(host) {
 
 function parseValue(value, type = 'text') {
 	switch(type.toUpperCase()) {
-		case 'NUMBER': return (value != null || value !== '') ? parseFloat(value) : 0
+		case 'NUMBER':
+		case 'RANGE': return (value != null || value !== '') ? parseFloat(value) : 0
 		case 'TEXT':
 		default: return value.trim()
 	}

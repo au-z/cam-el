@@ -7,24 +7,34 @@
 	position: relative
 }
 
-form {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-gap: 4px;
-	padding: 4px 8px;
+.rot-container {
+	width: 18px
+	& > div {
+		padding: 50% 0
+		height: 0
+		& > cam-input::part(input) {
+			display: block
+			transform-origin: top left
+			transform: rotate(-90deg) translate(-100%)
+			margin-top: -40%
+			width: 85px
+		}
+	}
 }
 
-cam-swatch cam-input {
-	--cam-input-bg: initial;
-	--cam-input-border: 1px solid transparent;
-	--cam-input-border-hover: 1px solid transparent;
-	--cam-input-text-color: inherit;
+
+cam-swatch cam-input[type='number'] {
+	--cam-input-bg: initial
+	--cam-input-border: 1px solid transparent
+	--cam-input-border-hover: 1px solid transparent
+	--cam-input-text-color: inherit
 }
+
 cam-swatch small {
-	font-family: 'Consolas', monospace;
+	font-family: 'Consolas', monospace
 }
 cam-input::part(input) {
-	color: inherit;
-	opacity: 0.7;
-	width: 30px;
+	color: inherit
+	opacity: 0.7
+	width: 30px
 }
