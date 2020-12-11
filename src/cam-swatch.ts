@@ -63,6 +63,7 @@ const CamSwatch: Hybrids<any> = {
 			justify-content: center;
 			align-items: center;
 			overflow: hidden;
+			z-index: 0;
 		}
 
 		.transparent-bg,
