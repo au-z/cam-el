@@ -17,3 +17,16 @@ export {
 	CamSwatch,
 	CamHsl,
 }
+
+export default {
+	// Layout
+	CamBox,
+
+	// Input
+	CamInput,
+	CamRadioGroup,
+
+	// Color
+	CamSwatch,
+	CamHsl,
+}

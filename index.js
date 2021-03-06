@@ -1,1 +1,0 @@
-module.exports = require('./dist/cam-el.min.js')

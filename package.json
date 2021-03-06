@@ -1,13 +1,18 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "Foundational Web Components",
-  "main": "index.js",
+  "main": "./dist/cam-el.js",
+  "module": "./dist/cam-el.esm.js",
+  "exports": {
+    ".": "./dist/cam-el.esm.js"
+  },
   "scripts": {
     "build": "webpack --env.prod --config ./build/webpack.config.js --progress --hide-modules",
-    "build:watch": "webpack --watch --env.prod --config ./build/webpack.config.js --progress --hide-modules",
+    "build:esm": "webpack --env.esm --config ./build/webpack.config.js --progress --hide-modules",
+    "build:watch": "webpack --watch --env.esm --config ./build/webpack.config.js --progress --hide-modules",
     "dev": "webpack-dev-server --env.dev --config ./build/webpack.config.js --open --hot --quiet",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "concurrently \"npm run build\" \"npm run build:esm\""
   },
   "repository": {
     "type": "git",
@@ -29,12 +34,15 @@
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-typescript": "^7.8.3",
     "@babel/register": "^7.9.0",
+    "@open-wc/demoing-storybook": "^2.4.7",
+    "@purtuga/esm-webpack-plugin": "^1.5.0",
     "@storybook/addon-actions": "^6.1.4",
     "@storybook/addon-essentials": "^6.1.4",
     "@storybook/addon-links": "^6.1.4",
     "@storybook/web-components": "^6.1.4",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.1.0",
+    "concurrently": "^6.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "core-js": "^3.6.5",
     "css-loader": "^3.5.2",
@@ -48,7 +56,6 @@
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3",
-    "@open-wc/demoing-storybook": "^2.4.7"
+    "webpack-dev-server": "^3.10.3"
   }
 }

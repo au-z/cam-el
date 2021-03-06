@@ -1,21 +1,21 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const EsmWebpackPlugin = require('@purtuga/esm-webpack-plugin')
 
 const resolve = (rel) => path.resolve(__dirname, '..', rel)
 
 const load = (test, ...use) => ({test, use, exclude: /node_modules/})
 
 module.exports = (env) => ({
-	mode: env.prod ? 'production' : 'development',
-	devtool: env.prod ? 'cheap-eval-source-map' : 'source-map',
+	mode: (env.prod || env.esm) ? 'production' : 'development',
 	entry: {
 		'cam-el': resolve('src/index.ts'),
 	},
 	output: {
 		path: resolve('dist'),
-		filename: env.prod ? `[name].min.js` : `[name].js`,
-		library: `[name]`,
-		libraryTarget: 'umd',
+		filename: `[name]${env.esm ? '.esm' : ''}.js`,
+		library: `CamEl`,
+		libraryTarget: env.esm ? 'var' : 'umd',
 	},
 	module: {
 		rules: [
@@ -35,6 +35,7 @@ module.exports = (env) => ({
 		},
 	},
 	plugins: [
+		env.esm ? new EsmWebpackPlugin() : {apply: () => null},
 		env.dev ? new HtmlWebpackPlugin({
 			template: resolve('build/index.html'),
 			inject: 'head',
@@ -43,5 +44,5 @@ module.exports = (env) => ({
 	devServer: {
 		port: 9354,
 		historyApiFallback: true,
-	},
+	}
 })
