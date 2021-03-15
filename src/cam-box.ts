@@ -21,7 +21,7 @@ const CamBox: Hybrids<any> = {
 				${dir && `flex-direction: ${dir};`}
 				${wrap && `flex-wrap: ${wrap};`}
 			}
-		<style>
+		</style>
 	`),
 }
 

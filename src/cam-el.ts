@@ -30,7 +30,7 @@ export function camelRender<E extends CamElement>(
 				margin: calc(${host._mx} * var(--cam-unit, 8px)) calc(${host._my} * var(--cam-unit, 8px));
 				padding: calc(${host._px} * var(--cam-unit, 8px)) calc(${host._py} * var(--cam-unit, 8px));
 			}
-		<style>`, options)
+		</style>`, options)
 }
 
 export default CamEl

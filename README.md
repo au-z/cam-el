@@ -101,6 +101,25 @@ Proxies the password input
 
 One could make `<input>` work their full time job. Other `<input>` variants and improved browser/accessibility support are in development as-needed. Submit an issue if there's something missing you'd like to use.
 
+
+### `<cam-icon>`
+A dead simple way to use Material Icon ligature fonts.
+
+```html
+<!-- IMPORTANT - this prerequisite stylesheet is required -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<cam-icon>face</cam-icon> <!--renders a face - no joke :) -->
+```
+
+### `<cam-draggable>`
+Touch and mouse support for draggable slotted content.
+
+```html
+<!-- A draggable red color swatch -->
+<cam-draggable><cam-swatch hex="ff0000"></cam-swatch></cam-draggable>
+```
+
 ## ::part() styles
 The library supports style bindings using the ::part() CSS selector modifier for a high degree of customization.
 
@@ -118,4 +137,5 @@ Example
 ```
 
 ## CSS Variables
+- `var(--cam-font, sans-serif)`: the font for all elements
 - `var(--cam-unit, 8px)`: the size of a margin and padding unit

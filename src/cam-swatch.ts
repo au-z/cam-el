@@ -88,6 +88,7 @@ const CamSwatch: Hybrids<any> = {
 		}
 
 		span {
+			font-family: var(--cam-font);
 			padding: 4px 12px;
 			font-size: 1rem;
 			opacity: 0.6;
