@@ -120,6 +120,8 @@ Touch and mouse support for draggable slotted content.
 <cam-draggable><cam-swatch hex="ff0000"></cam-swatch></cam-draggable>
 ```
 
+If you'd prefer to work with the raw eventListeners (`draggableStart`, `draggableDrag`, and `draggableEnd`), you can `import {Draggable} from 'cam-el'` into your project as function getters.
+
 ## ::part() styles
 The library supports style bindings using the ::part() CSS selector modifier for a high degree of customization.
 

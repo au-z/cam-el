@@ -1,12 +1,12 @@
 import {define, html, Hybrids} from 'hybrids'
 
-function Draggable() {
+export function Draggable() {
 	let [x0, y0] = [0, 0]
 	let [x1, y1] = [0, 0]
 	let [xOffset, yOffset] = [0, 0]
 	let dragging = false
 
-	function start(host, e) {
+	function draggableStart(host, e) {
 		if(e.type === 'touchstart') {
 			x0 = e.touches[0].clientX - xOffset;
 			y0 = e.touches[0].clientY - yOffset;
@@ -17,13 +17,13 @@ function Draggable() {
 		dragging = true
 	}
 
-	function end(host, e) {
+	function draggableEnd(host, e) {
 		x0 = x1
 		y0 = y1
 		dragging = false
 	}
 
-	function drag(host, e) {
+	function draggableDrag(host, e) {
 		if(!dragging) return
 		e.preventDefault()
 
@@ -42,25 +42,29 @@ function Draggable() {
 	}
 
 	return {
-		start: () => start,
-		drag: () => drag, 
-		end: () => end,
+		draggableStart: () => draggableStart,
+		draggableDrag: () => draggableDrag, 
+		draggableEnd: () => draggableEnd,
 	}
 }
 
 export interface CamDraggable extends HTMLElement {
-	start: () => (host: CamDraggable, e: Event) => void,
-	end: () => (host: CamDraggable, e: Event) => void,
-	drag: () => (host: CamDraggable, e: Event) => void,
+	draggableStart: () => (host: CamDraggable, e: Event) => void,
+	draggableDrag: () => (host: CamDraggable, e: Event) => void,
+	draggableEnd: () => (host: CamDraggable, e: Event) => void,
 }
 
 const CamDraggable: Hybrids<CamDraggable> = {
 	...Draggable(),
-	render: ({start, drag, end}) => html`<slot
+	render: (host) => html`<slot
 		style="${{cursor: 'pointer'}}"
-		onmousedown="${start}"
-		onmousemove="${drag}"
-		onmouseup="${end}"></slot>`,
+		onmousedown="${host.draggableStart}"
+		ontouchstart="${host.draggableStart}"
+		onmousemove="${host.draggableDrag}"
+		ontouchmove="${host.draggableDrag}"
+		onmouseup="${host.draggableEnd}"
+		ontouchend="${host.draggableEnd}"
+	></slot>`,
 }
 
 define('cam-draggable', CamDraggable)

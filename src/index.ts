@@ -6,7 +6,7 @@ import CamSwatch from './cam-swatch'
 import CamHsl from './cam-hsl'
 import CamIcon from './cam-icon'
 
-import CamDraggable from './cam-draggable'
+import CamDraggable, {Draggable} from './cam-draggable'
 
 export {
 	// Layout
@@ -21,6 +21,7 @@ export {
 	CamIcon,
 	// IO
 	CamDraggable,
+	Draggable,
 }
 
 export default {
@@ -34,4 +35,7 @@ export default {
 	CamHsl,
 	// Icon
 	CamIcon,
+	// IO
+	CamDraggable,
+	Draggable,
 }
