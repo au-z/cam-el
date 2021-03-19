@@ -1,6 +1,11 @@
 import {define, html, Hybrids} from 'hybrids'
 
-export function Draggable() {
+export function Draggable(options?: {absolutePositioning: boolean}) {
+	options = {
+		absolutePositioning: false,
+		...options || {},
+	}
+
 	let [x0, y0] = [0, 0]
 	let [x1, y1] = [0, 0]
 	let [xOffset, yOffset] = [0, 0]
@@ -38,7 +43,12 @@ export function Draggable() {
 		xOffset = x1
 		yOffset = y1
 
-		host.style.transform = `translate3d(${x1}px, ${y1}px, 0)`
+		if(options.absolutePositioning) {
+			host.style.left = `${x1}px`
+			host.style.top = `${y1}px`
+		} else {
+			host.style.transform = `translate3d(${x1}px, ${y1}px, 0)`
+		}
 	}
 
 	return {
