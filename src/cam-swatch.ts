@@ -1,16 +1,33 @@
-import { property, html, Hybrids, define } from 'hybrids'
+import { html, Hybrids, define } from 'hybrids'
+import Mousetrap from 'mousetrap'
 import {hsl_rgb, rgb_hex, rgb_hsl} from './lib/color'
 
+function copySwatchColor(host) {
+	const hex = host.calcHex.toUpperCase()
+	navigator.clipboard.writeText(hex).then(() => {
+	}, () => {
+		console.error('[cam-swatch] could not copy swatch.')
+	})
+}
+
+function bindShortcuts(host, e) {
+	Mousetrap.bind('mod+c', () => copySwatchColor(host))
+}
+
+function unbindShortcuts(host, e) {
+	Mousetrap.unbind('mod+c')
+}
+
 const CamSwatch: Hybrids<any> = {
-	h: property(0),
-	s: property(0),
-	l: property(0),
-	r: property(0),
-	g: property(0),
-	b: property(0),
-	a: property(1),
+	h: Infinity,
+	s: Infinity,
+	l: Infinity,
+	r: Infinity,
+	g: Infinity,
+	b: Infinity,
+	a: 1,
 	hideLabel: false,
-	hex: property('000000'),
+	hex: '000000',
 
 	color: ({type, h, s, l, r, g, b, hex}) => {
 		if(type === 'hsl') {
@@ -25,8 +42,8 @@ const CamSwatch: Hybrids<any> = {
 	},
 
 	type: ({h, s, l, r, g, b, hex}) => {
-		if(l !== 0 && r === 0 && g === 0 && b === 0 && hex === '000000') return 'hsl'
-		else if ((r !== 0 || g !== 0 || b !== 0) && hex === '000000' && l === 0) return 'rgb'
+		if([r, g, b].every((c) => !isNaN(c) && c !== Infinity)) return 'rgb'
+		else if([h, s, l].every((c) => !isNaN(c) && c !== Infinity)) return 'hsl'
 		else if (hex !== '000000') return 'hex'
 	},
 
@@ -47,7 +64,10 @@ const CamSwatch: Hybrids<any> = {
 	},
 
 	render: ({a, calcHex, color, textColor, hideLabel}) => html`
-		<div part="swatch" style="color: ${textColor};">
+		<div part="swatch" style="color: ${textColor};"
+			onmouseover="${bindShortcuts}"
+			onmouseout="${unbindShortcuts}"
+			title="Ctrl+C to Copy">
 			<div class="transparent-bg"></div>
 			<div class="swatch"></div>
 
