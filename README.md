@@ -52,7 +52,7 @@ An unopinionated input element which adds useful functionality and smooths over 
 - **value**: the current value of the input
 
 #### General Events
-- **oninput**: CustomEvent wherein the detail is the current value of the input.
+- **onupdate**: CustomEvent wherein the detail is the current value of the input. This event may be more uniform and useful than the 'input' or 'changed' event. But these default events are still propagated.
 
 #### Text
 Proxies the text input.
@@ -84,7 +84,7 @@ Examples:
 - **checked**: Indicates if the checkbox is checked or toggle is on
 
 #### Radio Input
-Because inputs do not share a "name" attribute across shadow DOMs, it's recommended to wrap groups of these in <cam-radio-group> to enforce mutual exclusion and subscribe to the group element's `oninput` event.
+Because inputs do not share a "name" attribute across shadow DOMs, it's recommended to wrap groups of these in <cam-radio-group> to enforce mutual exclusion and subscribe to the group element's `onupdate` event.
 ```html
 <cam-radio-group name="contact">
 	<cam-input type="radio" label="email" value="email"></cam-input>
@@ -99,7 +99,7 @@ Proxies the email input
 #### Password
 Proxies the password input
 
-One could make `<input>` work their full time job. Other `<input>` variants and improved browser/accessibility support are in development as-needed. Submit an issue if there's something missing you'd like to use.
+One could make `<input>` element work their full time job. Other `<input>` variants and improved browser/accessibility support are in development as-needed. Submit an issue if there's something missing you'd like to use.
 
 
 ### `<cam-icon>`

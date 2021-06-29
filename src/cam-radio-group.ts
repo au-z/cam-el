@@ -1,16 +1,11 @@
 import {Hybrids, define, html, children, dispatch} from 'hybrids'
+import {onRender} from './descriptors'
 import CamInput from './cam-input'
 
-const onRender = <E extends HTMLElement>(observe: (host: E, root: DocumentFragment) => void) => ({
-	get: ({render}) => render(),
-	observe
-})
-
 function onInput(host, e) {
-	e.stopPropagation()
 	const value = e.target.value
 	host.inputs.forEach((input) => input.checked = input.value === value)
-	dispatch(host, 'input', {detail: {name: host.name, value}, bubbles: true, composed: true})
+	dispatch(host, 'update', {detail: {name: host.name, value}, bubbles: true, composed: true})
 }
 
 const CamRadioGroup: Hybrids<any> = {

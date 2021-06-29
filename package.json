@@ -1,6 +1,6 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "description": "Foundational Web Components",
   "main": "./dist/cam-el.js",
   "module": "./dist/cam-el.esm.js",

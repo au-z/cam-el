@@ -5,8 +5,8 @@ import styles from './cam-input.styl'
 const clamp = (val, min, max) => Math.max(min, Math.min(max, val))
 
 const Scrub = {
-	number: (val, {min, max, step, wrap, last}) => {
-		let scrubbed = val
+	number: (val: string, {min, max, step, wrap, last}): [number, boolean] => {
+		let scrubbed: number = parseFloat(val)
 		const parsedVal = (val != null || val !== '') ? parseFloat(val) : 0
 
 		if(!/^$/.test(val) && (min < 0 && max > 0 && val !== '-0')) {
@@ -25,16 +25,15 @@ const Scrub = {
 
 function renderNumber({id, disabled, parsed, min, max, readonly, step, wrap}) {
 	const onInput = (host, e) => {
-		e.stopPropagation()
-
 		const [value, changed] = Scrub.number(e.target.value, {min, max, step, wrap, last: host.dataset.last})
 		changed && dispatch(host, 'scrub', {detail: {min, max, input: e.target.value, value}, bubbles: true, composed: true})
 		if(!/^$/.test(e.target.value)) {
 			if(wrap) host.dataset.last = value
 			e.target.value = value
+			host.value = value
 		}
 
-		dispatch(host, 'input', {detail: e.target.value, bubbles: true, composed: true})
+		dispatch(host, 'update', {detail: value, bubbles: true, composed: true})
 	}
 
 	return html`<input id="${id}" part="input" type="number"
@@ -49,10 +48,8 @@ function renderNumber({id, disabled, parsed, min, max, readonly, step, wrap}) {
 }
 
 function renderRange({id, disabled, parsed, min, max, step, readonly}) {
-	console.log(min, max, step, parsed)
 	const onInput = (host, e) => {
-		e.stopPropagation()
-		dispatch(host, 'input', {detail: e.target.value, bubbles: true, composed: true})
+		dispatch(host, 'update', {detail: e.target.value, bubbles: true, composed: true})
 	}
 
 	return html`<input id="${id}" part="input" type="range"
@@ -68,23 +65,24 @@ function renderRange({id, disabled, parsed, min, max, step, readonly}) {
 
 function onRadioInput(host, e) {
 	if(!e.target.checked) return
-	return dispatch(host, 'input', {detail: e.target.value, bubbles: true, composed: true})
+	host.value = e.target.value
+	return dispatch(host, 'update', {detail: host.value, bubbles: true, composed: true})
 }
 
 function onInput(host, e) {
-	e.stopPropagation()
 	if(host.type === 'radio') return onRadioInput(host, e)
 
-	let detail = e.target.value
+	host.value = e.target.value
 	if(host.type === 'checkbox') {
-		detail = e.target.checked
+		host.value = e.target.checked
+		const detail = host.value.toLowerCase() === 'true'
+		dispatch(host, 'update', {detail, bubbles: true})
+	} else {
+		dispatch(host, 'update', {detail: host.value, bubbles: true, composed: true})
 	}
-
-	dispatch(host, 'input', {detail, bubbles: true, composed: true})
 }
 
 function onChange(host, e) {
-	e.stopPropagation()
 	if(host.type === 'checkbox') return
 }
 
@@ -132,7 +130,7 @@ const CamInput: Hybrids<any> = {
 	min: -Infinity,
 	placeholder: '',
 	readonly: false,
-	size: 10,
+	size: 8,
 	slot: false,
 	step: 1,
 	toggle: false,

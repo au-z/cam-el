@@ -19,10 +19,6 @@
 			background: #F6F8Fe;
 		}
 
-		cam-box {
-			border: 1px solid #cfd3e6;
-		}
-
 		cam-input > label {
 			margin-right: 12px;
 		}
@@ -45,29 +41,47 @@
 	</style>
 </head>
 <body>
-	<cam-draggable>
-		<cam-icon>face</cam-icon>
-	</cam-draggable>
 
-	<cam-box m="2" flex="center">
-		<cam-icon>face</cam-icon>
-		<cam-icon>face</cam-icon>
-		<cam-icon>face</cam-icon>
-		<cam-icon>face</cam-icon>
+	<cam-box m="2" flex="space-evenly center">
+		<cam-harness id="test-cam-input">
+			<cam-input></cam-input>
+		</cam-harness>
 	</cam-box>
-	<cam-box m="2" flex="center">
-		<cam-swatch r="3" g="25" b="38"></cam-swatch>
-		<cam-swatch r="70" g="129"b="137"></cam-swatch>
-		<cam-swatch h="169" s="24" l="57"></cam-swatch>
-		<cam-swatch h="175" s="20" l="68"></cam-swatch>
-		<cam-swatch hex="F4E9CD"></cam-swatch>
+
+	<cam-box m="2">
+		<cam-harness id="test-cam-input_number">
+			<cam-input type="number"></cam-input>
+		</cam-harness>
 	</cam-box>
-	<cam-box m="2" flex="center">
-		<cam-swatch r="3" g="25" b="38" hide-label></cam-swatch>
-		<cam-swatch r="70" g="129"b="137" hide-label></cam-swatch>
-		<cam-swatch h="169" s="24" l="57" hide-label></cam-swatch>
-		<cam-swatch h="175" s="20" l="68" hide-label></cam-swatch>
-		<cam-swatch hex="F4E9CD" hide-label></cam-swatch>
+
+	<cam-box m="2">
+		<cam-harness id="test-cam-input_checkbox">
+			<cam-input type="checkbox"></cam-input>
+		</cam-harness>
+	</cam-box>
+
+	<cam-box m="2">
+		<cam-harness id="test-cam-input_radio">
+			<cam-input type="radio"></cam-input>
+		</cam-harness>
+	</cam-box>
+
+	<cam-box m="2">
+		<cam-harness id="test-cam-icon">
+			<cam-icon>fingerprint</cam-icon>
+		</cam-harness>
+	</cam-box>
+
+	<cam-box m="2">
+		<cam-harness id="test-cam-swatch_rgb">
+			<cam-swatch></cam-swatch>
+		</cam-harness>
+	</cam-box>
+
+	<cam-box m="2">
+		<cam-harness id="test-cam-swatch_hsl">
+			<cam-swatch></cam-swatch>
+		</cam-harness>
 	</cam-box>
 
 	<cam-box m="2" flex="center">
@@ -111,19 +125,79 @@
 			<cam-input p="2" type="radio" value="phone" slot>
 				<label>phone</label>
 			</cam-input>
-			<cam-input p="2" type="radio" value="text" slot>
+			<cam-input p="2" type="radio" value="text" slot checked>
 				<label>text</label>
 			</cam-input>
 		</cam-radio-group>
 	</cam-box>
 	<script>
-		function log(e) {console.log(`Event: '${e.type}' detail:`, e.detail, e)}
-		document.getElementsByTagName('cam-input')
-			.forEach((el) => el.addEventListener('input', log))
-		document.getElementsByTagName('cam-radio-group')
-			.forEach((el) => el.addEventListener('input', log))
-		document.getElementsByTagName('cam-hsl')
-			.forEach((el) => el.addEventListener('change', log))
+
+		const testCamInput = document.querySelector('cam-harness#test-cam-input')
+		testCamInput.props = [
+			{name: 'placeholder', type: 'text'},
+			{name: 'value', type: 'text'},
+			{name: 'disabled', type: 'boolean'},
+		]
+		testCamInput.bindings = [
+			{event: 'update'},
+		]
+
+		const testCamInputNumber = document.querySelector('cam-harness#test-cam-input_number')
+		testCamInputNumber.props = [
+			{name: 'min', type: 'number', value: '0'},
+			{name: 'step', type: 'number', value: '1'},
+			{name: 'max', type: 'number'},
+			{name: 'wrap', type: 'boolean'},
+		]
+		testCamInputNumber.bindings = [
+			{event: 'update'},
+		]
+
+		const testCamInputCheckbox = document.querySelector('cam-harness#test-cam-input_checkbox')
+		testCamInputCheckbox.props = [
+			{name: 'checked', type: 'boolean'},
+			{name: 'toggle', type: 'boolean'},
+		]
+		testCamInputCheckbox.bindings = [
+			{event: 'update'},
+		]
+
+		const testCamInputRadio = document.querySelector('cam-harness#test-cam-input_radio')
+		testCamInputRadio.props = [
+			{name: 'value', type: 'text', value: 'foobar'},
+			{name: 'checked', type: 'boolean'},
+		]
+		testCamInputRadio.bindings = [
+			{event: 'update'},
+		]
+
+		const testCamIcon = document.querySelector('cam-harness#test-cam-icon')
+		testCamIcon.props = [
+			{name: 'icon', type: 'innerText', value: 'fingerprint'},
+		]
+
+		const testCamSwatchRGB = document.querySelector('cam-harness#test-cam-swatch_rgb')
+		testCamSwatchRGB.props = [
+			{name: 'r', type: 'number', value: 3},
+			{name: 'g', type: 'number', value: 25},
+			{name: 'b', type: 'number', value: 38},
+			{name: 'a', type: 'number', value: 1},
+			{name: 'hideLabel', type: 'boolean'},
+		]
+		
+		const testCamSwatchHSL = document.querySelector('cam-harness#test-cam-swatch_hsl')
+		testCamSwatchHSL.props = [
+			{name: 'h', type: 'number', value: 175},
+			{name: 's', type: 'number', value: 20},
+			{name: 'l', type: 'number', value: 68},
+			{name: 'a', type: 'number', value: 1},
+			{name: 'hideLabel', type: 'boolean'},
+		]
+
+		const testCamRadioGroup = document.querySelector('cam-harness#test-cam-radio-group')
+		testCamRadioGroup.bindings = [
+			{event: 'update'},
+		]
 	</script>
 </body>
 </html>
