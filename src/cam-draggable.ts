@@ -11,7 +11,15 @@ export function Draggable(options?: {absolutePositioning: boolean}) {
 	let [xOffset, yOffset] = [0, 0]
 	let dragging = false
 
+	function draggableInit(host) {
+		if(options.absolutePositioning) {
+			xOffset = parseFloat(/\d+/.exec(host.style.left)[0])
+			yOffset = parseFloat(/\d+/.exec(host.style.top)[0])
+		}
+	}
+
 	function draggableStart(host, e) {
+		if(!e) return
 		if(e.type === 'touchstart') {
 			x0 = e.touches[0].clientX - xOffset;
 			y0 = e.touches[0].clientY - yOffset;
@@ -52,9 +60,10 @@ export function Draggable(options?: {absolutePositioning: boolean}) {
 	}
 
 	return {
-		draggableStart: () => draggableStart,
-		draggableDrag: () => draggableDrag, 
-		draggableEnd: () => draggableEnd,
+		draggableInit,
+		draggableStart,
+		draggableDrag, 
+		draggableEnd,
 	}
 }
 
