@@ -11,29 +11,47 @@ export function Draggable(options?: {absolutePositioning: boolean}) {
 	let [xOffset, yOffset] = [0, 0]
 	let dragging = false
 
+	let onMouseMove, onMouseUp, onTouchMove, onTouchEnd
+
 	function draggableInit(host) {
 		if(options.absolutePositioning) {
 			xOffset = parseFloat(/\d+/.exec(host.style.left)[0])
 			yOffset = parseFloat(/\d+/.exec(host.style.top)[0])
 		}
+
+		onMouseMove = draggableDrag.bind(null, host)
+		onTouchMove = draggableDrag.bind(null, host)
+		onMouseUp = draggableEnd.bind(null, host)
+		onTouchEnd = draggableEnd.bind(null, host)
 	}
 
 	function draggableStart(host, e) {
+		e.stopPropagation()
 		if(!e) return
 		if(e.type === 'touchstart') {
-			x0 = e.touches[0].clientX - xOffset;
-			y0 = e.touches[0].clientY - yOffset;
+			x0 = e.touches[0].clientX - xOffset
+			y0 = e.touches[0].clientY - yOffset
 		} else {
 			x0 = e.clientX - xOffset;
 			y0 = e.clientY - yOffset;
 		}
 		dragging = true
+
+		window.addEventListener('mousemove', onMouseMove)
+		window.addEventListener('mouseup', onMouseUp)
+		window.addEventListener('touchmove', onTouchMove)
+		window.addEventListener('touchend', onTouchEnd)
 	}
 
 	function draggableEnd(host, e) {
 		x0 = x1
 		y0 = y1
 		dragging = false
+
+		window.removeEventListener('mousemove', onMouseMove)
+		window.removeEventListener('mouseup', onMouseUp)
+		window.removeEventListener('touchmove', onTouchMove)
+		window.removeEventListener('touchend', onTouchEnd)
 	}
 
 	function draggableDrag(host, e) {
@@ -62,8 +80,6 @@ export function Draggable(options?: {absolutePositioning: boolean}) {
 	return {
 		draggableInit,
 		draggableStart,
-		draggableDrag, 
-		draggableEnd,
 	}
 }
 
