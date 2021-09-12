@@ -91,6 +91,18 @@
 		<cam-hsl hex="aa8833"></cam-hsl>
 	</cam-box>
 
+	<cam-box m="2" flex="center">
+		<cam-harness id="test-cam-hsl">
+			<cam-hsl></cam-hsl>
+		</cam-harness>
+	</cam-box>
+
+	<cam-box m="2" flex="center">
+		<cam-harness id="test-cam-hsl_hex">
+			<cam-hsl></cam-hsl>
+		</cam-harness>
+	</cam-box>
+
 	<cam-box class="sign-in" m="2" p="4" flex="center flex-start" dir="column" wrap="wrap">
 		<cam-input p="2 0" type="email" size="20" slot>
 			<label>Email</label>
@@ -193,6 +205,20 @@
 			{name: 'l', type: 'number', value: 68},
 			{name: 'a', type: 'number', value: 1},
 			{name: 'hideLabel', type: 'boolean'},
+		]
+
+		const testCamHsl = document.querySelector('cam-harness#test-cam-hsl')
+		testCamHsl.props = [
+			{name: 'h', type: 'number', value: 175},
+			{name: 's', type: 'number', value: 20},
+			{name: 'l', type: 'number', value: 68},
+			{name: 'a', type: 'number', value: 1},
+			{name: 'alpha', type: 'boolean'},
+		]
+
+		const testCamHslHex = document.querySelector('cam-harness#test-cam-hsl_hex')
+		testCamHslHex.props = [
+			{name: 'hex', type: 'text', value: '334455'},
 		]
 
 		const testCamRadioGroup = document.querySelector('cam-harness#test-cam-radio-group')
