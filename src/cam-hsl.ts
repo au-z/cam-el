@@ -2,7 +2,7 @@ import { property, html, dispatch, Hybrids, define } from 'hybrids'
 import CamBox from './cam-box'
 import CamInput from './cam-input'
 import CamSwatch from './cam-swatch'
-import {hex_rgb, hsl_rgb, rgb_hex, rgb_hsl} from './lib/color'
+import {hsl_rgb, rgb_hex} from './lib/color'
 
 import styles from './cam-hsl.styl'
 
@@ -15,40 +15,30 @@ const CamHsl: Hybrids<any> = {
 	h: {
 		...ref(0),
 		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, hex: `#${host._hex}`
+			h: host.h, s: host.s, l: host.l, hex: `#${host.hex}`
 		}, bubbles: true, composed: true}),
 	},
 	s: {
 		...ref(100),
 		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, hex: `#${host._hex}`
+			h: host.h, s: host.s, l: host.l, hex: `#${host.hex}`
 		}, bubbles: true, composed: true}),
 	},
 	l: {
 		...ref(50),
 		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, hex: `#${host._hex}`
+			h: host.h, s: host.s, l: host.l, hex: `#${host.hex}`
 		}, bubbles: true, composed: true}),
 	},
 	a: {
 		...ref(1),
 		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, a: host.a, hex: `#${host._hex}`
+			h: host.h, s: host.s, l: host.l, a: host.a, hex: `#${host.hex}`
 		}, bubbles: true, composed: true}),
 	},
 	alpha: false,
 
-	hex: {
-		...property(''),
-		observe: (host, val) => {
-			if(!val || val.length === 0) return
-			const [h, s, l] = rgb_hsl(hex_rgb(val))
-			host.h = Math.round(h * 360)
-			host.s = Math.round(s * 100)
-			host.l = Math.round(l * 100)
-		},
-	},
-	_hex: ({h, s, l}) => rgb_hex(hsl_rgb([h / 360, s / 100, l / 100])),
+	hex: ({h, s, l}) => rgb_hex(hsl_rgb([h / 360, s / 100, l / 100])),
 
 	render: ({h, s, l, a, alpha}) => html`
 		<div class="cam-hsl">
@@ -80,7 +70,7 @@ const CamHsl: Hybrids<any> = {
 				</cam-box>
 			</cam-swatch>
 		</div>
-	`.define(CamBox, CamInput, CamSwatch).style(styles)
+	`.define({CamBox, CamInput, CamSwatch}).style(styles)
 }
 
 define('cam-hsl', CamHsl)

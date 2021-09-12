@@ -9,6 +9,7 @@ import CamIcon from './cam-icon'
 import CamDraggable, {Draggable} from './cam-draggable'
 
 import CamRef from './cam-ref'
+import CamHarness from './cam-harness'
 
 export {
 	// Layout
@@ -26,6 +27,8 @@ export {
 	Draggable,
 	// Shadow Piercing
 	CamRef,
+
+	CamHarness,
 }
 
 export default {
@@ -44,4 +47,6 @@ export default {
 	Draggable,
 	// Shadow Piercing
 	CamRef,
+
+	CamHarness,
 }
