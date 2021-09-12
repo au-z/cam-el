@@ -2,6 +2,7 @@ import {Hybrids, define, html} from 'hybrids'
 import CamEl, { camelRender } from './cam-el'
 
 const CamBox: Hybrids<any> = {
+	tag: 'cam-box',
 	...CamEl,
 	container: false,
 	dir: '',

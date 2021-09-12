@@ -8,6 +8,8 @@ import CamIcon from './cam-icon'
 
 import CamDraggable, {Draggable} from './cam-draggable'
 
+import CamRef from './cam-ref'
+
 export {
 	// Layout
 	CamBox,
@@ -22,6 +24,8 @@ export {
 	// IO
 	CamDraggable,
 	Draggable,
+	// Shadow Piercing
+	CamRef,
 }
 
 export default {
@@ -38,4 +42,6 @@ export default {
 	// IO
 	CamDraggable,
 	Draggable,
+	// Shadow Piercing
+	CamRef,
 }

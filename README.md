@@ -16,8 +16,10 @@ npm i @auzmartist/cam-el
 import {CamBox, CamInput} from '@auzmartist/cam-el'
 ```
 
-## Components
+# Components
 As per the web components spec, all components are hyphenated. All `cam-el` components are prefixed with `cam-`.
+
+## Layout
 
 ### `<cam-box>`
 A flex-sensible div replacer. Layout everything with cam-box.
@@ -40,7 +42,8 @@ Example:
 - **dir**: sets the flex-direction
 - **wrap**: the flex-wrap rule value
 
----
+## Forms
+
 ### `<cam-input>`
 An unopinionated input element which adds useful functionality and smooths over browser quirks.
 
@@ -101,6 +104,7 @@ Proxies the password input
 
 One could make `<input>` work their full time job. Other `<input>` variants and improved browser/accessibility support are in development as-needed. Submit an issue if there's something missing you'd like to use.
 
+## Typography
 
 ### `<cam-icon>`
 A dead simple way to use Material Icon ligature fonts.
@@ -112,6 +116,30 @@ A dead simple way to use Material Icon ligature fonts.
 <cam-icon>face</cam-icon> <!--renders a face - no joke :) -->
 ```
 
+## Color
+
+### `<cam-swatch>`
+Render a color swatch in RGB, HSL, or hexadecimal format.
+Perfect for presenting a color in UI.
+
+```html
+<cam-swatch r="3" g="25" b="38"></cam-swatch>
+<cam-swatch h="175" s="20" l="68" hide-label></cam-swatch>
+<cam-swatch hex="F4E9CD"></cam-swatch>
+```
+
+### `<cam-hsl>`
+Render an editable HSL color generator.
+
+```html
+<cam-hsl h="175" s="20" l="68" a="0.5"></cam-hsl>
+```
+
+#### Events:
+- change: {h, s, l, hex}
+
+## Interaction
+
 ### `<cam-draggable>`
 Touch and mouse support for draggable slotted content.
 
@@ -121,6 +149,29 @@ Touch and mouse support for draggable slotted content.
 ```
 
 If you'd prefer to work with the raw eventListeners (`draggableStart`, `draggableDrag`, and `draggableEnd`), you can `import {Draggable} from 'cam-el'` into your project as function getters.
+
+## Miscellaneous / Advanced
+These components are much less helpful in isolation, but can be used to supercharge further development with Hybrids JS web components.
+
+### `CamRef`
+Used in conjunction with other renderable Hybrids components to provide a reference into a Custom Element's shadow DOM.
+
+#### Usage
+```js
+export const MyComponent = {
+	...CamRef('.some-class'),
+	render: () => html`<some-child
+		onref="${onRef}">
+		</some-child>
+	`,
+}
+
+function onRef(host, e) {
+	/* e.detail will be child component's .some-class element */
+}
+```
+
+---
 
 ## ::part() styles
 The library supports style bindings using the ::part() CSS selector modifier for a high degree of customization.

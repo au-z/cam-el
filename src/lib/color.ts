@@ -48,6 +48,13 @@ export const rgb_hex = (rgb) => rgb.reduce((color, channel) => {
 	return color + hex
 }, '')
 
+export const hex_rgb = (hex): [number, number, number] => {
+	let r = parseInt(hex.substr(0, 2), 16)
+	let g = parseInt(hex.substr(2, 2), 16)
+	let b = parseInt(hex.substr(4, 2), 16)
+	return [r, g, b]
+}
+
 export const hue = ([h, s, l], additive) => {
 	let hue = h + additive
 	hue = (hue > 1) ? hue - 1 : (hue < 0) ? 1 - hue : hue

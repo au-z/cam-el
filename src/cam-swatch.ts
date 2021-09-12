@@ -19,6 +19,7 @@ function unbindShortcuts(host, e) {
 }
 
 const CamSwatch: Hybrids<any> = {
+	tag: 'cam-swatch',
 	h: Infinity,
 	s: Infinity,
 	l: Infinity,

@@ -49,7 +49,6 @@ function renderNumber({id, disabled, parsed, min, max, readonly, step, wrap}) {
 }
 
 function renderRange({id, disabled, parsed, min, max, step, readonly}) {
-	console.log(min, max, step, parsed)
 	const onInput = (host, e) => {
 		e.stopPropagation()
 		dispatch(host, 'input', {detail: e.target.value, bubbles: true, composed: true})
@@ -124,6 +123,7 @@ function parseValue(value, type = 'text') {
 }
 
 const CamInput: Hybrids<any> = {
+	tag: 'cam-input',
 	...CamEl,
 	checked: false,
 	disabled: false,
