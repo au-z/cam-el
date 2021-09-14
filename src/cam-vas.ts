@@ -37,7 +37,7 @@ const CamVas = {
 	},
 	render: (host) => html`
 		<slot></slot>
-		<canvas part="canvas" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;"></canvas>
+		<canvas part="canvas" style="position: absolute; left: 0; top: 0;"></canvas>
 		<style>
 			:host {
 				position: relative;
