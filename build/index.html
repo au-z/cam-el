@@ -41,6 +41,9 @@
 	</style>
 </head>
 <body>
+	<cam-vas throttle="50">
+		<h1><pre>&nbsp;&lt;cam-vas&gt;&nbsp;</pre></h1>
+	</cam-vas>
 
 	<cam-box m="2" flex="space-evenly center">
 		<cam-harness id="test-cam-input">
@@ -144,6 +147,21 @@
 		</cam-radio-group>
 	</cam-box>
 	<script>
+		const camVas = document.querySelector('cam-vas')
+		const bbox = camVas.getBoundingClientRect()
+		let x = 20
+		let y = 20
+		let vx = 1
+		let vy = 1
+		camVas.draw = (ctx) => {
+			ctx.beginPath()
+			ctx.arc(x, y, 10, 0, Math.PI * 2)
+			ctx.fill()
+			x += vx
+			y += vy
+			if(x >= bbox.width || x <= 0) vx *= -1
+			if(y >= bbox.height || y <= 0) vy *= -1
+		}
 
 		const testCamInput = document.querySelector('cam-harness#test-cam-input')
 		testCamInput.props = [
@@ -221,10 +239,10 @@
 			{name: 'hex', type: 'text', value: '334455'},
 		]
 
-		const testCamRadioGroup = document.querySelector('cam-harness#test-cam-radio-group')
-		testCamRadioGroup.bindings = [
-			{event: 'update'},
-		]
+		// const testCamRadioGroup = document.querySelector('cam-harness#test-cam-radio-group')
+		// testCamRadioGroup.bindings = [
+		// 	{event: 'update'},
+		// ]
 	</script>
 </body>
 </html>

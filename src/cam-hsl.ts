@@ -6,36 +6,27 @@ import {hex_rgb, hsl_rgb, rgb_hex, rgb_hsl} from './lib/color'
 
 import styles from './cam-hsl.styl'
 
-const ref = (defaultVal) => ({
-	...property(defaultVal),
-	set: (host, value) => value,
-})
+interface CamHsl extends HTMLElement {
+	h: number,
+	s: number,
+	l: number,
+	a: number
+	alpha: boolean,
+	_hex: string,
+	hex: string,
+}
 
-const CamHsl: Hybrids<any> = {
-	h: {
-		...ref(0),
-		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, hex: `#${host._hex}`
-		}, bubbles: true, composed: true}),
-	},
-	s: {
-		...ref(100),
-		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, hex: `#${host._hex}`
-		}, bubbles: true, composed: true}),
-	},
-	l: {
-		...ref(50),
-		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, hex: `#${host._hex}`
-		}, bubbles: true, composed: true}),
-	},
-	a: {
-		...ref(1),
-		observe: (host) => dispatch(host, 'change', {detail: {
-			h: host.h, s: host.s, l: host.l, a: host.a, hex: `#${host._hex}`
-		}, bubbles: true, composed: true}),
-	},
+function emitChange(host) {
+	dispatch(host, 'change', {detail: {
+		h: host.h, s: host.s, l: host.l, a: host.a, hex: host._hex
+	}, bubbles: true, composed: true})
+}
+
+const CamHsl: Hybrids<CamHsl> = {
+	h: property(0, null, emitChange),
+	s: property(100, null, emitChange),
+	l: property(50, null, emitChange),
+	a: property(1, null, emitChange),
 	alpha: false,
 	hex: {
 		...property(''),
@@ -56,30 +47,31 @@ const CamHsl: Hybrids<any> = {
 					<cam-box m="1" flex="flex-start" dir="column">
 						<cam-input part="hue" type="number" value="${h}" label="Hue"
 							min="0" max="360" wrap slot
-							oninput="${(host, e) => host.h = parseInt(e.detail)}">
+							onupdate="${(host, e) => host.h = parseInt(e.detail)}">
 							<small title="Hue">H&nbsp;</small>
 						</cam-input>
 						<cam-input part="saturation" type="number" value="${s}" label="Saturation"
 							min="0" max="100" wrap slot
-							oninput="${(host, e) => host.s = parseInt(e.detail)}">
+							onupdate="${(host, e) => host.s = parseInt(e.detail)}">
 							<small title="Saturation">S&nbsp;</small>
 						</cam-input>
 						<cam-input part="luminance" type="number" value="${l}" label="Luminance"
 							min="0" max="100" wrap slot
-							oninput="${(host, e) => host.l = parseInt(e.detail)}">
+							onupdate="${(host, e) => host.l = parseInt(e.detail)}">
 							<small title="luminosity">L&nbsp;</small>
 						</cam-input>
 					</cam-box>
 					${alpha && html`<div class="rot-container">
 						<div>
 							<cam-input class="alpha" type="range" min="0" max="1" step="0.01" value="${a}"
-								oninput="${(host, e) => host.a = parseFloat(e.detail)}"/>
+								onupdate="${(host, e) => host.a = parseFloat(e.detail)}"/>
 						</div>
 					</div>`}
 				</cam-box>
 			</cam-swatch>
-		</div>
-	`.define(CamBox, CamInput, CamSwatch).style(styles)
+		</div>`
+		.define(CamBox, CamInput, CamSwatch)
+		.style(styles)
 }
 
 define('cam-hsl', CamHsl)

@@ -135,6 +135,20 @@ Render an editable HSL color generator.
 <cam-hsl h="175" s="20" l="68" a="0.5"></cam-hsl>
 ```
 
+## Canvas
+
+### `<cam-vas>`
+Renders a canvas behind all the slotted content.
+
+```html
+<cam-vas> Hello </cam-vas>
+```
+
+#### Properties
+- **run:** (ctx: CanvasRenderingContext2D) => void
+	- re-renders this function each time
+- **throttle:** throttles the rendering to every n milliseconds
+
 #### Events:
 - change: {h, s, l, hex}
 

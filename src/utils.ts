@@ -26,30 +26,30 @@ export const getset = (_default: any = null, connect?, observe?) => ({
 	const attrs = new WeakMap()
 	const type = typeof defaultFn
 
-	return getset(defaultFn,
-		type === 'function' ?
-			(host, key, invalidate) => {
-				if(!attrs.has(host)) {
-					const attrName = camelToDash(key)
-					attrs.set(host, attrName)
-
-					if(host.hasAttribute(attrName)) {
-						const attrValue = host.getAttribute(attrName)
-						host[key] = attrValue
-					}
+	return {
+		get: (host, val = defaultFn) => val,
+		set: (host, val) => val,
+		connect: type === 'function' ? (host, key, invalidate) => {
+			if(!attrs.has(host)) {
+				const attrName = camelToDash(key)
+				attrs.set(host, attrName)
+				
+				if(host.hasAttribute(attrName)) {
+					const attrValue = host.getAttribute(attrName)
+					host[key] = attrValue
 				}
+			}
 
-				return connect && connect(host, key, invalidate)
-			} : connect,
-		type === 'function' ?
-			(host, val, last) => {
-				const attrName = attrs.get(host)
-				const attrValue = host.getAttribute(attrName)
-				if(attrValue) {
-					host.removeAttribute(attrName)
-				}
+			return connect && connect(host, key, invalidate)
+		} : connect,
+		observe: type === 'function' ? (host, val, last) => {
+			const attrName = attrs.get(host)
+			const attrValue = host.getAttribute(attrName)
+			if(attrValue) {
+				host.removeAttribute(attrName)
+			}
 
-				if(observe) observe(host, val, last)
-			} : observe,
-	)
+			if(observe) observe(host, val, last)
+		} : observe,
+	}
 }

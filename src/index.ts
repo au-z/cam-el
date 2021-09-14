@@ -11,6 +11,8 @@ import CamDraggable, {Draggable} from './cam-draggable'
 import CamRef from './cam-ref'
 import CamHarness from './cam-harness'
 
+import CamVas from './cam-vas'
+
 export {
 	// Layout
 	CamBox,
@@ -22,6 +24,8 @@ export {
 	CamHsl,
 	// Icon
 	CamIcon,
+	// Canvas
+	CamVas,
 	// IO
 	CamDraggable,
 	Draggable,
@@ -42,6 +46,8 @@ export default {
 	CamHsl,
 	// Icon
 	CamIcon,
+	// Canvas,
+	CamVas,
 	// IO
 	CamDraggable,
 	Draggable,

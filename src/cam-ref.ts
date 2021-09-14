@@ -8,7 +8,7 @@ export interface CamRef extends HTMLElement {
 	_selection: HTMLElement,
 }
 const CamRef = (_selector = '', event = 'ref', detailFn = (selection: HTMLElement) => selection): Hybrids<CamRef> => ({
-	_selector,
+	_selector: (host, val = _selector) => val,
 	event,
 	detail: propertyFn(detailFn),
 	_selection: {
