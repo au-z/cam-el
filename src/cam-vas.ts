@@ -1,16 +1,20 @@
-import { define, html } from "hybrids"
+import { define, html, property } from "hybrids"
 import { propertyFn } from "./utils"
 
 const CamVas = {
 	tag: 'cam-vas',
+	context: '2d',
+	options: property({}),
 	canvas: {
 		get: ({render}) => render().querySelector('canvas'),
 		connect: (host) => {
 			const resize = (e) => host.resize(host.clientWidth, host.clientHeight)
 			host.addEventListener('resize', resize)
+
 			setTimeout(() => {
+				console.log('RESIZE', host.clientWidth, host.clientHeight)
 				host.resize(host.clientWidth, host.clientHeight)
-			})
+			}, 800)
 			host.run()
 
 			return () => {
@@ -18,8 +22,8 @@ const CamVas = {
 			}
 		},
 	},
-	ctx: ({canvas}) => canvas.getContext('2d'),
-	draw: propertyFn((ctx: CanvasRenderingContext2D) => {}),
+	ctx: ({canvas, context, options}) => canvas.getContext(context, options),
+	draw: propertyFn((ctx) => {}),
 	throttle: 0,
 	run: (host) => () => {
 		if(host.throttle != null) {
@@ -30,7 +34,10 @@ const CamVas = {
 		host.wipe()
 		host.draw && host.draw(host.ctx)
 	},
-	wipe: ({canvas, ctx}) => () => ctx.clearRect(0, 0, canvas.width, canvas.height),
+	wipe: ({canvas, context, ctx}) => () => {
+		if(context === '2d') ctx.clearRect(0, 0, canvas.width, canvas.height)
+		else if(context === 'webgl') ctx.clear(ctx.DEPTH_BUFFER_BIT | ctx.COLOR_BUFFER_BIT)
+	},
 	resize: ({canvas}) => (w, h) => {
 		canvas.width = w
 		canvas.height = h
@@ -41,6 +48,7 @@ const CamVas = {
 		<style>
 			:host {
 				position: relative;
+				display: block;
 			}
 			canvas {
 				z-index: -1;
