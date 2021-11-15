@@ -23,9 +23,12 @@ const Scrub = {
 	}
 }
 
-function renderNumber({id, disabled, parsed, min, max, readonly, step, wrap}) {
+function renderNumber(host) {
+	const {min, max, step, wrap} = host
+
 	const onInput = (host, e) => {
 		const [value, changed] = Scrub.number(e.target.value, {min, max, step, wrap, last: host.dataset.last})
+		console.log(e.target.value, value, changed, e)
 		changed && dispatch(host, 'scrub', {detail: {min, max, input: e.target.value, value}, bubbles: true, composed: true})
 		if(!/^$/.test(e.target.value)) {
 			if(wrap) host.dataset.last = value
@@ -36,14 +39,17 @@ function renderNumber({id, disabled, parsed, min, max, readonly, step, wrap}) {
 		dispatch(host, 'update', {detail: value, bubbles: true, composed: true})
 	}
 
-	return html`<input id="${id}" part="input" type="number"
-		value="${parsed}"
-		disabled="${disabled}"
+	return html`<input id="${host.id}" part="input" type="number"
+		value="${host.parsed}"
+		disabled="${host.disabled}"
 		max="${wrap ? max + step : max}"
 		min="${wrap ? min - step : min}"
-		readonly="${readonly}"
+		readonly="${host.readonly}"
 		step="${step}"
 		oninput="${onInput}"
+		size="${host.size}"
+		maxlength="${host.maxlength}"
+		style="${{width: host.autosize ? `${host.autosized}em` : 'auto'}}"
 	/>`
 }
 
@@ -104,10 +110,16 @@ function renderInput(host) {
 				disabled="${host.disabled}"
 				placeholder="${host.placeholder}"
 				size="${host.size}"
+				maxlength="${host.maxlength}"
 				value="${host.parsed}"
 				oninput="${onInput}"
 				onchange="${onChange}"
 			/>
+			<style>
+				input {
+					width: ${host.autosized}em;
+				}
+			</style>
 		`)
 	}
 }
@@ -124,9 +136,12 @@ function parseValue(value, type = 'text') {
 const CamInput: Hybrids<any> = {
 	tag: 'cam-input',
 	...CamEl,
+	autosize: false,
+	autosized: ({autosize, value}) => value.length * 0.5 + 1,
 	checked: false,
 	disabled: false,
 	id: '',
+	maxlength: Infinity,
 	max: Infinity,
 	min: -Infinity,
 	placeholder: '',
