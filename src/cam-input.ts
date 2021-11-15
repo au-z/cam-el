@@ -28,7 +28,6 @@ function renderNumber(host) {
 
 	const onInput = (host, e) => {
 		const [value, changed] = Scrub.number(e.target.value, {min, max, step, wrap, last: host.dataset.last})
-		console.log(e.target.value, value, changed, e)
 		changed && dispatch(host, 'scrub', {detail: {min, max, input: e.target.value, value}, bubbles: true, composed: true})
 		if(!/^$/.test(e.target.value)) {
 			if(wrap) host.dataset.last = value
