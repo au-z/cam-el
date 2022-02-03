@@ -1,30 +1,39 @@
-import {Hybrids, define, html} from 'hybrids'
-import CamEl, { camelRender } from './cam-el'
+import { define, html } from 'hybrids'
+import { CamEl, CamElement, CamElStyles } from './cam-el'
 
-const CamBox: Hybrids<any> = {
-	tag: 'cam-box',
-	...CamEl,
-	container: false,
-	dir: '',
-	flex: '',
-	item: false,
-	inline: false,
-	wrap: '',
-	justify: ({flex}) => flex.split(' ')?.[0],
-	align: ({flex, justify}) => flex.split(' ')?.[1] || justify,
-	render: camelRender(({flex, inline, justify, align, dir, wrap}) => html`
-		<slot></slot>
-		<style>
-			:host {
-				display: ${flex ? (inline ? 'inline-flex' : 'flex') : (inline ? 'inline-block' : 'block')};
-				${justify && `justify-content: ${justify};`}
-				${align && `align-items: ${align};`}
-				${dir && `flex-direction: ${dir};`}
-				${wrap && `flex-wrap: ${wrap};`}
-			}
-		</style>
-	`),
+export interface BoxElement extends CamElement {
+  container: boolean
+  dir: string
+  flex: string
+  item: boolean
+  inline: boolean
+  wrap: string
+  // computed
+  justify: string
+  align: string
 }
+type H = BoxElement
 
-define('cam-box', CamBox)
-export default CamBox
+export const CamBox = define<BoxElement>({
+  tag: 'cam-box',
+  ...CamEl,
+  container: false,
+  dir: '',
+  flex: '',
+  item: false,
+  inline: false,
+  wrap: '',
+  justify: ({ flex }: H) => flex.split(' ')?.[0],
+  align: ({ flex, justify }: H) => flex.split(' ')?.[1] || justify,
+  render: (host: H) =>
+    html`<slot></slot>`.css`
+			${CamElStyles(host)}
+			:host {
+				display: ${host.flex ? (host.inline ? 'inline-flex' : 'flex') : host.inline ? 'inline-block' : 'block'};
+				${host.justify && `justify-content: ${host.justify};`}
+				${host.align && `align-items: ${host.align};`}
+				${host.dir && `flex-direction: ${host.dir};`}
+				${host.wrap && `flex-wrap: ${host.wrap};`}
+			}
+		`,
+})
