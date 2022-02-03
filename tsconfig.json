@@ -2,22 +2,24 @@
 	"compilerOptions": {
 		"target": "esnext",
 		"module": "esnext",
-		"moduleResolution": "node",
-		"allowJs": true,
-		"allowSyntheticDefaultImports": true,
+		"lib": ["esnext", "DOM"],
+		"typeRoots": ["node_modules/@types"],
 		"declaration": true,
-		"baseUrl": ".",
+		"emitDeclarationOnly": true,
+		"outDir": "dist/types",
+		"rootDir": ".",
+		"moduleResolution": "node",
 		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"noImplicitAny": false,
 		"preserveConstEnums": true,
 		"sourceMap": true,
 		"paths": {
-			"src/*": ["src/*"],
-			"style/*": ["style/*"],
+			"src/*": ["./src/*"],
+			"style/*": ["./style/*"],
 		}
 	},
 	"include": [
-		"node_modules",
 		"src/**/*.ts"
 	],
 }

@@ -1,21 +1,20 @@
 {
   "name": "@auzmartist/cam-el",
   "version": "1.2.4",
+  "type": "module",
   "description": "Foundational Web Components with Smooth Character",
   "main": "./dist/cam-el.js",
   "module": "./dist/cam-el.esm.js",
-  "exports": {
-    ".": "./dist/cam-el.esm.js"
-  },
+  "exports": "./dist/cam-el.esm.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "webpack --env.prod --config ./build/webpack.config.js --progress --hide-modules",
-    "build:esm": "webpack --env.esm --config ./build/webpack.config.js --progress --hide-modules",
-    "build:watch": "webpack --watch --env.esm --config ./build/webpack.config.js --progress --hide-modules",
-    "dev": "webpack-dev-server --env.dev --config ./build/webpack.config.js --open --hot --quiet",
-    "prepublishOnly": "concurrently \"npm run build\" \"npm run build:esm\""
+    "build": "tsc && vite build",
+    "build:watch": "vite build --watch",
+    "dev": "vite",
+    "prepublishOnly": "npm run build",
+    "storybook": "start-storybook -p 9001"
   },
   "repository": {
     "type": "git",
@@ -31,36 +30,28 @@
     "url": "https://github.com/auzmartist/cam-el/issues"
   },
   "homepage": "https://github.com/auzmartist/cam-el#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.8.7",
-    "@babel/preset-typescript": "^7.8.3",
-    "@babel/register": "^7.9.0",
-    "@open-wc/demoing-storybook": "^2.4.7",
-    "@purtuga/esm-webpack-plugin": "^1.5.0",
-    "@storybook/addon-actions": "^6.1.4",
-    "@storybook/addon-essentials": "^6.1.4",
-    "@storybook/addon-links": "^6.1.4",
-    "@storybook/web-components": "^6.1.4",
-    "@types/mousetrap": "^1.6.5",
-    "babel-eslint": "^8.2.6",
-    "babel-loader": "^8.1.0",
-    "concurrently": "^6.0.0",
-    "copy-webpack-plugin": "^5.1.1",
-    "core-js": "^3.6.5",
-    "css-loader": "^3.5.2",
+  "dependencies": {
     "highlight.js": "^9.18.1",
-    "html-webpack-plugin": "^4.0.3",
     "hybrids": "^6.1.0",
+    "mousetrap": "^1.6.5"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.4.18",
+    "@storybook/addon-essentials": "^6.4.18",
+    "@storybook/addon-links": "^6.4.18",
+    "@storybook/web-components": "^6.4.18",
+    "@types/mousetrap": "^1.6.5",
+    "autoprefixer": "^10.4.2",
+    "lit": "^2.1.2",
     "lit-html": "^1.3.0",
-    "mousetrap": "^1.6.5",
-    "style-loader": "^1.1.3",
+    "postcss": "^8.4.5",
+    "postcss-mixins": "^9.0.1",
+    "postcss-nested": "^5.0.6",
+    "rollup-plugin-css-hmr": "^0.1.0",
+    "storybook-builder-vite": "^0.1.14",
+    "storybook-dark-mode": "^1.0.8",
     "stylus": "^0.54.7",
-    "stylus-loader": "^3.0.2",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "typescript": "^4.5.5",
+    "vite": "^2.7.4"
   }
 }

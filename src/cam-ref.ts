@@ -1,13 +1,13 @@
 import { propertyFn } from "./utils"
-import {dispatch, Hybrids} from 'hybrids'
+import {Descriptor, dispatch, Hybrids} from 'hybrids'
 
-export interface CamRef extends HTMLElement {
-	_selector: string,
-	detail: (el: HTMLElement) => any,
+export interface CamRef<E> {
+	_selector: (host: E, val: string) => string,
+	detail: Descriptor<E, (el: Hybrids<E>) => any>,
 	event: string,
-	_selection: HTMLElement,
+	_selection: Descriptor<E, Hybrids<E>>,
 }
-const CamRef = (_selector = '', event = 'ref', detailFn = (selection: HTMLElement) => selection): Hybrids<CamRef> => ({
+const CamRef = <E>(_selector = '', event = 'ref', detailFn = (selection: HTMLElement) => selection): CamRef<E> => ({
 	_selector: (host, val = _selector) => val,
 	event,
 	detail: propertyFn(detailFn),

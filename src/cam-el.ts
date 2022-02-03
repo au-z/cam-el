@@ -1,12 +1,12 @@
 import { Hybrids, html, RenderFunction, render} from "hybrids"
 
-interface CamElement extends HTMLElement {
+export interface CamElement extends HTMLElement {
 	m: string,
 	p: string,
-	_mx: string,
-	_my: string,
-	_px: string,
-	_py: string,
+	_mx: number,
+	_my: number,
+	_px: number,
+	_py: number,
 }
 
 const CamEl: Hybrids<CamElement> = {

@@ -12,7 +12,7 @@ const CamVas = {
 			host.addEventListener('resize', resize)
 
 			setTimeout(() => {
-				console.log('RESIZE', host.clientWidth, host.clientHeight)
+				// console.log('RESIZE', host.clientWidth, host.clientHeight)
 				host.resize(host.clientWidth, host.clientHeight)
 			}, 800)
 			host.run()

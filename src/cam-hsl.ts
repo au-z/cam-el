@@ -4,7 +4,7 @@ import CamInput from './cam-input'
 import CamSwatch from './cam-swatch'
 import {hex_rgb, hsl_rgb, rgb_hex, rgb_hsl} from './lib/color'
 
-import styles from './cam-hsl.styl'
+import styles from './cam-hsl.css'
 
 interface CamHsl extends HTMLElement {
 	h: number,
