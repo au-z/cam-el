@@ -11,7 +11,7 @@ function onInput(host, e) {
 const CamRadioGroup: Hybrids<any> = {
 	name: '',
 	inputs: children(CamInput),
-	root: onRender((host, val) => host.inputs.forEach((input) => {
+	root: onRender((host: any, val) => host.inputs.forEach((input) => {
 		input.name = host.name
 		input.addEventListener('input', onInput.bind(null, host))
 	})),

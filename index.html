@@ -7,7 +7,13 @@
 	<script type="module" src="./src/index.ts"></script>
 	<title>cam-el</title>
 	<style>
+		:root {
+			--swatch-value: #ff00ff;
+			--swatch-value-hsla: hsla(18, 84%, 95%, 1);
+			--swatch-value-rgba: rgba(40, 84, 95, 0.5);
+		}
 		body {
+			
 			position: relative;
 			box-sizing: border-box;
 			min-height: 95vh;
@@ -84,6 +90,12 @@
 
 	<cam-box m="2">
 		<cam-harness id="test-cam-swatch_hsl">
+			<cam-swatch></cam-swatch>
+		</cam-harness>
+	</cam-box>
+
+	<cam-box m="2">
+		<cam-harness id="test-cam-swatch_variable">
 			<cam-swatch></cam-swatch>
 		</cam-harness>
 	</cam-box>
@@ -209,6 +221,11 @@
 		const testCamIcon = document.querySelector('cam-harness#test-cam-icon')
 		testCamIcon.props = [
 			{name: 'icon', type: 'innerText', value: 'fingerprint'},
+		]
+
+		const testCamSwatchVariable = document.querySelector('cam-harness#test-cam-swatch_variable')
+		testCamSwatchVariable.props = [
+			{name: 'var', type: 'string', value: '--swatch-value-hsla'}
 		]
 
 		const testCamSwatchRGB = document.querySelector('cam-harness#test-cam-swatch_rgb')

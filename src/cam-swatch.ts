@@ -23,15 +23,52 @@ function unbindShortcuts(host, e) {
 
 const CamSwatch: Hybrids<any> = {
   tag: "cam-swatch",
-  h: Infinity,
-  s: Infinity,
-  l: Infinity,
+  h: Infinity, // [0, 360]
+  s: Infinity, // [0, 100]
+  l: Infinity, // [0, 100]
   r: Infinity,
   g: Infinity,
   b: Infinity,
   a: 1,
   hideLabel: false,
-  hex: "000000",
+  hex: {
+    get: (host, val = '000000') => val,
+    set: (host, val) => val,
+  },
+  var: {
+    get: (host, val = '') => val,
+    set: (host, val) => val,
+    observe: (host, variable) => {
+      if(!variable) return
+      const value = getComputedStyle(document.documentElement).getPropertyValue(variable)?.trim()
+      if(value.startsWith('#')) {
+        host.h = Infinity
+        host.s = Infinity
+        host.l = Infinity
+        host.r = Infinity
+        host.g = Infinity
+        host.b = Infinity
+        host.a = Infinity
+        host.hex = value.substring(1)
+      } else if(value.startsWith('hsl')) {
+        const [match, h, s, l, a] = /^hsla?\(\s*(\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([0-9.]+))?\)$/gi.exec(value) ?? []
+        if(h != null && s != null && l != null) {
+          host.h = h
+          host.s = s
+          host.l = l
+          host.a = a
+        }
+      } else if(value.startsWith('rgb')) {
+        const [match, r, g, b, a] = /^rgba?\(\s*(\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-9.]+))?\)$/gi.exec(value) ?? []
+        if(r != null && g != null && b != null) {
+          host.r = r
+          host.g = g
+          host.b = b
+          host.a = a
+        }
+      }
+    },
+  },
 
   color: ({ type, h, s, l, r, g, b, hex }) => {
     if (type === "hsl") {

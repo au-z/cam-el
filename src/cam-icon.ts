@@ -5,6 +5,7 @@ interface CamIcon extends HTMLElement {
 }
 
 const CamIcon: Hybrids<CamIcon> = {
+	icon: '',
 	render: ({icon}) => html`<i class="icon" part="icon"><slot></slot></i>
 	<style>
 		:host {

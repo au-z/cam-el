@@ -70,7 +70,7 @@ const CamHsl: Hybrids<CamHsl> = {
 				</cam-box>
 			</cam-swatch>
 		</div>`
-		.define(CamBox, CamInput, CamSwatch)
+		.define({CamBox, CamInput, CamSwatch})
 		.style(styles)
 }
 
