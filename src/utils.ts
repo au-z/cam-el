@@ -1,3 +1,5 @@
+import { Descriptor } from "hybrids";
+
 const camelToDashMap = new Map()
 function camelToDash(str) {
 	let result = camelToDashMap.get(str)
@@ -22,7 +24,7 @@ export const getset = (_default: any = null, connect?, observe?) => ({
  * @param observe observe handler
  * @returns Hybrids property definition
  */
- export function propertyFn(defaultFn: Function = () => {}, connect?, observe?) {
+ export function propertyFn<E, T extends Function>(defaultFn: T, connect?, observe?): Descriptor<E, T> {
 	const attrs = new WeakMap()
 	const type = typeof defaultFn
 
@@ -36,7 +38,7 @@ export const getset = (_default: any = null, connect?, observe?) => ({
 				
 				if(host.hasAttribute(attrName)) {
 					const attrValue = host.getAttribute(attrName)
-					host[key] = attrValue
+					host[key] = attrValue as any
 				}
 			}
 

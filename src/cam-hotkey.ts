@@ -2,6 +2,7 @@ import {define, html, property} from 'hybrids'
 import Mousetrap from 'mousetrap'
 
 const CamHotkey = {
+	tag: 'cam-hotkey',
 	bindings: {
 		...property({}),
 		observe: (host, bindings) => {

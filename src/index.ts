@@ -1,6 +1,7 @@
 import CamBox from './cam-box'
 import CamInput from './cam-input'
 import CamRadioGroup from './cam-radio-group'
+export * from './cam-combo'
 
 import CamSwatch from './cam-swatch'
 import CamHsl from './cam-hsl'
@@ -25,28 +26,6 @@ export {
 	// Icon
 	CamIcon,
 	// Canvas
-	CamVas,
-	// IO
-	CamDraggable,
-	Draggable,
-	// Shadow Piercing
-	CamRef,
-
-	CamHarness,
-}
-
-export default {
-	// Layout
-	CamBox,
-	// Input
-	CamInput,
-	CamRadioGroup,
-	// Color
-	CamSwatch,
-	CamHsl,
-	// Icon
-	CamIcon,
-	// Canvas,
 	CamVas,
 	// IO
 	CamDraggable,

@@ -40,6 +40,7 @@ function logEvent(host, event, e: CustomEvent) {
 }
 
 const CamHarness: Hybrids<any> = {
+	tag: 'cam-harness',
 	props: {
 		...property([]),
 		// set initial props
@@ -65,11 +66,11 @@ const CamHarness: Hybrids<any> = {
 			}))
 		},
 	},
-	content: {
+	innerText: {
 		get: (host, val = '') => val,
 		set: (host, val) => val,
-		observe: ({slotted}, content, last) => {
-			slotted.forEach((el) => el.innerText = content)
+		observe: ({slotted}, innerText, last) => {
+			slotted.forEach((el) => el.innerText = innerText)
 		},
 	},
 	logs: {
