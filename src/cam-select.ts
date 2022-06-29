@@ -7,6 +7,7 @@ export interface CamOptionElement extends CamElement {
 }
 
 export const CamOption: Hybrids<CamOptionElement> = {
+	tag: 'cam-option',
 	value: '',
 	text: '',
 	render: ({value, text}) => html`<option value="${value}">
@@ -19,6 +20,7 @@ export interface CamSelectElement extends CamElement {
 }
 
 export const CamSelect: Hybrids<CamSelectElement> = {
+	tag: 'cam-select',
 	options: children(CamOption),
 	render: () => html`<div class="select">
 		<select></select>

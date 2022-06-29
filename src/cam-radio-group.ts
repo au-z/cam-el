@@ -9,6 +9,7 @@ function onInput(host, e) {
 }
 
 const CamRadioGroup: Hybrids<any> = {
+	tag: 'cam-radio-group',
 	name: '',
 	inputs: children(CamInput),
 	root: onRender((host: any, val) => host.inputs.forEach((input) => {

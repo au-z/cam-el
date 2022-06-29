@@ -35,25 +35,3 @@ export {
 
 	CamHarness,
 }
-
-export default {
-	// Layout
-	CamBox,
-	// Input
-	CamInput,
-	CamRadioGroup,
-	// Color
-	CamSwatch,
-	CamHsl,
-	// Icon
-	CamIcon,
-	// Canvas,
-	CamVas,
-	// IO
-	CamDraggable,
-	Draggable,
-	// Shadow Piercing
-	CamRef,
-
-	CamHarness,
-}

@@ -7,19 +7,18 @@
 		"declaration": true,
 		"emitDeclarationOnly": true,
 		"outDir": "dist/types",
-		"rootDir": ".",
+		"rootDir": "./src",
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"noImplicitAny": false,
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"paths": {
-			"src/*": ["./src/*"],
-			"style/*": ["./style/*"],
-		}
 	},
 	"include": [
 		"src/**/*.ts"
 	],
+	"exclude": [
+		"vite.config.ts"
+	]
 }

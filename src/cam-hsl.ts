@@ -1,10 +1,10 @@
-import { property, html, dispatch, Hybrids, define } from 'hybrids'
+import { define, dispatch, html, Hybrids, property } from 'hybrids'
 import CamBox from './cam-box'
+import styles from './cam-hsl.css'
 import CamInput from './cam-input'
 import CamSwatch from './cam-swatch'
-import {hex_rgb, hsl_rgb, rgb_hex, rgb_hsl} from './lib/color'
-
-import styles from './cam-hsl.css'
+import { hex_rgb, hsl_rgb, rgb_hex, rgb_hsl } from './lib/color'
+const components = {CamBox, CamInput, CamSwatch}
 
 interface CamHsl extends HTMLElement {
 	h: number,
@@ -23,6 +23,7 @@ function emitChange(host) {
 }
 
 const CamHsl: Hybrids<CamHsl> = {
+	tag: 'cam-hsl',
 	h: property(0, null, emitChange),
 	s: property(100, null, emitChange),
 	l: property(50, null, emitChange),
@@ -70,7 +71,6 @@ const CamHsl: Hybrids<CamHsl> = {
 				</cam-box>
 			</cam-swatch>
 		</div>`
-		.define({CamBox, CamInput, CamSwatch})
 		.style(styles)
 }
 

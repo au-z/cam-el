@@ -1,11 +1,14 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "type": "module",
   "description": "Foundational Web Components with Smooth Character",
-  "main": "./dist/cam-el.js",
-  "module": "./dist/cam-el.esm.js",
-  "exports": "./dist/cam-el.esm.js",
+  "main": "./dist/cam-el.umd.js",
+  "module": "./dist/cam-el.es.js",
+  "exports": {
+    "import": "./dist/cam-el.es.js",
+    "require": "./dist/cam-el.umd.js"
+  },
   "files": [
     "dist"
   ],
@@ -47,7 +50,7 @@
     "postcss": "^8.4.5",
     "postcss-mixins": "^9.0.1",
     "postcss-nested": "^5.0.6",
-    "rollup-plugin-css-hmr": "^0.1.0",
+    "rollup-plugin-css-hmr": "^0.3.1",
     "storybook-builder-vite": "^0.1.14",
     "storybook-dark-mode": "^1.0.8",
     "stylus": "^0.54.7",

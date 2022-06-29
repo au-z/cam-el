@@ -90,6 +90,7 @@ export interface CamDraggable extends HTMLElement {
 }
 
 const CamDraggable: Hybrids<any> = {
+	tag: 'cam-draggable',
 	...Draggable(),
 	render: (host) => html`<slot
 		style="${{cursor: 'pointer'}}"

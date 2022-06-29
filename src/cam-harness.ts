@@ -40,6 +40,7 @@ function logEvent(host, event, e: CustomEvent) {
 }
 
 const CamHarness: Hybrids<any> = {
+	tag: 'cam-harness',
 	props: {
 		...property([]),
 		// set initial props
