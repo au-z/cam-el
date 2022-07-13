@@ -1,10 +1,10 @@
-import { define, html, Hybrids } from "hybrids";
+import { define, html } from "hybrids";
 
 interface CamIcon extends HTMLElement {
 	icon: string,
 }
 
-const CamIcon: Hybrids<CamIcon> = {
+const CamIcon = define<CamIcon>({
 	tag: 'cam-icon',
 	icon: '',
 	render: ({icon}) => html`<i class="icon" part="icon"><slot></slot></i>
@@ -38,7 +38,6 @@ const CamIcon: Hybrids<CamIcon> = {
 			font-feature-settings: 'liga';
 		}
 	</style>`
-}
+})
 
-define('cam-icon', CamIcon);
 export default CamIcon;

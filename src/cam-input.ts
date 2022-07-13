@@ -1,5 +1,5 @@
-import {Hybrids, define, html, dispatch, property} from 'hybrids'
-import CamEl, {camelRender} from './cam-el'
+import {define, html, dispatch} from 'hybrids'
+import CamEl from './cam-el'
 import styles from './cam-input.styl'
 
 const clamp = (val, min, max) => Math.max(min, Math.min(max, val))
@@ -132,7 +132,7 @@ function parseValue(value, type = 'text') {
 	}
 }
 
-const CamInput: Hybrids<any> = {
+const CamInput = define<any>({
 	tag: 'cam-input',
 	...CamEl,
 	autosize: false,
@@ -153,8 +153,7 @@ const CamInput: Hybrids<any> = {
 	value: '',
 	wrap: false,
 	parsed: ({value, type}) => parseValue(value, type),
-	render: camelRender((host) => renderInput(host).style(styles)),
-}
+	render: (host) => renderInput(host).style(styles),
+})
 
-define('cam-input', CamInput)
 export default CamInput

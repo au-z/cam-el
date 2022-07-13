@@ -1,10 +1,10 @@
-import { define, html, property } from "hybrids"
-import { propertyFn } from "./utils"
+import { define, html } from "hybrids"
+import { getset, propertyFn } from "./utils"
 
-const CamVas = {
+const CamVas = define<any>({
 	tag: 'cam-vas',
 	context: '2d',
-	options: property({}),
+	options: getset({}),
 	canvas: {
 		get: ({render}) => render().querySelector('canvas'),
 		connect: (host) => {
@@ -55,7 +55,6 @@ const CamVas = {
 			}
 		</style>
 	`
-}
+})
 
-define('cam-vas', CamVas)
 export default CamVas

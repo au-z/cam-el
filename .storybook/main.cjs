@@ -1,4 +1,4 @@
-const CssHmr = require("rollup-plugin-css-hmr");
+// const CssHmr = require("rollup-plugin-css-hmr");
 
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -9,7 +9,7 @@ module.exports = {
   ],
   framework: '@storybook/web-components',
   core: {
-    builder: 'storybook-builder-vite',
+    builder: '@storybook/builder-vite',
   },
   async viteFinal(config) {
     // config.plugins = [...config.plugins, CssHmr(".ts")];

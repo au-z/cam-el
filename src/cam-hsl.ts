@@ -1,4 +1,4 @@
-import { define, dispatch, html, Hybrids, property } from 'hybrids'
+import { define, dispatch, html } from 'hybrids'
 import CamBox from './cam-box'
 import styles from './cam-hsl.css'
 import CamInput from './cam-input'
@@ -22,15 +22,15 @@ function emitChange(host) {
 	}, bubbles: true, composed: true})
 }
 
-const CamHsl: Hybrids<CamHsl> = {
+const CamHsl = define<CamHsl>({
 	tag: 'cam-hsl',
-	h: property(0, null, emitChange),
-	s: property(100, null, emitChange),
-	l: property(50, null, emitChange),
-	a: property(1, null, emitChange),
+	h: {value: 0, observe: emitChange},
+	s: {value: 100, observe: emitChange},
+	l: {value: 50, observe: emitChange},
+	a: {value: 1, observe: emitChange},
 	alpha: false,
 	hex: {
-		...property(''),
+		value: '',
 		observe: (host, hex) => {
 			if(!hex || hex.length !== 6) return
 			const [h, s, l] = rgb_hsl(hex_rgb(hex))
@@ -72,7 +72,6 @@ const CamHsl: Hybrids<CamHsl> = {
 			</cam-swatch>
 		</div>`
 		.style(styles)
-}
+})
 
-define('cam-hsl', CamHsl)
 export default CamHsl

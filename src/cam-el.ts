@@ -1,4 +1,5 @@
-import { Hybrids, html, RenderFunction, render} from "hybrids"
+// import { html, RenderFunction} from "hybrids"
+// import {render} from '@auzmartist/hybrids-helpers'
 
 export interface CamElement extends HTMLElement {
 	m: string,
@@ -9,7 +10,7 @@ export interface CamElement extends HTMLElement {
 	_py: number,
 }
 
-const CamEl: Hybrids<CamElement> = {
+const CamEl = {
 	m: '0',
 	p: '0',
 	_mx: ({m}) => m.split(' ').length > 1 ? parseInt(m.split(' ')[0]) : parseInt(m),
@@ -18,19 +19,19 @@ const CamEl: Hybrids<CamElement> = {
 	_py: ({p}) => p.split(' ').length > 1 ? parseInt(p.split(' ')[1]) : parseInt(p),
 }
 
-export function camelRender<E extends CamElement>(
-	fn: RenderFunction<E>,
-	options?: {shadowRoot?: boolean | object}
-) {
-	return render<E>((host) => html`
-		${fn(host)}
-		<style>
-			:host {
-				box-sizing: border-box;
-				margin: calc(${host._mx} * var(--cam-unit, 8px)) calc(${host._my} * var(--cam-unit, 8px));
-				padding: calc(${host._px} * var(--cam-unit, 8px)) calc(${host._py} * var(--cam-unit, 8px));
-			}
-		</style>`, options)
-}
+// export function camelRender<E extends CamElement>(
+// 	fn: RenderFunction<E>,
+// 	options?: {shadowRoot?: boolean | object}
+// ) {
+// 	return render<E>((host) => html`
+// 		${fn(host)}
+// 		<style>
+// 			:host {
+// 				box-sizing: border-box;
+// 				margin: calc(${host._mx} * var(--cam-unit, 8px)) calc(${host._my} * var(--cam-unit, 8px));
+// 				padding: calc(${host._px} * var(--cam-unit, 8px)) calc(${host._py} * var(--cam-unit, 8px));
+// 			}
+// 		</style>`, options)
+// }
 
 export default CamEl

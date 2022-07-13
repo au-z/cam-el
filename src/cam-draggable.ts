@@ -1,4 +1,4 @@
-import {define, html, Hybrids} from 'hybrids'
+import {define, html} from 'hybrids'
 
 export function Draggable(options?: {absolutePositioning: boolean}) {
 	options = {
@@ -89,7 +89,7 @@ export interface CamDraggable extends HTMLElement {
 	draggableEnd: () => (host: CamDraggable, e: Event) => void,
 }
 
-const CamDraggable: Hybrids<any> = {
+export default define<any>({
 	tag: 'cam-draggable',
 	...Draggable(),
 	render: (host) => html`<slot
@@ -101,7 +101,4 @@ const CamDraggable: Hybrids<any> = {
 		onmouseup="${host.draggableEnd}"
 		ontouchend="${host.draggableEnd}"
 	></slot>`,
-}
-
-define('cam-draggable', CamDraggable)
-export default CamDraggable
+})

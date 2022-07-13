@@ -1,37 +1,40 @@
-import CamBox from './cam-box'
-import CamInput from './cam-input'
-import CamRadioGroup from './cam-radio-group'
-export * from './cam-combo'
+import './my-element';
+import './cam-box';
 
-import CamSwatch from './cam-swatch'
-import CamHsl from './cam-hsl'
-import CamIcon from './cam-icon'
+// import CamBox from './cam-box/cam-box'
+// import CamInput from './cam-input'
+// import CamRadioGroup from './cam-radio-group'
+// export * from './cam-combo'
 
-import CamDraggable, {Draggable} from './cam-draggable'
+// import CamSwatch from './cam-swatch'
+// import CamHsl from './cam-hsl'
+// import CamIcon from './cam-icon'
 
-import CamRef from './cam-ref'
-import CamHarness from './cam-harness'
+// import CamDraggable, {Draggable} from './cam-draggable'
 
-import CamVas from './cam-vas'
+// import CamRef from './cam-ref'
+// import CamHarness from './cam-harness'
 
-export {
-	// Layout
-	CamBox,
-	// Input
-	CamInput,
-	CamRadioGroup,
-	// Color
-	CamSwatch,
-	CamHsl,
-	// Icon
-	CamIcon,
-	// Canvas
-	CamVas,
-	// IO
-	CamDraggable,
-	Draggable,
-	// Shadow Piercing
-	CamRef,
+// import CamVas from './cam-vas'
 
-	CamHarness,
-}
+// export {
+// 	// Layout
+// 	CamBox,
+// 	// Input
+// 	CamInput,
+// 	CamRadioGroup,
+// 	// Color
+// 	CamSwatch,
+// 	CamHsl,
+// 	// Icon
+// 	CamIcon,
+// 	// Canvas
+// 	CamVas,
+// 	// IO
+// 	CamDraggable,
+// 	Draggable,
+// 	// Shadow Piercing
+// 	CamRef,
+
+// 	CamHarness,
+// }

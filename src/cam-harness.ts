@@ -1,4 +1,5 @@
-import {children, define, html, Hybrids, property} from 'hybrids'
+import {children, define, html} from 'hybrids'
+import { getset } from './utils';
 
 function setValue(obj, property, val) {
 	return {...obj, [property]: val}
@@ -39,10 +40,10 @@ function logEvent(host, event, e: CustomEvent) {
 	host.logs = [{event, data: e.detail, e}, ...host.logs]
 }
 
-const CamHarness: Hybrids<any> = {
+const CamHarness = define<any>({
 	tag: 'cam-harness',
 	props: {
-		...property([]),
+		...getset([]),
 		// set initial props
 		observe: (host, props, last) => {
 			if(props.length === 0) return
@@ -55,7 +56,7 @@ const CamHarness: Hybrids<any> = {
 			}))
 		},
 	},
-	bindings: property([]),
+	bindings: getset([]),
 	noevents: false,
 	values: {
 		get: (host, val = {}) => val,
@@ -116,7 +117,6 @@ const CamHarness: Hybrids<any> = {
 			}
 		</style>
 	`
-}
+})
 
-define('cam-harness', CamHarness)
 export default CamHarness

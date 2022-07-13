@@ -1,4 +1,4 @@
-import {Hybrids, define, html, children, dispatch} from 'hybrids'
+import {define, html, children, dispatch} from 'hybrids'
 import {onRender} from './descriptors'
 import CamInput from './cam-input'
 
@@ -8,7 +8,7 @@ function onInput(host, e) {
 	dispatch(host, 'update', {detail: {name: host.name, value}, bubbles: true, composed: true})
 }
 
-const CamRadioGroup: Hybrids<any> = {
+const CamRadioGroup = define<any>({
 	tag: 'cam-radio-group',
 	name: '',
 	inputs: children(CamInput),
@@ -21,7 +21,6 @@ const CamRadioGroup: Hybrids<any> = {
 			display: inherit;
 		}
 	`)
-}
+})
 
-define('cam-radio-group', CamRadioGroup)
 export default CamRadioGroup

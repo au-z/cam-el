@@ -5,6 +5,9 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script type="module" src="./src/index.ts"></script>
+	<script type="module">
+		import 'api-viewer-element';
+	</script>
 	<title>cam-el</title>
 	<style>
 		:root {
@@ -47,8 +50,23 @@
 		}
 	</style>
 </head>
+	<script type="module">
+		import '@auzmartist/cam-el'
+
+		// manifest.modules.forEach((module) => {
+		// 	module.declarations
+		// 		.filter((d) => d.tag)
+		// 		.forEach((declaration) => {
+		// 			module.exports.push({kind: 'custom-element-definition', name: declaration.tagName, declaration})
+		// 		})
+		// })
+
+		// document.querySelector('api-viewer').manifest = manifest;
+	</script>
 <body>
-	<cam-vas throttle="50">
+	<api-viewer src="/custom-elements.json" selected="cam-box"></api-viewer>
+
+	<!-- <cam-vas throttle="50">
 		<h1><pre>&nbsp;&lt;cam-vas&gt;&nbsp;</pre></h1>
 	</cam-vas>
 
@@ -159,6 +177,7 @@
 			</cam-input>
 		</cam-radio-group>
 	</cam-box>
+
 	<script>
 		const camVas = document.querySelector('cam-vas')
 		const bbox = camVas.getBoundingClientRect()
@@ -264,6 +283,6 @@
 		// testCamRadioGroup.bindings = [
 		// 	{event: 'update'},
 		// ]
-	</script>
+	</script> -->
 </body>
 </html>
