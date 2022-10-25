@@ -42,6 +42,10 @@
     </style>
   </head>
   <body>
+    <cam-draggable>
+      <cam-icon>fingerprint</cam-icon>
+    </cam-draggable>
+
     <cam-vas throttle="50">
       <h1><pre>&nbsp;&lt;cam-vas&gt;&nbsp;</pre></h1>
     </cam-vas>
@@ -108,10 +112,10 @@
     </cam-box>
 
     <cam-box class="sign-in" m="2" p="4" flex="center flex-start" direction="column" wrap="wrap">
-      <cam-input p="2 0" type="email" size="20" slot>
+      <cam-input p="2 0" type="email" size="20" show-slot>
         <label>Email</label>
       </cam-input>
-      <cam-input p="2 0" type="password" size="20" slot>
+      <cam-input p="2 0" type="password" size="20" show-slot>
         <label>Password</label>
       </cam-input>
     </cam-box>
@@ -119,16 +123,16 @@
     <cam-box m="2" flex="space-evenly center" wrap="wrap">
       <cam-input p="2" id="text" value="hello"></cam-input>
       <cam-input p="2" id="number" type="number" max="100"></cam-input>
-      <cam-input p="2" type="checkbox" slot>
+      <cam-input p="2" type="checkbox" show-slot>
         <label>checkbox</label>
       </cam-input>
-      <cam-input p="2" type="checkbox" slot disabled>
+      <cam-input p="2" type="checkbox" show-slot disabled>
         <label>checkbox</label>
       </cam-input>
-      <cam-input p="2" type="checkbox" slot toggle>
+      <cam-input p="2" type="checkbox" show-slot toggle>
         <label>toggle</label>
       </cam-input>
-      <cam-input p="2" type="checkbox" slot toggle disabled>
+      <cam-input p="2" type="checkbox" show-slot toggle disabled>
         <label>toggle</label>
       </cam-input>
       <cam-input p="2" type="range" value="5"></cam-input>
@@ -136,13 +140,13 @@
 
     <cam-box m="2" flex="space-evenly center" wrap="wrap">
       <cam-radio-group name="contact">
-        <cam-input p="2" type="radio" value="email" slot>
+        <cam-input p="2" type="radio" value="email" show-slot>
           <label>email</label>
         </cam-input>
-        <cam-input p="2" type="radio" value="phone" slot>
+        <cam-input p="2" type="radio" value="phone" show-slot>
           <label>phone</label>
         </cam-input>
-        <cam-input p="2" type="radio" value="text" slot checked>
+        <cam-input p="2" type="radio" value="text" show-slot checked>
           <label>text</label>
         </cam-input>
       </cam-radio-group>

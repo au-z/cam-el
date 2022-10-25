@@ -75,7 +75,7 @@ function renderRange({ id, disabled, parsed, min, max, step, readonly }) {
 
 function renderInput(host) {
   const slotted = (input) =>
-    !host.slot
+    !host.showSlot
       ? input
       : html`
           <cam-box flex="flex-start center">
@@ -139,7 +139,7 @@ export interface InputElement extends CamElement {
   readonly: boolean
   size: number
   name: string
-  slot: boolean
+  showSlot: boolean
   step: number
   toggle: boolean
   type: string
@@ -156,7 +156,6 @@ export const CamInput = define<InputElement>({
   autosized: ({ autosize, value }: H) => value.length * 0.5 + 1,
   checked: false,
   disabled: false,
-  id: '', // todo re-assign from default
   maxlength: Infinity,
   name: '',
   max: Infinity,
@@ -164,7 +163,7 @@ export const CamInput = define<InputElement>({
   placeholder: '',
   readonly: false,
   size: 8,
-  slot: false, // todo re-assign from default
+  showSlot: false,
   step: 1,
   toggle: false,
   type: 'text',

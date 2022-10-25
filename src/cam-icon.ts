@@ -1,13 +1,8 @@
 import { define, html } from 'hybrids'
 
-interface IconElement extends HTMLElement {
-  icon: string
-}
-type H = IconElement
-
-export const CamIcon = define<IconElement>({
+export const CamIcon = define<HTMLElement>({
   tag: 'cam-icon',
-  render: ({ icon }: H) => html`<i class="icon" part="icon"><slot></slot></i>
+  render: () => html`<i class="icon" part="icon"><slot></slot></i>
     <style>
       :host {
         display: inline-block;

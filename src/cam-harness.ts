@@ -1,52 +1,5 @@
-import { children, define, html } from 'hybrids'
+import { children, Component, define, html, RenderFunction } from 'hybrids'
 import { getset } from '@auzmartist/hybrids-helpers'
-
-function setValue(obj, property, val) {
-  return { ...obj, [property]: val }
-}
-
-function renderProp(host, prop) {
-  let inputType = 'text'
-  switch (prop.type) {
-    case 'boolean':
-      inputType = 'checkbox'
-      break
-    default:
-      inputType = 'text'
-      break
-  }
-  return html`<cam-box p="1" class="prop">
-    <!-- Inner -->
-    ${prop.type === 'innerText'
-      ? html`
-          <cam-input slot value="${prop.value ?? ''}" onupdate="${(_, { detail }) => (host.innerContent = detail)}">
-            <label>${prop.name}&nbsp;&nbsp;</label>
-          </cam-input>
-        `
-      : html`
-          <cam-input
-            type="${inputType}"
-            toggle
-            slot
-            value="${prop.value ?? ''}"
-            onupdate="${(_, { detail }) => (host.values = setValue(host.values, prop.name, detail))}"
-          >
-            <label>${prop.name}&nbsp;&nbsp;</label>
-          </cam-input>
-        `}
-  </cam-box>`
-}
-
-function renderLog(host, log) {
-  return html`<div class="log">
-    <small>${log.event}:&nbsp;&nbsp;</small>
-    <span>${JSON.stringify(log.data)}</span>
-  </div>`
-}
-
-function logEvent(host, event, e: CustomEvent) {
-  host.logs = [{ event, data: e.detail, e }, ...host.logs]
-}
 
 export interface HarnessElement extends HTMLElement {
   // input props
@@ -110,11 +63,11 @@ export const CamHarness = define<HarnessElement>({
   },
   slotted: children(() => true),
   _slot: {
-    get: ({ render }: H) => render().querySelector('slot'),
-    observe: (host, slot, last) => {
+    get: ({ render }: H & { render: any }) => render().querySelector('slot'),
+    observe: (host, slot) => {
       if (!slot) return
       host.bindings.forEach((b) => {
-        slot.addEventListener(b.event, (e) => logEvent(host, b.event, e))
+        slot.addEventListener(b.event, (e: CustomEvent) => logEvent(host, b.event, e))
       })
     },
   },
@@ -143,3 +96,50 @@ export const CamHarness = define<HarnessElement>({
     </style>
   `,
 })
+
+function setValue(obj, property, val) {
+  return { ...obj, [property]: val }
+}
+
+function renderProp(host, prop) {
+  let inputType = 'text'
+  switch (prop.type) {
+    case 'boolean':
+      inputType = 'checkbox'
+      break
+    default:
+      inputType = 'text'
+      break
+  }
+  return html`<cam-box p="1" class="prop">
+    <!-- Inner -->
+    ${prop.type === 'innerText'
+      ? html`
+          <cam-input slot value="${prop.value ?? ''}" onupdate="${(_, { detail }) => (host.innerContent = detail)}">
+            <label>${prop.name}&nbsp;&nbsp;</label>
+          </cam-input>
+        `
+      : html`
+          <cam-input
+            type="${inputType}"
+            toggle
+            slot
+            value="${prop.value ?? ''}"
+            onupdate="${(_, { detail }) => (host.values = setValue(host.values, prop.name, detail))}"
+          >
+            <label>${prop.name}&nbsp;&nbsp;</label>
+          </cam-input>
+        `}
+  </cam-box>`
+}
+
+function renderLog(host, log) {
+  return html`<div class="log">
+    <small>${log.event}:&nbsp;&nbsp;</small>
+    <span>${JSON.stringify(log.data)}</span>
+  </div>`
+}
+
+function logEvent(host, event, e: CustomEvent) {
+  host.logs = [{ event, data: e.detail, e }, ...host.logs]
+}

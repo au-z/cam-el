@@ -9,13 +9,12 @@ export interface CanvasElement extends HTMLElement {
 
   canvas: HTMLCanvasElement
   ctx: ImageBitmapRenderingContext | CanvasRenderingContext2D | WebGLRenderingContext
-  render: () => ShadowRoot
-  resize: (width: number, height: number) => void
-  run: () => void
-  // run the animation
   draw: (ctx: ImageBitmapRenderingContext | CanvasRenderingContext2D | WebGLRenderingContext) => void
-  // clear the voice
+  // // run the animation
+  run: () => void
+  // // clear the canvas
   wipe: () => void
+  resize: (width: number, height: number) => void
 }
 type H = CanvasElement
 
@@ -23,10 +22,11 @@ export const CamVas = define<CanvasElement>({
   tag: 'cam-vas',
   context: '2d',
   options: getset({}),
+  throttle: 0,
   canvas: {
-    get: ({ render }: H) => render().querySelector('canvas'),
+    get: ({ render }: H & { render: () => ShadowRoot }) => render().querySelector('canvas'),
     connect: (host: H) => {
-      const resize = (e) => host.resize(host.clientWidth, host.clientHeight)
+      const resize = (e: any) => host.resize(host.clientWidth, host.clientHeight)
       host.addEventListener('resize', resize)
 
       setTimeout(() => {
@@ -42,7 +42,6 @@ export const CamVas = define<CanvasElement>({
   },
   ctx: ({ canvas, context, options }: H) => canvas.getContext(context, options),
   draw: propertyFn((ctx) => {}),
-  throttle: 0,
   run: (host) => () => {
     if (host.throttle != null) {
       setTimeout(host.run, host.throttle)

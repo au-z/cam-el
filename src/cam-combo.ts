@@ -1,6 +1,5 @@
 import { CamElement } from './cam-el'
 import { children, define, html } from 'hybrids'
-import styles from './cam-select.css'
 import { CamOption } from './cam-select'
 
 export interface CamComboElement extends CamElement {

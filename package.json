@@ -1,12 +1,12 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "type": "module",
   "description": "Foundational Web Components with Smooth Character",
   "main": "./dist/cam-el.js",
-  "module": "./dist/cam-el.esm.js",
+  "module": "./dist/cam-el.js",
   "exports": {
-    ".": "./dist/cam-el.esm.js"
+    ".": "./dist/cam-el.js"
   },
   "files": [
     "dist"

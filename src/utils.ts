@@ -1,3 +1,5 @@
+import { Descriptor } from 'hybrids'
+
 const camelToDashMap = new Map()
 function camelToDash(str) {
   let result = camelToDashMap.get(str)
@@ -15,40 +17,37 @@ function camelToDash(str) {
  * @param observe observe handler
  * @returns Hybrids property definition
  */
-export function propertyFn(defaultFn: Function = () => {}, connect?, observe?) {
+export function propertyFn<E extends HTMLElement, V extends Function>(
+  defaultFn: V,
+  connect?: Descriptor<E, V>['connect'],
+  observe?: Descriptor<E, V>['observe']
+): Descriptor<E, V> {
   const attrs = new WeakMap()
-  const type = typeof defaultFn
 
   return {
-    get: (host, val = defaultFn) => val,
-    set: (host, val) => val,
-    connect:
-      type === 'function'
-        ? (host, key, invalidate) => {
-            if (!attrs.has(host)) {
-              const attrName = camelToDash(key)
-              attrs.set(host, attrName)
+    get: (host: E, val = defaultFn) => val,
+    set: (host: E, val) => val,
+    connect: (host: E, key, invalidate) => {
+      if (!attrs.has(host)) {
+        const attrName = camelToDash(key)
+        attrs.set(host, attrName)
 
-              if (host.hasAttribute(attrName)) {
-                const attrValue = host.getAttribute(attrName)
-                host[key] = attrValue
-              }
-            }
+        if (host.hasAttribute(attrName)) {
+          const attrValue = host.getAttribute(attrName)
+          host[key] = attrValue
+        }
+      }
 
-            return connect && connect(host, key, invalidate)
-          }
-        : connect,
-    observe:
-      type === 'function'
-        ? (host, val, last) => {
-            const attrName = attrs.get(host)
-            const attrValue = host.getAttribute(attrName)
-            if (attrValue) {
-              host.removeAttribute(attrName)
-            }
+      return connect && connect(host as any, key, invalidate)
+    },
+    observe: (host, val, last) => {
+      const attrName = attrs.get(host)
+      const attrValue = host.getAttribute(attrName)
+      if (attrValue) {
+        host.removeAttribute(attrName)
+      }
 
-            if (observe) observe(host, val, last)
-          }
-        : observe,
+      if (observe) observe(host, val, last)
+    },
   }
 }

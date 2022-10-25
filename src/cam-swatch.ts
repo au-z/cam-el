@@ -1,26 +1,7 @@
 import { html, define } from 'hybrids'
 import Mousetrap from 'mousetrap'
-import { css } from 'lit-css'
 import { hsl_rgb, rgb_hex, rgb_hsl } from './lib/color'
 import styles from './cam-swatch.css'
-
-function copySwatchColor(host) {
-  const hex = host.calcHex.toUpperCase()
-  navigator.clipboard.writeText(hex).then(
-    () => {},
-    () => {
-      console.error('[cam-swatch] could not copy swatch.')
-    }
-  )
-}
-
-function bindShortcuts(host, e) {
-  Mousetrap.bind('mod+c', () => copySwatchColor(host))
-}
-
-function unbindShortcuts(host, e) {
-  Mousetrap.unbind('mod+c')
-}
 
 export interface SwatchElement extends HTMLElement {
   r: number
@@ -90,8 +71,8 @@ export const CamSwatch = define<SwatchElement>({
   render: ({ a, calcHex, color, textColor, hideLabel }: H) =>
     html`
       <div
+        class="cam-swatch"
         part="swatch"
-        style="color: ${textColor};"
         onmouseover="${bindShortcuts}"
         onmouseout="${unbindShortcuts}"
         title="Ctrl+C to Copy"
@@ -99,7 +80,7 @@ export const CamSwatch = define<SwatchElement>({
         <div class="transparent-bg"></div>
         <div class="swatch"></div>
 
-        ${!hideLabel && html`<span part="label">${calcHex.toUpperCase()}</span>`}
+        ${!hideLabel && html` <span part="label" style="${{ color: textColor }}">${calcHex.toUpperCase()}</span> `}
         <slot></slot>
       </div>
     `.css`
@@ -113,3 +94,21 @@ export const CamSwatch = define<SwatchElement>({
       }
   `.style(styles),
 })
+
+function bindShortcuts(host, e) {
+  Mousetrap.bind('mod+c', () => copySwatchColor(host))
+}
+
+function unbindShortcuts(host, e) {
+  Mousetrap.unbind('mod+c')
+}
+
+function copySwatchColor(host) {
+  const hex = host.calcHex.toUpperCase()
+  navigator.clipboard.writeText(hex).then(
+    () => {},
+    () => {
+      console.error('[cam-swatch] could not copy swatch.')
+    }
+  )
+}

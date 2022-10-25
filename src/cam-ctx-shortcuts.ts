@@ -1,4 +1,4 @@
-import { define, html, Descriptor } from 'hybrids'
+import { define, Descriptor } from 'hybrids'
 import { Disposable, Type } from './interfaces'
 
 class Shortcuts implements Disposable {
@@ -71,10 +71,10 @@ export const CamShortcuts = define<ShortcutsElement>({
       host.removeEventListener(host.delete, deleteShortcut)
     }
 
-    function createShortcut({ detail }) {
+    function createShortcut({ detail }: CustomEvent) {
       host[key].add(detail.code, detail)
     }
-    function deleteShortcut({ detail }) {
+    function deleteShortcut({ detail }: CustomEvent) {
       host[key].delete(detail)
     }
   }),

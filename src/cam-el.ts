@@ -1,4 +1,3 @@
-import { html, Component } from 'hybrids'
 import { css } from 'lit-css'
 
 export interface CamElement extends HTMLElement {
@@ -10,13 +9,13 @@ export interface CamElement extends HTMLElement {
   _py: string
 }
 
-export const CamEl: CamElement = {
+export const CamEl = {
   m: '0',
   p: '0',
-  _mx: ({ m }) => (m.split(' ').length > 1 ? parseInt(m.split(' ')[0]) : parseInt(m)),
-  _my: ({ m }) => (m.split(' ').length > 1 ? parseInt(m.split(' ')[1]) : parseInt(m)),
-  _px: ({ p }) => (p.split(' ').length > 1 ? parseInt(p.split(' ')[0]) : parseInt(p)),
-  _py: ({ p }) => (p.split(' ').length > 1 ? parseInt(p.split(' ')[1]) : parseInt(p)),
+  _mx: ({ m }) => (m.split(' ').length > 1 ? parseInt(m.split(' ')[0]) : parseInt(m)).toString(),
+  _my: ({ m }) => (m.split(' ').length > 1 ? parseInt(m.split(' ')[1]) : parseInt(m)).toString(),
+  _px: ({ p }) => (p.split(' ').length > 1 ? parseInt(p.split(' ')[0]) : parseInt(p)).toString(),
+  _py: ({ p }) => (p.split(' ').length > 1 ? parseInt(p.split(' ')[1]) : parseInt(p)).toString(),
 }
 
 export const CamElStyles = ({ _mx, _my, _px, _py }: CamElement) => css`
