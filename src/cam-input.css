@@ -1,0 +1,233 @@
+@import './style/mixins.css';
+@import './style/theme.css';
+
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  input[data-type='text'],
+  input[data-type='email'],
+  input[data-type='password'],
+  input[type='number'],
+  input[type='checkbox'],
+  input[type='radio'] input[type='range'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: var(--bc, var(--cam-input-border));
+    background: var(--b, var(--cam-input-bg, var(--cam-input-bg)));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+    &:after {
+      content: '';
+      display: block;
+      left: 0;
+      top: 0;
+      position: absolute;
+      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+    }
+    &:checked {
+      --b: var(--cam-input-active);
+      --bc: var(--cam-input-active);
+      --d-o: 0.3s;
+      --d-t: 0.6s;
+      --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+    }
+    &:disabled {
+      --b: var(--cam-input-disabled);
+      cursor: not-allowed;
+      opacity: 0.9;
+      &:checked {
+        --b: var(--cam-input-disabled-inner);
+        --bc: var(--cam-input-border);
+      }
+      & + label {
+        cursor: not-allowed;
+      }
+    }
+    &:hover {
+      &:not(:checked) {
+        &:not(:disabled) {
+          --bc: var(--cam-input-border-hover);
+        }
+      }
+    }
+    &:focus {
+      box-shadow: 0 0 0 var(--cam-input-focus);
+    }
+    & + label {
+      font-size: 14px;
+      line-height: 21px;
+      display: inline-block;
+      vertical-align: top;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    &:not(.toggle) {
+      width: 21px;
+      &:after {
+        opacity: var(--o, 0);
+      }
+      &:checked {
+        --o: 1;
+      }
+    }
+  }
+
+  input[data-type='text'],
+  input[data-type='email'],
+  input[data-type='password'],
+  input[type='number'] {
+    width: inherit;
+    padding-left: var(--cam-unit, 8px);
+    border-radius: 6px;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+  input[type='number'] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+
+  input[type='checkbox'] {
+    &:not(.toggle) {
+      border-radius: 6px;
+      &:after {
+        @mixin wh 5px, 9px;
+        border: 2px solid var(--cam-input-active-inner);
+        border-top: 0;
+        border-left: 0;
+        left: 7px;
+        top: 2.5px;
+        transform: rotate(var(--r, 45deg));
+      }
+      &:checked {
+        --r: 45deg;
+      }
+    }
+    &.toggle {
+      width: 38px;
+      border-radius: 11px;
+      &:after {
+        @mixin circle 15px;
+        left: 2px;
+        top: 2.5px;
+        background: var(--ab, var(--cam-input-inner-bg));
+        transform: translateX(var(--x, 0));
+      }
+      &:checked {
+        --ab: var(--cam-input-active-inner);
+        --x: 17px;
+      }
+      &:checked:after {
+        top: 3px;
+      }
+      &:disabled {
+        &:not(:checked) {
+          &:after {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+  input[type='radio'] {
+    border-radius: 50%;
+    &:after {
+      @mixin wh 100%;
+      border-radius: 50%;
+      background: var(--cam-input-active-inner);
+      opacity: 0;
+      transform: scale(var(--s, 0.8));
+    }
+    &:checked {
+      --s: 0.35;
+    }
+  }
+  label {
+    padding: 0 var(--cam-unit, 8px);
+  }
+
+  input[type='range'] {
+    -webkit-appearance: none;
+    margin: 0;
+    height: 4px;
+    border-radius: 4px;
+    width: 100%;
+  }
+  input[type='range']:focus {
+    outline: none;
+  }
+
+  @define-mixin track {
+    @mixin wh 100%, 8px;
+    cursor: pointer;
+  }
+  input[type='range']::-webkit-slider-runnable-track {
+    @mixin track;
+  }
+  input[type='range']::-moz-range-track {
+    @mixin track;
+  }
+  input[type='range']::-ms-track {
+    @mixin track;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+  }
+
+  input[type='range']::-ms-fill-lower {
+    background: var(--cam-input-active);
+  }
+
+  input[type='range']::-moz-range-progress {
+    background: var(--cam-input-active);
+  }
+
+  @define-mixin thumb {
+    @mixin circle 15px;
+    background: var(--cam-input-inner-bg);
+    cursor: pointer;
+    box-shadow: 0 0 0 transparent;
+    transition: 0.3s box-shadow ease;
+    &:hover {
+      box-shadow: 0 0 0 var(--cam-input-focus);
+    }
+  }
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @mixin thumb;
+    margin-top: -4px;
+  }
+  input[type='range']::-moz-range-thumb {
+    @mixin thumb;
+  }
+  input[type='range']::-ms-thumb {
+    @mixin thumb;
+  }
+
+  input[type='range']::-ms-fill-lower {
+    background: var(--cam-input-active);
+    border-radius: 2.6px;
+  }
+  input[type='range']::-ms-fill-upper {
+    background: var(--cam-input-active);
+    border-radius: 2.6px;
+  }
+
+  input[type='range']:focus::-ms-fill-lower {
+    background: var(--cam-input-active);
+  }
+  input[type='range']:focus::-ms-fill-upper {
+    background: var(--cam-input-active);
+  }
+}

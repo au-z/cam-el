@@ -1,107 +1,99 @@
-import {define, html, Hybrids} from 'hybrids'
+import { define, Descriptor, html } from 'hybrids'
 
-export function Draggable(options?: {absolutePositioning: boolean}) {
-	options = {
-		absolutePositioning: false,
-		...options || {},
-	}
+export const CamDraggable = define<any>({
+  tag: 'cam-draggable',
+  zIndex: 1,
+  __draggable__: { value: undefined, connect: Draggable() },
+  render: ({ zIndex }) => html`<slot style="${{ cursor: 'pointer' }}"></slot>`.css`:host {
+    z-index: ${zIndex};
+  }`,
+})
 
-	let [x0, y0] = [0, 0]
-	let [x1, y1] = [0, 0]
-	let [xOffset, yOffset] = [0, 0]
-	let dragging = false
+export function Draggable(options?: { absolutePositioning: boolean }): Descriptor<any, any>['connect'] {
+  options = {
+    absolutePositioning: false,
+    ...(options || {}),
+  }
 
-	let onMouseMove, onMouseUp, onTouchMove, onTouchEnd
+  let [x0, y0] = [0, 0]
+  let [x1, y1] = [0, 0]
+  let [xOffset, yOffset] = [0, 0]
+  let dragging = false
 
-	function draggableInit(host) {
-		if(options.absolutePositioning) {
-			xOffset = parseFloat(/\d+/.exec(host.style.left)[0])
-			yOffset = parseFloat(/\d+/.exec(host.style.top)[0])
-		}
+  let onMouseDown, onMouseMove, onMouseUp, onTouchStart, onTouchMove, onTouchEnd
 
-		onMouseMove = draggableDrag.bind(null, host)
-		onTouchMove = draggableDrag.bind(null, host)
-		onMouseUp = draggableEnd.bind(null, host)
-		onTouchEnd = draggableEnd.bind(null, host)
-	}
+  function draggableStart(host: HTMLElement, e: DragEvent | TouchEvent) {
+    e.stopPropagation()
+    if (!e) return
+    if (e instanceof TouchEvent) {
+      x0 = e.touches[0].clientX - xOffset
+      y0 = e.touches[0].clientY - yOffset
+    } else {
+      x0 = e.clientX - xOffset
+      y0 = e.clientY - yOffset
+    }
+    dragging = true
 
-	function draggableStart(host, e) {
-		e.stopPropagation()
-		if(!e) return
-		if(e.type === 'touchstart') {
-			x0 = e.touches[0].clientX - xOffset
-			y0 = e.touches[0].clientY - yOffset
-		} else {
-			x0 = e.clientX - xOffset;
-			y0 = e.clientY - yOffset;
-		}
-		dragging = true
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+    window.addEventListener('touchmove', onTouchMove)
+    window.addEventListener('touchend', onTouchEnd)
+  }
 
-		window.addEventListener('mousemove', onMouseMove)
-		window.addEventListener('mouseup', onMouseUp)
-		window.addEventListener('touchmove', onTouchMove)
-		window.addEventListener('touchend', onTouchEnd)
-	}
+  function draggableEnd(host: HTMLElement, e) {
+    x0 = x1
+    y0 = y1
+    dragging = false
 
-	function draggableEnd(host, e) {
-		x0 = x1
-		y0 = y1
-		dragging = false
+    window.removeEventListener('mousemove', onMouseMove)
+    window.removeEventListener('mouseup', onMouseUp)
+    window.removeEventListener('touchmove', onTouchMove)
+    window.removeEventListener('touchend', onTouchEnd)
+  }
 
-		window.removeEventListener('mousemove', onMouseMove)
-		window.removeEventListener('mouseup', onMouseUp)
-		window.removeEventListener('touchmove', onTouchMove)
-		window.removeEventListener('touchend', onTouchEnd)
-	}
+  function draggableDrag(host: HTMLElement, e: DragEvent | TouchEvent) {
+    if (!dragging) return
+    e.preventDefault()
 
-	function draggableDrag(host, e) {
-		if(!dragging) return
-		e.preventDefault()
+    if (e instanceof TouchEvent) {
+      x1 = e.touches[0].clientX - x0
+      y1 = e.touches[0].clientY - y0
+    } else {
+      x1 = e.clientX - x0
+      y1 = e.clientY - y0
+    }
 
-		if(e.type === 'touchmove') {
-			x1 = e.touches[0].clientX - x0
-			y1 = e.touches[0].clientY - y0
-		} else {
-			x1 = e.clientX - x0;
-			y1 = e.clientY - y0;
-		}
+    xOffset = x1
+    yOffset = y1
 
-		xOffset = x1
-		yOffset = y1
+    if (options.absolutePositioning) {
+      host.style.left = `${x1}px`
+      host.style.top = `${y1}px`
+    } else {
+      host.style.transform = `translate3d(${x1}px, ${y1}px, 0)`
+    }
+  }
 
-		if(options.absolutePositioning) {
-			host.style.left = `${x1}px`
-			host.style.top = `${y1}px`
-		} else {
-			host.style.transform = `translate3d(${x1}px, ${y1}px, 0)`
-		}
-	}
+  return (host: HTMLElement) => {
+    if (options.absolutePositioning) {
+      xOffset = parseFloat(/\d+/.exec(host.style.left)[0])
+      yOffset = parseFloat(/\d+/.exec(host.style.top)[0])
+    }
 
-	return {
-		draggableInit,
-		draggableStart,
-	}
+    onMouseDown = draggableStart.bind(null, host)
+    onTouchStart = draggableStart.bind(null, host)
+    onMouseMove = draggableDrag.bind(null, host)
+    onTouchMove = draggableDrag.bind(null, host)
+    onMouseUp = draggableEnd.bind(null, host)
+    onTouchEnd = draggableEnd.bind(null, host)
+
+    host.addEventListener('mousedown', onMouseDown)
+    host.addEventListener('touchstart', onTouchStart)
+
+    // disconnect callback
+    return () => {
+      host.removeEventListener('mousedown', onMouseDown)
+      host.removeEventListener('touchstart', onTouchStart)
+    }
+  }
 }
-
-export interface CamDraggable extends HTMLElement {
-	draggableStart: () => (host: CamDraggable, e: Event) => void,
-	draggableDrag: () => (host: CamDraggable, e: Event) => void,
-	draggableEnd: () => (host: CamDraggable, e: Event) => void,
-}
-
-const CamDraggable: Hybrids<any> = {
-	tag: 'cam-draggable',
-	...Draggable(),
-	render: (host) => html`<slot
-		style="${{cursor: 'pointer'}}"
-		onmousedown="${host.draggableStart}"
-		ontouchstart="${host.draggableStart}"
-		onmousemove="${host.draggableDrag}"
-		ontouchmove="${host.draggableDrag}"
-		onmouseup="${host.draggableEnd}"
-		ontouchend="${host.draggableEnd}"
-	></slot>`,
-}
-
-define('cam-draggable', CamDraggable)
-export default CamDraggable

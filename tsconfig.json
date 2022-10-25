@@ -1,24 +1,21 @@
 {
-	"compilerOptions": {
-		"target": "esnext",
-		"module": "esnext",
-		"lib": ["esnext", "DOM"],
-		"typeRoots": ["node_modules/@types"],
-		"declaration": true,
-		"emitDeclarationOnly": true,
-		"outDir": "dist/types",
-		"rootDir": "./src",
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"noImplicitAny": false,
-		"preserveConstEnums": true,
-		"sourceMap": true,
-	},
-	"include": [
-		"src/**/*.ts"
-	],
-	"exclude": [
-		"vite.config.ts"
-	]
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "NodeNext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist/types",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "paths": {
+      "src/*": ["src/*"],
+      "style/*": ["style/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["src/stories"]
 }

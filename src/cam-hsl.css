@@ -1,38 +1,44 @@
-*,*:after,*:before {
-	box-sizing: border-box;
+@import './style/mixins.css';
+@import './style/theme.css';
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
 }
 
 .cam-hsl {
-	position: relative;
+  position: relative;
+
+  cam-swatch cam-input[type='number'] {
+    --cam-input-bg: initial;
+    --cam-input-border: 1px solid transparent;
+    --cam-input-border-hover: 1px solid transparent;
+    --cam-input-text-color: inherit;
+  }
+
+  cam-swatch small {
+    font-family: 'Consolas', monospace;
+  }
+
+  cam-input::part(input) {
+    color: inherit;
+    opacity: 0.7;
+    /* width: 30px; */
+  }
 }
 
 .rot-container {
-	width: 18px;
-	& > div {
-		padding: 50% 0;
-		height: 0;
-		& > cam-input::part(input) {
-			display: block;
-			transform-origin: top left;
-			transform: rotate(-90deg) translate(-100%);
-			margin-top: -40%;
-			width: 85px;
-		}
-	}
-}
-
-cam-swatch cam-input[type='number'] {
-	--cam-input-bg: initial;
-	--cam-input-border: 1px solid transparent;
-	--cam-input-border-hover: 1px solid transparent;
-	--cam-input-text-color: inherit;
-}
-
-cam-swatch small {
-	font-family: 'Consolas', monospace;
-}
-
-cam-input::part(input) {
-	color: inherit;
-	opacity: 0.7;
+  width: 18px;
+  & > div {
+    padding: 50% 0;
+    height: 0;
+    & > cam-input::part(input) {
+      display: block;
+      transform-origin: top left;
+      transform: rotate(-90deg) translate(-100%);
+      margin-top: -40%;
+      width: 85px;
+    }
+  }
 }

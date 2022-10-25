@@ -1,2 +1,2 @@
-declare module '*.css';
-declare module '*.styl';
+declare module '*.css'
+declare module '*.worker?worker'
