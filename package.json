@@ -10,6 +10,7 @@
     "./theme": "./dist/theme.js",
     "./grid": "./dist/grid.js",
     "./zing": "./dist/zing.js",
+    "./string": "./dist/string.js",
     ".": "./dist/cam-el.js"
   },
   "files": [

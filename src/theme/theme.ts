@@ -11,6 +11,8 @@ export const THEME = ({ shades }) => ({
   ...shades('error', 0xf8513d, 2).map,
 })
 
+export const theme = (key: string) => THEME[key]
+
 export const ThemeColors = define<any>({
   tag: 'cam-theme-colors',
   colors: {

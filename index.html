@@ -9,6 +9,7 @@
     <script type="module" src="/src/button.ts"></script>
     <script type="module" src="/src/grid.ts"></script>
     <script type="module" src="/src/theme/theme.ts"></script>
+    <script type="module" src="/src/components/string.ts"></script>
     <title>cam-el</title>
     <style>
       :root {
@@ -62,7 +63,11 @@
       <cam-button disabled items="center"> Disabled </cam-button>
     </cam-grid>
 
-    <!-- <cam-box m="2" flex="space-evenly center">
+    <cam-string placeholder="placeholder" size="14"></cam-string>
+    <cam-string type="password" value="foobar" placeholder="placeholder"></cam-string>
+    <cam-string placeholder="placeholder" size="10"></cam-string>
+
+    <cam-grid flow="column" m="2">
       <cam-harness id="test-cam-combo">
         <cam-combo>
           <cam-option value="A">Option A</cam-option>
@@ -70,7 +75,7 @@
           <cam-option value="C">Option C</cam-option>
         </cam-combo>
       </cam-harness>
-    </cam-box> -->
+    </cam-grid>
 
     <cam-vas throttle="10">
       <h1><pre>&nbsp;&lt;cam-vas&gt;&nbsp;</pre></h1>

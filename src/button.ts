@@ -1,6 +1,6 @@
 import { define, html } from 'hybrids'
 import { Zing } from '@src/zing/Zing.js'
-import { THEME } from '@src/theme/theme.js'
+import { THEME, theme } from '@src/theme/theme.js'
 import styles from './button.css'
 import { Gridable, GridableElement, gridableCSS } from './grid.js'
 
@@ -21,6 +21,7 @@ export const Button = define<H>({
   render: (h: H) =>
     html`<button class="${h.type}" disabled="${h.disabled}"><slot></slot></button>`.css`
     button {
+      position: relative;
       ${Z.get(({ theme }) => ({
         padding: '0.5rem 1.25rem',
         background: theme('--input-800'),
@@ -65,19 +66,30 @@ export const Button = define<H>({
       ${gridableCSS(h)}
     }
 
+    button::after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      transition: 0.3s all ease;
+      borderRadius: 0.5rem;
+    }
+
+    button:hover::after {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
     button[disabled] {
-      ${Z.get(({ theme }) => ({
-        padding: '0.5rem 1.25rem',
-        background: theme('--gray-800'),
-        color: theme('--gray-400'),
-        borderWidth: '1px',
-        borderStyle: 'solid',
-        borderColor: theme('--input-200'),
-        border: 'var(--cam-button-border-width) var(--cam-button-border-style) var(--cam-button-border-color)',
-        borderRadius: '0.5rem',
-        fontFamily: 'sans-serif',
-        letterSpacing: '0.1em',
-      }))}
+      ${Z.get(
+        ({ theme }) => ({
+          background: theme('--gray-800'),
+          color: theme('--gray-400'),
+          borderColor: theme('--gray-600'),
+          cursor: 'not-allowed',
+        }),
+        'disabled'
+      )}
       box-shadow: none;
     }
 
@@ -88,8 +100,15 @@ export const Button = define<H>({
     }
 
     button.ghost {
-      ${Z.get(['background', 'color', 'border'], 'ghost')}
       box-shadow: none;
+    }
+    button.ghost:hover {
+      ${Z.get(({ theme }) => ({
+        color: theme('--input-200'),
+      }))}
+    }
+    button.ghost:focus {
+      outline: none;
     }
   `.style(styles),
 })

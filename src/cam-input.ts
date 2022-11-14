@@ -1,7 +1,9 @@
 import { define, html, dispatch } from 'hybrids'
-import { CamEl, CamElement, camelCSS } from '@src/cam-el.js'
+import { CamElement } from './cam-el.js'
 import styles from './cam-input.css'
 import { Gridable, gridableCSS, GridableElement } from './grid.js'
+import { THEME } from './theme/theme.js'
+import { Zing } from './zing/Zing.js'
 
 const clamp = (val, min, max) => Math.max(min, Math.min(max, val))
 
@@ -21,6 +23,22 @@ const Scrub = {
     return [scrubbed, !/^$/.test(val) && val !== scrubbed.toString()]
   },
 }
+
+const Z = Zing('cam-input').theme(THEME)
+
+const inputStyles = `
+input[data-type='text'],
+input[data-type='email'],
+input[data-type='password'],
+input[type='number'],
+input[type='checkbox'],
+input[type='radio'] input[type='range'] {
+  ${Z.get(({ theme }) => ({
+    height: '24px',
+    background: 'red !important',
+  }))}
+}
+`
 
 export interface InputElement extends GridableElement {
   autosize: boolean
@@ -69,9 +87,9 @@ export const CamInput = define<InputElement>({
   render: (h: H) =>
     renderInput(h).css`
       :host {
-        ${camelCSS(h)}
         ${gridableCSS(h)}
       }
+      ${inputStyles}
   `.style(styles),
 })
 

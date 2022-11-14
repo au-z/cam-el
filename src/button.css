@@ -1,7 +1,11 @@
 @import './style/mixins.css';
 
 button {
-  @mixin bg 0.66;
+  @mixin bg 0.33;
+
+  &:hover:not([disabled], .ghost) {
+    @mixin bg 0.5;
+  }
 
   & * {
     pointer-events: none;

@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
         entry: {
           'cam-el': 'src/index.ts',
           button: 'src/button.ts',
+          string: 'src/components/string.ts',
           theme: 'src/theme/theme.ts',
           grid: 'src/grid.ts',
           zing: 'src/zing/Zing.ts',
