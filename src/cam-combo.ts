@@ -1,6 +1,6 @@
-import { CamElement } from './cam-el'
+import { CamElement } from './cam-el.js'
 import { children, define, html } from 'hybrids'
-import { CamOption } from './cam-select'
+import { CamOption } from './cam-select.js'
 
 export interface CamComboElement extends CamElement {
   [key: string]: any
@@ -13,9 +13,7 @@ export const CamCombo = define<CamComboElement>({
   placeholder: '',
   options: children(CamOption),
   render: (host) => html`<div class="combo">
-    Hello
     <cam-input value="${host.value}"></cam-input>
-
     <select value="${host.value}" onchange="${onchange}">
       <slot></slot>
     </select>

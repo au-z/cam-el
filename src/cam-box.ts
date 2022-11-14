@@ -1,5 +1,5 @@
 import { define, html } from 'hybrids'
-import { CamEl, CamElement, CamElStyles } from './cam-el'
+import { CamEl, camelCSS, CamElement } from './cam-el.js'
 
 export interface BoxElement extends CamElement {
   container: boolean
@@ -27,13 +27,13 @@ export const CamBox = define<BoxElement>({
   align: ({ flex, justify }: H) => flex.split(' ')?.[1] || justify,
   render: (host: H) =>
     html`<slot></slot>`.css`
-			${CamElStyles(host)}
-			:host {
-				display: ${host.flex ? (host.inline ? 'inline-flex' : 'flex') : host.inline ? 'inline-block' : 'block'};
-				${host.justify && `justify-content: ${host.justify};`}
-				${host.align && `align-items: ${host.align};`}
-				${host.direction && `flex-direction: ${host.direction};`}
-				${host.wrap && `flex-wrap: ${host.wrap};`}
-			}
-		`,
+    :host {
+      ${camelCSS(host)}
+      display: ${host.flex ? (host.inline ? 'inline-flex' : 'flex') : host.inline ? 'inline-block' : 'block'};
+      ${host.justify && `justify-content: ${host.justify};`}
+      ${host.align && `align-items: ${host.align};`}
+      ${host.direction && `flex-direction: ${host.direction};`}
+      ${host.wrap && `flex-wrap: ${host.wrap};`}
+    }
+  `,
 })

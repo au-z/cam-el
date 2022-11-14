@@ -115,7 +115,11 @@ function renderProp(host, prop) {
     <!-- Inner -->
     ${prop.type === 'innerText'
       ? html`
-          <cam-input slot value="${prop.value ?? ''}" onupdate="${(_, { detail }) => (host.innerContent = detail)}">
+          <cam-input
+            show-slot
+            value="${prop.value ?? ''}"
+            onupdate="${(_, { detail }) => (host.innerContent = detail)}"
+          >
             <label>${prop.name}&nbsp;&nbsp;</label>
           </cam-input>
         `
@@ -123,7 +127,7 @@ function renderProp(host, prop) {
           <cam-input
             type="${inputType}"
             toggle
-            slot
+            show-slot
             value="${prop.value ?? ''}"
             onupdate="${(_, { detail }) => (host.values = setValue(host.values, prop.name, detail))}"
           >

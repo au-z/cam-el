@@ -1,4 +1,4 @@
-import { propertyFn } from './utils'
+import { propertyFn } from '@src/utils.js'
 import { Component, Descriptor, dispatch } from 'hybrids'
 
 export interface CamRef<E> {

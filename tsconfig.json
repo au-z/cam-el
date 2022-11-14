@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "NodeNext",
-    "moduleResolution": "node",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
@@ -12,8 +11,8 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "paths": {
-      "src/*": ["src/*"],
-      "style/*": ["style/*"]
+      "@src/*": ["src/*"],
+      "@style/*": ["style/*"]
     }
   },
   "include": ["src"],

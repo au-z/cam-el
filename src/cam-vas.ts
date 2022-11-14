@@ -1,6 +1,6 @@
 import { define, html } from 'hybrids'
 import { getset } from '@auzmartist/hybrids-helpers'
-import { propertyFn } from './utils'
+import { propertyFn } from './utils.js'
 
 export interface CanvasElement extends HTMLElement {
   context: '2d'
@@ -29,10 +29,10 @@ export const CamVas = define<CanvasElement>({
       const resize = (e: any) => host.resize(host.clientWidth, host.clientHeight)
       host.addEventListener('resize', resize)
 
+      host.run()
       setTimeout(() => {
         host.resize(host.clientWidth, host.clientHeight)
-      }, 800)
-      host.run()
+      }, 0)
 
       return () => {
         host.removeEventListener('resize', resize)
@@ -48,7 +48,7 @@ export const CamVas = define<CanvasElement>({
       requestAnimationFrame(() => host.run())
     }
     host.wipe()
-    host.draw && host.draw(host.ctx)
+    host.draw?.(host.ctx)
   },
   wipe:
     ({ canvas, ctx }: H) =>
@@ -64,7 +64,7 @@ export const CamVas = define<CanvasElement>({
     },
   render: (host) => html`
     <slot></slot>
-    <canvas part="canvas" style="position: absolute; left: 0; top: 0;"></canvas>
+    <canvas part="canvas" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%"></canvas>
     <style>
       :host {
         position: relative;

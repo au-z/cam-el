@@ -1,5 +1,5 @@
 import { define, html, children, dispatch } from 'hybrids'
-import { InputElement } from './cam-input'
+import { InputElement } from '@src/cam-input.js'
 
 function onInput(host, e) {
   e.stopPropagation()

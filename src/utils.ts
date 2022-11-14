@@ -1,5 +1,21 @@
 import { Descriptor } from 'hybrids'
 
+/**
+ * Generate a range
+ * @param a length or start of range
+ * @param b optional end of range
+ * @param value optional initial value or generator for each element
+ * @returns An array sized to the specified range
+ */
+export const range = (a: number, b: number = 0, value?: any | ((i) => any)) => {
+  if (b) {
+    let temp = a
+    a = b
+    b = temp
+  }
+  return [...new Array(a - b)].map((_, i) => (typeof value === 'function' ? value(i) : value !== null ? value : i))
+}
+
 const camelToDashMap = new Map()
 function camelToDash(str) {
   let result = camelToDashMap.get(str)

@@ -1,7 +1,9 @@
 import { html, define } from 'hybrids'
 import Mousetrap from 'mousetrap'
-import { hsl_rgb, rgb_hex, rgb_hsl } from './lib/color'
+import { hsl_rgb, rgb_hex, rgb_hsl } from './lib/color.js'
 import styles from './cam-swatch.css'
+import { Zing } from './zing/Zing.js'
+import { THEME } from './theme/theme.js'
 
 export interface SwatchElement extends HTMLElement {
   r: number
@@ -13,6 +15,7 @@ export interface SwatchElement extends HTMLElement {
   a: number
   hideLabel: boolean
   hex: string
+  value: string
 
   // non-input
   color: string
@@ -22,19 +25,25 @@ export interface SwatchElement extends HTMLElement {
 }
 type H = SwatchElement
 
+const Z = Zing('cam-swatch').theme(THEME)
+
 export const CamSwatch = define<SwatchElement>({
   tag: 'cam-swatch',
-  h: Infinity,
-  s: Infinity,
-  l: Infinity,
-  r: Infinity,
-  g: Infinity,
-  b: Infinity,
-  a: 1,
+  h: { set: (host, val = Infinity) => val },
+  s: { set: (host, val = Infinity) => val },
+  l: { set: (host, val = Infinity) => val },
+  r: { set: (host, val = Infinity) => val },
+  g: { set: (host, val = Infinity) => val },
+  b: { set: (host, val = Infinity) => val },
+  a: { set: (host, val = 1) => val },
+  value: '',
   hideLabel: false,
   hex: '000000',
 
-  color: ({ type, h, s, l, r, g, b, hex }: H) => {
+  color: ({ type, h, s, l, r, g, b, hex, value }: H) => {
+    if (type === 'css') {
+      return value
+    }
     if (type === 'hsl') {
       hex = rgb_hex(hsl_rgb([h, s, l]))
       return `hsl(${h}, ${s}%, ${l}%)`
@@ -46,7 +55,8 @@ export const CamSwatch = define<SwatchElement>({
     }
   },
 
-  type: ({ h, s, l, r, g, b, hex }: H) => {
+  type: ({ h, s, l, r, g, b, value, hex }: H) => {
+    if (!!value) return 'css'
     if ([r, g, b].every((c) => !isNaN(c) && c !== Infinity)) return 'rgb'
     else if ([h, s, l].every((c) => !isNaN(c) && c !== Infinity)) return 'hsl'
     else if (hex !== '000000') return 'hex'

@@ -1,0 +1,23 @@
+@import './theme.css';
+
+html,
+html[cam-theme='light'] {
+  --undef: #ff00ff;
+  --cam-theme-bg: white;
+  --cam-theme-color: black;
+  --cam-theme-input-bg: white;
+  --cam-theme-input-border: blue;
+}
+
+html[cam-theme='dark'] {
+  --cam-theme-bg: #222;
+  --cam-theme-color: #eee;
+
+  --cam-theme-input-bg: #333;
+  --cam-theme-input-border: #444;
+}
+
+html[cam-theme='dark'] body {
+  background: var(--cam-theme-bg);
+  color: var(--cam-theme-color);
+}

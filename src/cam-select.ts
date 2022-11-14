@@ -1,29 +1,42 @@
-import { CamEl, CamElement } from './cam-el'
+import { listen } from '@auzmartist/hybrids-helpers'
+import { CamEl, CamElement } from '@src/cam-el.js'
 import { children, define, html } from 'hybrids'
 import styles from './cam-select.css'
 
-export interface CamOptionElement extends CamElement {
+export interface OptionElement extends CamElement {
   value: string
-  text: string
+  _connect: undefined
+  _select: (e: MouseEvent | TouchEvent) => void
 }
+type H = OptionElement
 
-export const CamOption = define<CamOptionElement>({
+export const CamOption = define<OptionElement>({
   tag: 'cam-option',
   ...CamEl,
   value: '',
-  text: '',
-  render: ({ value, text }) => html`<option value="${value}">${text ? html`${text}` : html`<slot></slot>`}</option>`,
+  _connect: {
+    value: undefined,
+    connect: listen((host) => ({
+      click: host._select,
+    })),
+  },
+  _select: (host) => (e: MouseEvent | TouchEvent) => {
+    e.stopPropagation()
+    console.log(e, host)
+  },
+  render: ({ value }) => html`<option value="${value}"><slot></slot></option>`,
 })
 
-export interface CamSelectElement extends CamElement {
+export interface SelectElement extends CamElement {
   [key: string]: any
-  options: CamOptionElement
+  options: OptionElement
 }
+type S = SelectElement
 
-export const CamSelect = define<CamSelectElement>({
+export const CamSelect = define<SelectElement>({
   tag: 'cam-select',
   options: children(CamOption),
-  render: () =>
+  render: (host: S) =>
     html`<div class="select">
       <select></select>
       <slot></slot>

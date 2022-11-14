@@ -1,6 +1,7 @@
 import { define, html, dispatch } from 'hybrids'
-import { CamEl, CamElement, CamElStyles } from './cam-el'
+import { CamEl, CamElement, camelCSS } from '@src/cam-el.js'
 import styles from './cam-input.css'
+import { Gridable, gridableCSS, GridableElement } from './grid.js'
 
 const clamp = (val, min, max) => Math.max(min, Math.min(max, val))
 
@@ -19,6 +20,82 @@ const Scrub = {
 
     return [scrubbed, !/^$/.test(val) && val !== scrubbed.toString()]
   },
+}
+
+export interface InputElement extends GridableElement {
+  autosize: boolean
+  autosized: number
+  checked: boolean
+  disabled: boolean
+  id: string
+  maxlength: number
+  min: number
+  max: number
+  placeholder: string
+  readonly: boolean
+  size: number
+  name: string
+  showSlot: boolean
+  step: number
+  toggle: boolean
+  type: string
+  value: any
+  wrap: boolean
+  parsed: string
+}
+type H = InputElement
+
+export const CamInput = define<InputElement>({
+  tag: 'cam-input',
+  ...Gridable,
+  autosize: false,
+  autosized: ({ autosize, value }: H) => value.length * 0.5 + 1,
+  checked: false,
+  disabled: false,
+  maxlength: Infinity,
+  name: '',
+  max: Infinity,
+  min: -Infinity,
+  placeholder: '',
+  readonly: false,
+  size: 8,
+  showSlot: false,
+  step: 1,
+  toggle: false,
+  type: 'text',
+  value: '',
+  wrap: false,
+  parsed: ({ value, type }: H) => parseValue(value, type),
+  render: (h: H) =>
+    renderInput(h).css`
+      :host {
+        ${camelCSS(h)}
+        ${gridableCSS(h)}
+      }
+  `.style(styles),
+})
+
+function onRadioInput(host, e) {
+  if (!e.target.checked) return
+  host.value = e.target.value
+  return dispatch(host, 'update', { detail: host.value, bubbles: true, composed: true })
+}
+
+function onInput(host, e) {
+  if (host.type === 'radio') return onRadioInput(host, e)
+
+  host.value = e.target.value
+  if (host.type === 'checkbox') {
+    host.value = e.target.checked
+    const detail = host.value.toLowerCase() === 'true'
+    dispatch(host, 'update', { detail, bubbles: true })
+  } else {
+    dispatch(host, 'update', { detail: host.value, bubbles: true, composed: true })
+  }
+}
+
+function onChange(host, e) {
+  if (host.type === 'checkbox') return
 }
 
 function renderNumber(host) {
@@ -124,76 +201,4 @@ function parseValue(value, type = 'text') {
     default:
       return value.trim()
   }
-}
-
-export interface InputElement extends CamElement {
-  autosize: boolean
-  autosized: number
-  checked: boolean
-  disabled: boolean
-  id: string
-  maxlength: number
-  min: number
-  max: number
-  placeholder: string
-  readonly: boolean
-  size: number
-  name: string
-  showSlot: boolean
-  step: number
-  toggle: boolean
-  type: string
-  value: any
-  wrap: boolean
-  parsed: string
-}
-type H = InputElement
-
-export const CamInput = define<InputElement>({
-  tag: 'cam-input',
-  ...CamEl,
-  autosize: false,
-  autosized: ({ autosize, value }: H) => value.length * 0.5 + 1,
-  checked: false,
-  disabled: false,
-  maxlength: Infinity,
-  name: '',
-  max: Infinity,
-  min: -Infinity,
-  placeholder: '',
-  readonly: false,
-  size: 8,
-  showSlot: false,
-  step: 1,
-  toggle: false,
-  type: 'text',
-  value: '',
-  wrap: false,
-  parsed: ({ value, type }: H) => parseValue(value, type),
-  render: (host: H) =>
-    renderInput(host).css`
-  ${CamElStyles(host)}`.style(styles),
-})
-
-function onRadioInput(host, e) {
-  if (!e.target.checked) return
-  host.value = e.target.value
-  return dispatch(host, 'update', { detail: host.value, bubbles: true, composed: true })
-}
-
-function onInput(host, e) {
-  if (host.type === 'radio') return onRadioInput(host, e)
-
-  host.value = e.target.value
-  if (host.type === 'checkbox') {
-    host.value = e.target.checked
-    const detail = host.value.toLowerCase() === 'true'
-    dispatch(host, 'update', { detail, bubbles: true })
-  } else {
-    dispatch(host, 'update', { detail: host.value, bubbles: true, composed: true })
-  }
-}
-
-function onChange(host, e) {
-  if (host.type === 'checkbox') return
 }

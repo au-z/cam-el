@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="/src/style/index.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="./src/index.ts"></script>
+    <script type="module" src="/src/index.ts"></script>
+    <script type="module" src="/src/button.ts"></script>
+    <script type="module" src="/src/grid.ts"></script>
+    <script type="module" src="/src/theme/theme.ts"></script>
     <title>cam-el</title>
     <style>
       :root {
-        --swatch-value: #ff00ff;
+        --swatch-value: var(--undef, #ff00ff);
         --swatch-value-hsla: hsla(18, 84%, 95%, 1);
         --swatch-value-rgba: rgba(40, 84, 95, 0.5);
       }
@@ -47,7 +51,28 @@
     </style>
   </head>
   <body>
-    <cam-vas throttle="50">
+    <cam-theme-colors colors="gray input success warning error"></cam-theme-colors>
+
+    <cam-grid m="2" columns="repeat(6, auto)" gap="0.5rem" items="center">
+      <cam-button gap="0.5rem" items="center"> <cam-icon>block</cam-icon>Basic </cam-button>
+      <cam-button p="2, 4" type="primary" gap="0.5rem" items="center"> <cam-icon>map</cam-icon>Primary </cam-button>
+      <cam-button p="1" type="secondary" gap="0.5rem" items="center"><cam-icon>photo</cam-icon>Secondary </cam-button>
+      <cam-button type="tech" gap="0.5rem" items="center"> <cam-icon>edit</cam-icon> </cam-button>
+      <cam-button type="ghost" gap="0.5rem" items="center"> <cam-icon>inbox</cam-icon>Ghost </cam-button>
+      <cam-button disabled items="center"> Disabled </cam-button>
+    </cam-grid>
+
+    <!-- <cam-box m="2" flex="space-evenly center">
+      <cam-harness id="test-cam-combo">
+        <cam-combo>
+          <cam-option value="A">Option A</cam-option>
+          <cam-option value="B">Option B</cam-option>
+          <cam-option value="C">Option C</cam-option>
+        </cam-combo>
+      </cam-harness>
+    </cam-box> -->
+
+    <cam-vas throttle="10">
       <h1><pre>&nbsp;&lt;cam-vas&gt;&nbsp;</pre></h1>
     </cam-vas>
 
@@ -118,11 +143,11 @@
       </cam-harness>
     </cam-box>
 
-    <cam-box class="sign-in" m="2" p="4" flex="center flex-start" dir="column" wrap="wrap">
-      <cam-input p="2 0" type="email" size="20" slot>
+    <cam-box class="sign-in" m="2" p="4" flex="center flex-start" direction="column" wrap="wrap" sh>
+      <cam-input p="2 0" type="email" size="20" show-slot>
         <label>Email</label>
       </cam-input>
-      <cam-input p="2 0" type="password" size="20" slot>
+      <cam-input p="2 0" type="password" size="20" show-slot>
         <label>Password</label>
       </cam-input>
     </cam-box>
@@ -130,16 +155,16 @@
     <cam-box m="2" flex="space-evenly center" wrap="wrap">
       <cam-input p="2" id="text" value="hello"></cam-input>
       <cam-input p="2" id="number" type="number" max="100"></cam-input>
-      <cam-input p="2" type="checkbox" slot>
+      <cam-input p="2" type="checkbox" show-slot>
         <label>checkbox</label>
       </cam-input>
-      <cam-input p="2" type="checkbox" slot disabled>
+      <cam-input p="2" type="checkbox" show-slot disabled>
         <label>checkbox</label>
       </cam-input>
-      <cam-input p="2" type="checkbox" slot toggle>
+      <cam-input p="2" type="checkbox" show-slot toggle>
         <label>toggle</label>
       </cam-input>
-      <cam-input p="2" type="checkbox" slot toggle disabled>
+      <cam-input p="2" type="checkbox" show-slot toggle disabled>
         <label>toggle</label>
       </cam-input>
       <cam-input p="2" type="range" value="5"></cam-input>
@@ -147,17 +172,31 @@
 
     <cam-box m="2" flex="space-evenly center" wrap="wrap">
       <cam-radio-group name="contact">
-        <cam-input p="2" type="radio" value="email" slot>
+        <cam-input p="2" type="radio" value="email" show-slot>
           <label>email</label>
         </cam-input>
-        <cam-input p="2" type="radio" value="phone" slot>
+        <cam-input p="2" type="radio" value="phone" show-slot>
           <label>phone</label>
         </cam-input>
-        <cam-input p="2" type="radio" value="text" slot checked>
+        <cam-input p="2" type="radio" value="text" show-slot checked>
           <label>text</label>
         </cam-input>
       </cam-radio-group>
     </cam-box>
+    <script type="module">
+      import { shades } from '/src/zing/Zing.ts'
+      const style = document.createElement('style')
+      style.innerHTML = `
+        body {
+          ${shades('gray', 0x59686c, 2).css}
+          ${shades('input', 0x67aece, 3).css}
+          ${shades('success', 0x60bfa1, 2).css}
+          ${shades('warning', 0xf3b477, 2).css}
+          ${shades('error', 0xf8513d, 2).css}
+        }
+      `
+      document.body.appendChild(style)
+    </script>
     <script>
       const camVas = document.querySelector('cam-vas')
       const bbox = camVas.getBoundingClientRect()
@@ -174,6 +213,10 @@
         if (x >= bbox.width || x <= 0) vx *= -1
         if (y >= bbox.height || y <= 0) vy *= -1
       }
+
+      const testCamCombo = document.querySelector('cam-harness#test-cam-combo')
+      testCamCombo.props = [{ name: 'value', type: 'text' }]
+      testCamCombo.bindings = [{ event: 'update' }]
 
       const testCamInput = document.querySelector('cam-harness#test-cam-input')
       testCamInput.props = [

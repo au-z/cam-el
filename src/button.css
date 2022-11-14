@@ -1,0 +1,9 @@
+@import './style/mixins.css';
+
+button {
+  @mixin bg 0.66;
+
+  & * {
+    pointer-events: none;
+  }
+}
