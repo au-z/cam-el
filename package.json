@@ -1,12 +1,14 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "3.0.0",
+  "version": "3.0.0-alpha.0",
   "type": "module",
   "description": "Foundational Web Components with Smooth Character",
   "main": "./dist/cam-el.js",
   "module": "./dist/cam-el.js",
   "exports": {
     "./button": "./dist/button.js",
+    "./input": "./dist/input.js",
+    "./icon": "./dist/icon.js",
     "./theme": "./dist/theme.js",
     "./grid": "./dist/grid.js",
     "./zing": "./dist/zing.js",
@@ -65,7 +67,7 @@
     "rollup-plugin-css-hmr": "^0.3.4",
     "storybook": "7.0.0-alpha.42",
     "typescript": "^4.8.4",
-    "vite": "^3.2.3",
+    "vite": "^3.2.4",
     "vitest": "^0.25.1"
   },
   "pnpm": {

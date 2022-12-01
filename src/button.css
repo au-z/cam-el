@@ -1,4 +1,5 @@
 @import './style/mixins.css';
+@import './style/theme.css';
 
 button {
   @mixin bg 0.33;

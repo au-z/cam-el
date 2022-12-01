@@ -1,6 +1,5 @@
 import { define, html, dispatch } from 'hybrids'
-import { CamElement } from './cam-el.js'
-import styles from './cam-input.css'
+import styles from './input.css'
 import { Gridable, gridableCSS, GridableElement } from './grid.js'
 import { THEME } from './theme/theme.js'
 import { Zing } from './zing/Zing.js'

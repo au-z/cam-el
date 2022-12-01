@@ -59,8 +59,7 @@ export const Zing = (tagName: string = 'app') => {
 
   const cssv: GetRule = (pName: RuleKey) => _theme[pName] ?? 'unset'
 
-  const _get = (postfix: string, fallback?: string) =>
-    `var(--${tagName}-${postfix}${fallback ? `, ${fallback}` : ''});\n`
+  const _get = (postfix: string, fallback?: string) => `var(--${postfix}${fallback ? `, ${fallback}` : ''});\n`
   const get = (rules: Rules | RulesFactory = {}, ns?: string) => {
     const _rules: Rules = typeof rules === 'function' ? rules({ theme: cssv }) : rules
     return Object.entries(_rules)
@@ -70,7 +69,7 @@ export const Zing = (tagName: string = 'app') => {
       .join('')
   }
 
-  const _set = (postfix: string, value: string = 'initial') => `--${tagName}-${postfix}: ${value}; `
+  const _set = (postfix: string, value: string = 'initial') => `--${postfix}: ${value}; `
   const set = (rules: Rules | RulesFactory = {}, ns?: string) => {
     const _rules: Rules = typeof rules === 'function' ? rules({ theme: cssv }) : rules
     return Object.entries(_rules)

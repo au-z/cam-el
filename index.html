@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="/src/index.ts"></script>
     <script type="module" src="/src/button.ts"></script>
+    <script type="module" src="/src/icon.ts"></script>
     <script type="module" src="/src/grid.ts"></script>
     <script type="module" src="/src/theme/theme.ts"></script>
     <script type="module" src="/src/components/string.ts"></script>
@@ -219,9 +220,9 @@
         if (y >= bbox.height || y <= 0) vy *= -1
       }
 
-      const testCamCombo = document.querySelector('cam-harness#test-cam-combo')
-      testCamCombo.props = [{ name: 'value', type: 'text' }]
-      testCamCombo.bindings = [{ event: 'update' }]
+      // const testCamCombo = document.querySelector('cam-harness#test-cam-combo')
+      // testCamCombo.props = [{ name: 'value', type: 'text' }]
+      // testCamCombo.bindings = [{ event: 'update' }]
 
       const testCamInput = document.querySelector('cam-harness#test-cam-input')
       testCamInput.props = [

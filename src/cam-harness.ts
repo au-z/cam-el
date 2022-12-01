@@ -1,5 +1,6 @@
-import { children, Component, define, html, RenderFunction } from 'hybrids'
+import { children, define, html } from 'hybrids'
 import { getset } from '@auzmartist/hybrids-helpers'
+import './input.js'
 
 export interface HarnessElement extends HTMLElement {
   // input props

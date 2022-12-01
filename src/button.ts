@@ -19,20 +19,23 @@ export const Button = define<H>({
   type: 'basic',
   disabled: false,
   render: (h: H) =>
-    html`<button class="${h.type}" disabled="${h.disabled}"><slot></slot></button>`.css`
+    html`<button class="${h.type}" disabled="${h.disabled}" part="button"><slot></slot></button>`.css`
     button {
       position: relative;
       ${Z.get(({ theme }) => ({
+        width: 'auto',
         padding: '0.5rem 1.25rem',
+        height: 'auto',
         background: theme('--input-800'),
         color: theme('--input-200'),
         borderWidth: '1px',
-        borderStyle: 'solid',
         borderColor: theme('--input-200'),
         borderRadius: '0.5rem',
-        fontFamily: 'sans-serif',
         letterSpacing: '0.1em',
       }))}
+
+      cursor: pointer;
+      transition: 0.3s all ease;
 
       ${caseCSS(h.type, {
         primary: ({ theme }) => ({
@@ -60,8 +63,6 @@ export const Button = define<H>({
           color: theme('--input-300'),
         }),
       })}
-      cursor: pointer;
-      transition: 0.3s all ease;
 
       ${gridableCSS(h)}
     }
@@ -81,22 +82,19 @@ export const Button = define<H>({
     }
 
     button[disabled] {
-      ${Z.get(
-        ({ theme }) => ({
-          background: theme('--gray-800'),
-          color: theme('--gray-400'),
-          borderColor: theme('--gray-600'),
-          cursor: 'not-allowed',
-        }),
-        'disabled'
-      )}
-      box-shadow: none;
+      ${Z.get(({ theme }) => ({
+        background: theme('--gray-800'),
+        color: theme('--gray-400'),
+        border: 'none',
+        boxShadow: 'none',
+      }))}
     }
 
     button:focus {
       ${Z.get(({ theme }) => ({
         outline: `2px solid ${theme('--input-active')}`,
       }))}
+      outline: var(--outline, 2px solid var(--input-active));
     }
 
     button.ghost {

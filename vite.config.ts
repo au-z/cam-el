@@ -13,15 +13,13 @@ export default defineConfig(({ mode }) => {
         entry: {
           'cam-el': 'src/index.ts',
           button: 'src/button.ts',
-          string: 'src/components/string.ts',
+          input: 'src/input.ts',
+          icon: 'src/icon.ts',
           theme: 'src/theme/theme.ts',
           grid: 'src/grid.ts',
           zing: 'src/zing/Zing.ts',
         },
         formats: ['es'],
-      },
-      rollupOptions: {
-        // external: /^lit/
       },
     },
     resolve: {

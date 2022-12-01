@@ -10,15 +10,16 @@
   input[type='radio'] input[type='range'] {
     -webkit-appearance: none;
     -moz-appearance: none;
-    height: 21px;
-    outline: none;
-    display: inline-block;
+    height: var(--height, 21px);
+    outline: var(--outline, none);
+    display: var(--display, inline-block);
     vertical-align: top;
     position: relative;
-    margin: 0;
+    margin: var(--margin, 0);
     cursor: pointer;
-    border: var(--bc, var(--cam-input-border));
-    background: var(--b, var(--cam-input-bg, var(--cam-input-bg)));
+    color: var(--color, unset);
+    border: var(--border, var(--bc, var(--cam-input-border)));
+    background: var(--background, var(--b, var(--cam-input-background, --cam-input-bg)));
     transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
     &:after {
       content: '';

@@ -1,4 +1,5 @@
 :host {
+  --input-active: #29a5df;
   --c-active: #275efe;
   --c-active-trans: #275efe55;
   --c-white: #f6f8ff;
@@ -19,4 +20,7 @@
   --cam-input-focus: 2px var(--c-active-trans);
   --cam-input-disabled: var(--c-white-1);
   --cam-input-disabled-inner: var(--c-white-2);
+}
+
+cam-button {
 }

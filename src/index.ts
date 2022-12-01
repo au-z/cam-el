@@ -1,19 +1,17 @@
-import { CamBox } from './cam-box.js'
-import { CamInput } from './cam-input.js'
-import { CamRadioGroup } from './cam-radio-group.js'
-export * from './cam-combo.js'
+import { CamBox } from '@src/cam-box.js'
+import { CamInput } from '@src/input.js'
+import { CamRadioGroup } from '@src/cam-radio-group.js'
+export * from '@src/cam-combo.js'
 
-import { CamSwatch } from './cam-swatch.js'
-import { CamHsl } from './cam-hsl.js'
-import { CamIcon } from './cam-icon.js'
+import { CamSwatch } from '@src/cam-swatch.js'
+import { CamHsl } from '@src/cam-hsl.js'
 
-import { CamDraggable, Draggable } from './cam-draggable.js'
+import { CamDraggable, Draggable } from '@src/cam-draggable.js'
 
-import CamRef from './cam-ref.js'
-import { CamHarness } from './cam-harness.js'
+import CamRef from '@src/cam-ref.js'
+import { CamHarness } from '@src/cam-harness.js'
 
-import { CamVas } from './cam-vas.js'
-import { CamChartPie } from './cam-chart-pie.js'
+import { CamVas } from '@src/cam-vas.js'
 
 export {
   // Layout
@@ -24,11 +22,8 @@ export {
   // Color
   CamSwatch,
   CamHsl,
-  // Icon
-  CamIcon,
   // Canvas
   CamVas,
-  CamChartPie,
   // IO
   CamDraggable,
   Draggable,
