@@ -21,6 +21,7 @@ export const Button = define<H>({
   render: (h: H) =>
     html`<button class="${h.type}" disabled="${h.disabled}" part="button"><slot></slot></button>`.css`
     button {
+      border: none;
       position: relative;
       ${Z.get(({ theme }) => ({
         width: 'auto',
@@ -30,6 +31,7 @@ export const Button = define<H>({
         color: theme('--input-200'),
         borderWidth: '1px',
         borderColor: theme('--input-200'),
+        border: `1px solid ${theme('--input-200')}`,
         borderRadius: '0.5rem',
         letterSpacing: '0.1em',
       }))}
