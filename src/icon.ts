@@ -1,7 +1,6 @@
+import { THEME } from '@src/theme/theme.js'
+import { Zing } from '@src/zing/Zing.js'
 import { define, html } from 'hybrids'
-import { THEME } from './theme/theme.js'
-
-import { Zing } from './zing/Zing.js'
 
 const Z = Zing('cam-icon').theme(THEME)
 

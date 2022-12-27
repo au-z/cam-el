@@ -1,6 +1,6 @@
 import { define, html } from 'hybrids'
 import { cssVar } from '@auzmartist/hybrids-helpers'
-import './cam-vas'
+import '@src/cam-vas'
 
 export interface ChartPieElement extends HTMLElement {
   [key: string]: any
@@ -51,7 +51,7 @@ export const CamChartPie = define<H>({
 
 function drawChart(canvas, { width, height, data, colors }) {
   const total = data.reduce((sum, { count }) => (sum += count), 0)
-  
+
   canvas.draw = (ctx: CanvasRenderingContext2D) => {
     ctx.beginPath()
     const theta = (Math.PI * 2) / data

@@ -6,7 +6,6 @@ const resolve = (rel) => path.resolve(__dirname, rel)
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   return {
-    plugins: [CssHmr('.ts')],
     build: {
       emptyOutDir: false,
       lib: {
@@ -29,5 +28,10 @@ export default defineConfig(({ mode }) => {
         '@auzmartist/cam-el': resolve(mode !== 'production' ? 'src' : 'dist'),
       },
     },
+    plugins: [
+      CssHmr({
+        'src/**/*': { ext: '.ts', page: false },
+      }),
+    ],
   }
 })

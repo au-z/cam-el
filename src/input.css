@@ -1,5 +1,5 @@
-@import './style/mixins.css';
-@import './style/theme.css';
+@import '@src/style/mixins.css';
+@import '@src/style/theme.css';
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[data-type='text'],

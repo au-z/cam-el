@@ -1,10 +1,10 @@
 import { html, dispatch, define } from 'hybrids'
-import './cam-box.js'
-import './input.js'
-import './cam-swatch.js'
+import '@src/cam-box.js'
+import '@src/input.js'
+import '@src/cam-swatch.js'
 import { hex_rgb, hsl_rgb, rgb_hex, rgb_hsl } from '@src/lib/color.js'
 
-import styles from './cam-hsl.css'
+import styles from '@src/cam-hsl.css?inline'
 
 export interface HSLElement extends HTMLElement {
   h: number

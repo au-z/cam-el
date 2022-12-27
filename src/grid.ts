@@ -1,6 +1,6 @@
 import { set } from '@auzmartist/hybrids-helpers'
 import { define, html } from 'hybrids'
-import { CamEl, camelCSS, CamElement } from './cam-el.js'
+import { CamEl, camelCSS, CamElement } from '@src/cam-el.js'
 
 export const Gridable = {
   ...CamEl,
@@ -32,7 +32,7 @@ export interface GridableElement extends CamElement {
 }
 type H = GridableElement
 
-export const gridableCSS = (h: GridableElement) => `
+export const gridable = (h: GridableElement) => `
   display: ${h.inline ? 'inline-grid' : 'grid'};
   grid-auto-flow: ${h.flow || 'initial'};
   grid-template-columns: ${h.columns};
@@ -49,7 +49,7 @@ export const Grid = define<H>({
   ...Gridable,
   render: (h: H) => html`<slot></slot>`.css`
     :host {
-      ${gridableCSS(h)}
+      ${gridable(h)}
     }
 	`,
 })

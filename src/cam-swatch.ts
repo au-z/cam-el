@@ -1,9 +1,9 @@
 import { html, define } from 'hybrids'
 import Mousetrap from 'mousetrap'
-import { hsl_rgb, rgb_hex, rgb_hsl } from './lib/color.js'
-import styles from './cam-swatch.css'
-import { Zing } from './zing/Zing.js'
-import { THEME } from './theme/theme.js'
+import { hsl_rgb, rgb_hex, rgb_hsl } from '@src/lib/color.js'
+import styles from '@src/cam-swatch.css?inline'
+import { Zing } from '@src/zing/Zing.js'
+import { THEME } from '@src/theme/theme.js'
 
 export interface SwatchElement extends HTMLElement {
   r: number

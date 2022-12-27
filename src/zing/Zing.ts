@@ -36,7 +36,7 @@ export const shades = (name: string, source: number, start: number = 4) => {
     })
   })
   return {
-    get map() {
+    get map(): Record<string, string> {
       return S.reduce((map, shade, i) => {
         map[`${keystr(name, i + 1)}`] = hexstr(shade)
         return map
@@ -52,6 +52,23 @@ export const shades = (name: string, source: number, start: number = 4) => {
       return S
     },
   }
+}
+
+export const theme = (selector?: string, ...styleFns) => {
+  let style
+  if (selector) {
+    style = document.querySelector(selector)
+  } else {
+    style = document.createElement('style')
+  }
+
+  style.innerHTML = `
+    body {
+      ${styleFns.reduce((css, fn) => `${css}\n${fn()}`, '')}
+    }
+    ${style.innerHTML ?? ''}
+  `
+  document.body.appendChild(style)
 }
 
 export const Zing = (tagName: string = 'app') => {

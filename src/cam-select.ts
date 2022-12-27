@@ -1,7 +1,7 @@
 import { listen } from '@auzmartist/hybrids-helpers'
 import { CamEl, CamElement } from '@src/cam-el.js'
 import { children, define, html } from 'hybrids'
-import styles from './cam-select.css'
+import styles from '@src/cam-select.css?inline'
 
 export interface OptionElement extends CamElement {
   value: string

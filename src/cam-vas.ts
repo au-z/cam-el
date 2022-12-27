@@ -1,6 +1,6 @@
 import { define, html } from 'hybrids'
 import { getset } from '@auzmartist/hybrids-helpers'
-import { propertyFn } from './utils.js'
+import { propertyFn } from '@src/utils.js'
 
 export interface CanvasElement extends HTMLElement {
   context: '2d'

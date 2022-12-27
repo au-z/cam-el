@@ -1,6 +1,6 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "type": "module",
   "description": "Foundational Web Components with Smooth Character",
   "main": "./dist/cam-el.js",
@@ -12,7 +12,6 @@
     "./theme": "./dist/theme.js",
     "./grid": "./dist/grid.js",
     "./zing": "./dist/zing.js",
-    "./string": "./dist/string.js",
     ".": "./dist/cam-el.js"
   },
   "files": [
@@ -64,11 +63,11 @@
     "postcss": "^8.4.5",
     "postcss-mixins": "^9.0.1",
     "postcss-nested": "^5.0.6",
-    "rollup-plugin-css-hmr": "^0.3.4",
+    "rollup-plugin-css-hmr": "1.0.0",
     "storybook": "7.0.0-alpha.42",
     "typescript": "^4.8.4",
-    "vite": "^3.2.4",
-    "vitest": "^0.25.1"
+    "vite": "^4.0.3",
+    "vitest": "^0.26.2"
   },
   "pnpm": {
     "peerDependencyRules": {

@@ -1,6 +1,6 @@
 import { children, define, html } from 'hybrids'
 import { getset } from '@auzmartist/hybrids-helpers'
-import './input.js'
+import '@src/input.js'
 
 export interface HarnessElement extends HTMLElement {
   // input props

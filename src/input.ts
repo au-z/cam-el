@@ -1,8 +1,8 @@
 import { define, html, dispatch } from 'hybrids'
-import styles from './input.css'
-import { Gridable, gridableCSS, GridableElement } from './grid.js'
-import { THEME } from './theme/theme.js'
-import { Zing } from './zing/Zing.js'
+import styles from '@src/input.css?inline'
+import { Gridable, gridableCSS, GridableElement } from '@src/grid.js'
+import { THEME } from '@src/theme/theme.js'
+import { Zing } from '@src/zing/Zing.js'
 
 const clamp = (val, min, max) => Math.max(min, Math.min(max, val))
 

@@ -1,5 +1,5 @@
 import { define, html } from 'hybrids'
-import { CamEl, camelCSS, CamElement } from './cam-el.js'
+import { CamEl, camelCSS, CamElement } from '@src/cam-el.js'
 
 export interface BoxElement extends CamElement {
   container: boolean

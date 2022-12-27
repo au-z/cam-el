@@ -1,14 +1,89 @@
-@import './style/mixins.css';
-@import './style/theme.css';
+@import '@src/style/mixins.css';
+@import '@src/style/theme.css';
 
 button {
   @mixin bg 0.33;
 
+  border: none;
+  position: relative;
+  overflow: hidden;
+  width: auto;
+  padding: 0.5rem 1.25rem;
+  height: auto;
+  background: var(--input-800);
+  color: var(--input-200);
+  border-width: 1px;
+  border-color: var(--input-200);
+  border: 1px solid var(--input-200);
+  border-radius: 0.5rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: 0.3s all ease;
+  /* gridable defaults */
+  grid-gap: 0.5rem;
+
+  &::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    transition: 0.3s all ease;
+    borderradius: 0.5rem;
+  }
+
+  &:focus {
+    outline: 2px solid var(--input-active);
+  }
+
+  &:hover:not([disabled], .ghost)::after {
+    background: rgba(255, 255, 255, 0.08);
+  }
   &:hover:not([disabled], .ghost) {
     @mixin bg 0.5;
   }
 
+  &[disabled] {
+    background: var(--gray-800);
+    color: var(--gray-400);
+    border: none;
+    boxshadow: none;
+  }
+
   & * {
     pointer-events: none;
+  }
+}
+
+button.primary {
+  background: var(--background, var(--input-400));
+  color: var(--color, var(--input-100));
+  border: var(--border, none);
+  padding: var(--padding, calc(2 * var(--cam-unit)) calc(4 * var(--cam-unit)));
+}
+button.secondary {
+  background: var(--background, var(--input-200));
+  color: var(--color, var(--input-900));
+  border: none;
+}
+button.tech {
+  background: var(--background, var(--input-100));
+  color: var(--color, var(--input-800));
+  padding: 0.35rem;
+  font-size: 0.66em;
+  font-weight: bold;
+  border-color: var(--border-color, var(--input-800));
+  border-radius: 0.5rem;
+}
+button.ghost {
+  background: transparent;
+  border: none;
+  color: var(--color, var(--input-300));
+  box-shadow: none;
+  &:hover {
+    color: var(--input-200);
+  }
+  &:focus {
+    outline: none;
   }
 }

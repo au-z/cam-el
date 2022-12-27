@@ -1,5 +1,5 @@
 import { define, Descriptor } from 'hybrids'
-import { Disposable, Type } from './interfaces.js'
+import { Disposable, Type } from '@src/interfaces.js'
 
 class Shortcuts implements Disposable {
   reg: Record<string, ShortcutConfig> = {}

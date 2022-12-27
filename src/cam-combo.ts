@@ -1,6 +1,6 @@
-import { CamElement } from './cam-el.js'
+import { CamElement } from '@src/cam-el.js'
 import { children, define, html } from 'hybrids'
-import { CamOption } from './cam-select.js'
+import { CamOption } from '@src/cam-select.js'
 
 export interface CamComboElement extends CamElement {
   [key: string]: any
