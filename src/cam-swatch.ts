@@ -2,8 +2,6 @@ import { html, define } from 'hybrids'
 import Mousetrap from 'mousetrap'
 import { hsl_rgb, rgb_hex, rgb_hsl } from '@src/lib/color.js'
 import styles from '@src/cam-swatch.css?inline'
-import { Zing } from '@src/zing/Zing.js'
-import { THEME } from '@src/theme/theme.js'
 
 export interface SwatchElement extends HTMLElement {
   r: number
@@ -24,8 +22,6 @@ export interface SwatchElement extends HTMLElement {
   textColor: string
 }
 type H = SwatchElement
-
-const Z = Zing('cam-swatch').theme(THEME)
 
 export const CamSwatch = define<SwatchElement>({
   tag: 'cam-swatch',

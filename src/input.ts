@@ -1,6 +1,6 @@
 import { define, html, dispatch } from 'hybrids'
 import styles from '@src/input.css?inline'
-import { Gridable, gridableCSS, GridableElement } from '@src/grid.js'
+import { Gridable, gridable, GridableElement } from '@src/grid.js'
 import { THEME } from '@src/theme/theme.js'
 import { Zing } from '@src/zing/Zing.js'
 
@@ -86,7 +86,7 @@ export const CamInput = define<InputElement>({
   render: (h: H) =>
     renderInput(h).css`
       :host {
-        ${gridableCSS(h)}
+        ${gridable(h)}
       }
       ${inputStyles}
   `.style(styles),

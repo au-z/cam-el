@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => {
         entry: {
           'cam-el': 'src/index.ts',
           button: 'src/button.ts',
+          field: 'src/field.ts',
           input: 'src/input.ts',
           icon: 'src/icon.ts',
           theme: 'src/theme/theme.ts',
