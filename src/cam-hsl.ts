@@ -1,7 +1,7 @@
 import { html, dispatch, define } from 'hybrids'
 import '@src/cam-box.js'
 import '@src/input.js'
-import '@src/cam-swatch.js'
+import '@src/swatch.js'
 import { hex_rgb, hsl_rgb, parseColor, rgb_hex, rgb_hsl } from '@src/lib/color.js'
 import { Color } from 'three'
 

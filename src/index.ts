@@ -3,7 +3,7 @@ import { CamInput } from '@src/input.js'
 import { CamRadioGroup } from '@src/cam-radio-group.js'
 export * from '@src/cam-combo.js'
 
-import { CamSwatch } from '@src/cam-swatch.js'
+import { CamSwatch } from '@src/swatch.js'
 import { CamHsl } from '@src/cam-hsl.js'
 
 import { CamDraggable, Draggable } from '@src/cam-draggable.js'

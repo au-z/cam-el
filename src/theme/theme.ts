@@ -1,7 +1,7 @@
 import { html } from 'hybrids'
 import { define } from 'hybrids'
 import { range } from '@src/utils.js'
-import '@src/cam-swatch.js'
+import '@src/swatch.js'
 
 export const THEME = ({ shades }) => ({
   ...shades('gray', 0x59686c, 2).map,
