@@ -3,6 +3,7 @@ import styles from './button.css?inline'
 import { Gridable, GridableElement, gridable } from '@src/grid.js'
 
 export interface ButtonElement extends GridableElement, HTMLElement {
+  type: 'basic' | 'primary' | 'secondary' | 'tech' | 'ghost'
   [key: string]: any
 }
 

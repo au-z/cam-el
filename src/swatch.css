@@ -33,9 +33,7 @@
 
   span {
     font-family: var(--cam-font, monospace);
-    padding: 4px 12px;
-    font-size: 1rem;
-    opacity: 0.6;
-    letter-spacing: 0.15rem;
+    padding: 0.5rem;
+    letter-spacing: 0.1rem;
   }
 }

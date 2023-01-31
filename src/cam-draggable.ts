@@ -4,7 +4,7 @@ export const CamDraggable = define<any>({
   tag: 'cam-draggable',
   zIndex: 1,
   __draggable__: { value: undefined, connect: Draggable() },
-  render: ({ zIndex }) => html`<slot style="${{ cursor: 'pointer' }}"></slot>`.css`:host {
+  render: ({ zIndex }) => html`<slot style="cursor: pointer;"></slot>`.css`:host {
     z-index: ${zIndex};
   }`,
 })

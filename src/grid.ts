@@ -4,13 +4,13 @@ import { CamEl, camelCSS, CamElement } from '@src/cam-el.js'
 
 export const Gridable = {
   ...CamEl,
-  grid: set('', (host: H, val) => val.split(/,\s*/)),
+  grid: set('', (host: H, val) => splitOnTLCommas(val)),
   columns: set('', ({ grid }: H, val) => val || grid[0] || 'unset'),
   rows: set('', ({ grid }: H, val) => val || grid[1] || grid[0] || 'unset'),
   gap: set('', ({ grid }: H, val) => (!!val.split(/,\s*/)[0] ? val.split(/,\s*/) : [grid[2], grid[3]] || 'initial')),
   columnGap: ({ gap }) => gap[0] || 'unset',
   rowGap: ({ gap }) => gap[1] || gap[0] || 'unset',
-  items: set('', (host: H, val = '') => val.split(/,\s*/)),
+  items: set('', (host: H, val = '') => splitOnTLCommas(val)),
   justify: ({ items }) => items[0] || 'flex-start',
   align: ({ items, justify }) => items[1] || justify,
   flow: '',
@@ -53,3 +53,22 @@ export const Grid = define<H>({
     }
 	`,
 })
+
+// utility
+
+function splitOnTLCommas(str: string) {
+  const arr = []
+  const stack = []
+  let idx = 0
+  for (let i = 0; i < str.length; ++i) {
+    const l = str[i]
+    if (l === '(') stack.push(l)
+    if (l === ')') stack.pop()
+    if (l === ',' && stack.length === 0) {
+      arr.push(str.substring(idx, i - idx).trim())
+      idx = i + 1
+    }
+  }
+  arr.push(str.substring(idx).trim())
+  return arr
+}

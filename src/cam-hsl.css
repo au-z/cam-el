@@ -20,12 +20,6 @@
   cam-swatch small {
     font-family: 'Consolas', monospace;
   }
-
-  cam-input::part(input) {
-    color: inherit;
-    opacity: 0.7;
-    /* width: 30px; */
-  }
 }
 
 .rot-container {

@@ -1,15 +1,18 @@
 {
   "name": "@auzmartist/cam-el",
-  "version": "3.0.0-alpha.3",
-  "type": "module",
   "description": "Foundational Web Components with Smooth Character",
+  "version": "3.0.0-alpha.4",
+  "type": "module",
   "main": "./dist/cam-el.js",
   "module": "./dist/cam-el.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     "./button": "./dist/button.js",
+    "./collapse": "./dist/collapse.js",
     "./field": "./dist/field.js",
     "./input": "./dist/input.js",
     "./icon": "./dist/icon.js",
+    "./swatch": "./dist/swatch.js",
     "./theme": "./dist/theme.js",
     "./grid": "./dist/grid.js",
     "./zing": "./dist/zing.js",
@@ -22,9 +25,7 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "prepublishOnly": "npm run build",
-    "storybook": "storybook dev -p 6006",
-    "test": "vitest",
-    "build-storybook": "storybook build"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -43,19 +44,11 @@
   "dependencies": {
     "@auzmartist/hybrids-helpers": "^0.3.3",
     "hybrids": "^8.1.5",
+    "three": "^0.149.0",
     "mousetrap": "^1.6.5"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.0.0-alpha.42",
-    "@storybook/addon-backgrounds": "7.0.0-alpha.42",
-    "@storybook/addon-docs": "7.0.0-alpha.42",
-    "@storybook/addon-essentials": "7.0.0-alpha.42",
-    "@storybook/addon-highlight": "7.0.0-alpha.42",
-    "@storybook/addon-links": "7.0.0-alpha.42",
-    "@storybook/addon-measure": "7.0.0-alpha.42",
-    "@storybook/addon-outline": "7.0.0-alpha.42",
-    "@storybook/web-components": "7.0.0-alpha.42",
-    "@storybook/web-components-vite": "7.0.0-alpha.42",
+    "@auzmartist/route": "link:..\\..\\austinmartin\\libs\\route",
     "@types/mousetrap": "^1.6.5",
     "autoprefixer": "^10.4.12",
     "core-js": "^3.26.0",
@@ -65,7 +58,6 @@
     "postcss-mixins": "^9.0.1",
     "postcss-nested": "^5.0.6",
     "rollup-plugin-css-hmr": "1.0.0",
-    "storybook": "7.0.0-alpha.42",
     "typescript": "^4.8.4",
     "vite": "^4.0.3",
     "vitest": "^0.26.2"

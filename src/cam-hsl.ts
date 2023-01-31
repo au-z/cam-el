@@ -2,7 +2,8 @@ import { html, dispatch, define } from 'hybrids'
 import '@src/cam-box.js'
 import '@src/input.js'
 import '@src/cam-swatch.js'
-import { hex_rgb, hsl_rgb, rgb_hex, rgb_hsl } from '@src/lib/color.js'
+import { hex_rgb, hsl_rgb, parseColor, rgb_hex, rgb_hsl } from '@src/lib/color.js'
+import { Color } from 'three'
 
 import styles from '@src/cam-hsl.css?inline'
 
@@ -36,22 +37,14 @@ export const CamHsl = define<HSLElement>({
   s: { value: 100, observe: emitChange },
   l: { value: 50, observe: emitChange },
   a: { value: 1, observe: emitChange },
+  color: ({ h, s, l }) => parseColor(`hsl(${h}, ${s}%, ${l}%)`),
+  hsl: ({ color }) => color.getHSL(new Color()),
+  labelColor: ({ color, hsl }) =>
+    color.clone().offsetHSL(0, -hsl.s + hsl.s * 0.3, hsl.l > 0.5 ? -hsl.l + hsl.l * 0.2 : 1 - hsl.l - hsl.l * 0.5),
   alpha: false,
-  hex: {
-    value: '',
-    observe: (host, hex) => {
-      if (!hex || hex.length !== 6) return
-      const [h, s, l] = rgb_hsl(hex_rgb(hex))
-      host.h = Math.round(h * 360)
-      host.s = Math.round(s * 100)
-      host.l = Math.round(l * 100)
-    },
-  },
-  _hex: ({ h, s, l }) => rgb_hex(hsl_rgb([h / 360, s / 100, l / 100])),
-
-  render: ({ h, s, l, a, alpha }) =>
+  render: ({ h, s, l, a, alpha, labelColor }) =>
     html` <div class="cam-hsl">
-      <cam-swatch part="swatch" h=${h} s=${s} l=${l} a="${a}" hide-label>
+      <cam-swatch part="swatch" value="${`hsl(${h}, ${s}%, ${l}%)`}" a="${a}" display="none">
         <cam-box class="container" flex="flex-start">
           <cam-box m="1" flex="flex-start" direction="column">
             <cam-input
@@ -110,5 +103,9 @@ export const CamHsl = define<HSLElement>({
           </div>`}
         </cam-box>
       </cam-swatch>
-    </div>`.style(styles),
+    </div>`.css`
+      cam-input {
+        --color: #${labelColor.getHexString()};
+      }
+    `.style(styles),
 })

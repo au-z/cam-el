@@ -10,11 +10,8 @@ button {
   width: var(--width, auto);
   padding: var(--padding, 0.5rem 1.25rem);
   height: var(--height, auto);
-  background: var(--background, var(--input-800));
-  color: var(--color, var(--input-200));
-  border-width: var(--border-width, 1px);
-  border-color: var(--border-color, var(--input-200));
-  border: 1px solid var(--border, var(--input-200));
+  background: var(--background, transparent);
+  color: var(--color, #393d3f);
   border-radius: var(--border-radius, 0.5rem);
   letter-spacing: var(--letter-spacing, 0.1em);
   cursor: pointer;
@@ -33,7 +30,7 @@ button {
   }
 
   &:focus {
-    outline: 2px solid var(--outline, var(--input-active));
+    outline: 2px solid var(--outline, var(--c-active));
   }
 
   &:hover:not([disabled], .ghost)::after {
@@ -55,34 +52,26 @@ button {
   }
 }
 
+button.basic {
+  border: var(--border, 1px solid var(--c-active-trans));
+}
+
 button.primary {
-  background: var(--background, var(--input-500));
-  color: var(--color, var(--input-100));
   border: var(--border, none);
   padding: var(--padding, calc(2 * var(--cam-unit)) calc(4 * var(--cam-unit)));
 }
 button.secondary {
-  background: var(--background, var(--input-200));
-  color: var(--color, var(--input-900));
   border: var(--border, none);
 }
 button.tech {
-  background: var(--background, var(--input-100));
-  color: var(--color, var(--input-800));
   padding: var(--padding, 0.35rem);
   font-size: var(--font-size, 0.66em);
   font-weight: var(--font-weight, bold);
-  border-color: var(--border-color, var(--input-300));
-  border-radius: var(--border-radius, 0.5rem);
 }
 button.ghost {
   background: transparent;
   border: none;
-  color: var(--color, var(--input-300));
   box-shadow: none;
-  &:hover {
-    color: var(--color, var(--input-200));
-  }
   &:focus {
     outline: none;
   }

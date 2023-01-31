@@ -5,6 +5,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href="/src/style/index.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/node_modules/@auzmartist/route/dist/route.js"></script>
+    <script type="module" src="/src/sb/sb-layout.ts"></script>
+
     <script type="module" src="/src/index.ts"></script>
     <script type="module" src="/src/button.ts"></script>
     <script type="module" src="/src/icon.ts"></script>
@@ -12,22 +15,22 @@
     <script type="module" src="/src/theme/theme.ts"></script>
     <title>cam-el</title>
     <style>
-      :root {
-        --swatch-value: var(--undef, #ff00ff);
-        --swatch-value-hsla: hsla(18, 84%, 95%, 1);
-        --swatch-value-rgba: rgba(40, 84, 95, 0.5);
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        --cam-swatch-value: #99ff88;
       }
       body {
         position: relative;
         box-sizing: border-box;
         min-height: 95vh;
         font-family: 'Inter', Arial, sans-serif;
-        color: #8a91b4;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: #f6f8fe;
       }
 
       cam-input > label {
@@ -46,13 +49,123 @@
         height: 6rem;
       }
 
+      cam-button {
+        --background: #262834;
+        --color: white;
+      }
+
+      cam-icon {
+        --color: white;
+        --font-size: 1.3rem;
+      }
+
       cam-hsl {
         margin: 8px;
       }
     </style>
   </head>
   <body>
-    <cam-theme-colors colors="gray input success warning error"></cam-theme-colors>
+    <sb-layout prefix="cam">
+      <div slot="logo">
+        <img width="60" height="60" src="https://i.imgur.com/9b3r9LK.png" />
+      </div>
+      <cam-swatch slot="cam-swatch"></cam-swatch>
+      <cam-hsl slot="cam-hsl"></cam-hsl>
+      <cam-button slot="cam-button" flow="column" gap="0.5rem" items="center"><cam-icon>air</cam-icon>Air</cam-button>
+      <cam-draggable slot="cam-draggable">
+        <cam-icon>face</cam-icon>
+      </cam-draggable>
+
+      <cam-vas slot="cam-vas" throttle="10">
+        <h1><pre>&nbsp;&lt;cam-vas&gt;&nbsp;</pre></h1>
+      </cam-vas>
+
+      <cam-input slot="cam-input" p="2 0" type="email" size="20" show-slot>
+        <label>Email</label>
+      </cam-input>
+
+      <cam-grid slot="icons" grid="repeat(auto-fill, 2rem), unset" gap="1rem" style="width: 20rem; height: auto">
+        <cam-icon>search</cam-icon><cam-icon>home</cam-icon><cam-icon>menu</cam-icon><cam-icon>close</cam-icon>
+        <cam-icon>settings</cam-icon><cam-icon>expand_more</cam-icon><cam-icon>done</cam-icon
+        ><cam-icon>check_circle</cam-icon> <cam-icon>favorite</cam-icon><cam-icon>add</cam-icon
+        ><cam-icon>delete</cam-icon><cam-icon>arrow_back</cam-icon> <cam-icon>star</cam-icon
+        ><cam-icon>chevron_right</cam-icon><cam-icon>logout</cam-icon><cam-icon>add_circle</cam-icon>
+        <cam-icon>cancel</cam-icon><cam-icon>more_vert</cam-icon><cam-icon>check</cam-icon
+        ><cam-icon>check_box</cam-icon> <cam-icon>toggle_on</cam-icon><cam-icon>open_in_new</cam-icon
+        ><cam-icon>refresh</cam-icon><cam-icon>login</cam-icon><cam-icon>chevron_left</cam-icon
+        ><cam-icon>expand_less</cam-icon><cam-icon>apps</cam-icon><cam-icon>download</cam-icon
+        ><cam-icon>remove</cam-icon><cam-icon>toggle_off</cam-icon><cam-icon>bolt</cam-icon
+        ><cam-icon>filter_list</cam-icon><cam-icon>delete_forever</cam-icon><cam-icon>autorenew</cam-icon
+        ><cam-icon>key</cam-icon><cam-icon>sort</cam-icon><cam-icon>sync</cam-icon><cam-icon>add_box</cam-icon
+        ><cam-icon>block</cam-icon><cam-icon>restart_alt</cam-icon><cam-icon>menu_option</cam-icon
+        ><cam-icon>expand_circle_down</cam-icon><cam-icon>backspace</cam-icon><cam-icon>undo</cam-icon
+        ><cam-icon>done_all</cam-icon><cam-icon>arrow_right</cam-icon><cam-icon>open_in_full</cam-icon
+        ><cam-icon>double_arrow</cam-icon><cam-icon>more_horiz</cam-icon>
+      </cam-grid>
+    </sb-layout>
+
+    <script>
+      const sb = document.querySelector('sb-layout')
+      const set = (value, ...args) =>
+        args.reduce((args, arg) => {
+          args[arg] = value
+          return args
+        }, {})
+
+      sb.manifest = {
+        'cam-swatch': {
+          props: {
+            value: { input: {} },
+            display: { input: {} },
+          },
+          tests: [
+            { name: 'hex', props: { value: 0xff0000 } },
+            { name: 'hex-string', props: { value: '#00ff00' } },
+            { name: 'rgb', props: { value: 'rgb(0, 0, 255)' } },
+            { name: 'hsl', props: { value: 'hsl(200, 50%, 70%)' } },
+            { name: 'css-var', props: { value: '--cam-swatch-value' } },
+          ],
+        },
+        'cam-hsl': {
+          props: {
+            value: { input: {} },
+            h: { input: { type: 'number', min: 0, max: 360 } },
+            s: { input: { type: 'number', min: 0, max: 100 } },
+            l: { input: { type: 'number', min: 0, max: 100 } },
+            a: { input: { type: 'number', min: 0, max: 1, step: 0.01 } },
+          },
+          tests: [
+            {
+              name: 'default',
+              props: { value: 'hsl(200, 50%, 70%)' },
+            },
+            {
+              name: 'parsed',
+              props: { value: 'hsl(310, 50%, 10%)', ...set(undefined, 'h', 's', 'l', 'a') },
+            },
+            { name: 'channels', props: { h: 80, s: 50, l: 60, a: 0.96, ...set('', 'value') } },
+          ],
+        },
+        'cam-button': {
+          props: {
+            type: { input: {} },
+            disabled: { input: { type: 'checkbox' } },
+          },
+          tests: [
+            { name: 'basic', props: { type: 'basic' } },
+            { name: 'primary', props: { type: 'primary' } },
+            { name: 'secondary', props: { type: 'secondary' } },
+            { name: 'tech', props: { type: 'tech' } },
+            { name: 'ghost', props: { type: 'ghost' } },
+          ],
+        },
+      }
+    </script>
+    <!-- <cam-theme-colors colors="gray input success warning error"></cam-theme-colors>
+
+    <cam-draggable>
+      <cam-icon>face</cam-icon>
+    </cam-draggable>
 
     <cam-grid m="2" columns="repeat(6, auto)" gap="0.5rem" items="center">
       <cam-button items="center"> <cam-icon>block</cam-icon>Basic </cam-button>
@@ -293,6 +406,6 @@
       // testCamRadioGroup.bindings = [
       // 	{event: 'update'},
       // ]
-    </script>
+    </script> -->
   </body>
 </html>

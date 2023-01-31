@@ -1,3 +1,16 @@
+import { Color } from 'three'
+
+export function parseColor(value: string): Color {
+  // resolve CSS variable
+  if (value.indexOf('--') === 0) {
+    value = getComputedStyle(document.documentElement).getPropertyValue(value)?.trim()
+  }
+  if (parseInt(value)) {
+    return new Color(parseInt(value) || null)
+  }
+  return new Color(value || null)
+}
+
 export const hue_rgb = (p, q, t) => {
   if (t < 0) t += 1
   if (t > 1) t -= 1

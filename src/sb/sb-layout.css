@@ -1,0 +1,74 @@
+@import '../style/mixins.css';
+
+:host,
+.layout {
+  --color: #bac1e4;
+
+  width: 100vw;
+  height: 100vh;
+  background: #222;
+  color: var(--color);
+}
+
+.navbar {
+  height: 100%;
+  padding-top: 1rem;
+  background: #252525;
+  border-right: 1px solid #333;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      text-decoration: none;
+      margin: 0.25rem 0;
+
+      cam-button {
+        --color: white;
+        --border: 1px solid #373737;
+      }
+
+      ul.tests {
+        padding-left: 2rem;
+
+        route-a {
+          position: relative;
+          --color: var(--color);
+        }
+        route-a[active]::before {
+          content: '';
+          @mixin absPos 50%, auto, auto, -0.75rem;
+          @mixin wh 4px;
+          border-radius: 4px;
+          background: #98e673;
+          @mixin glow 6, 180, 252, 180;
+        }
+      }
+    }
+  }
+}
+
+.content {
+  height: 100%;
+
+  .toolbar {
+    background: #252525;
+    border-bottom: 1px solid #333;
+  }
+
+  .main {
+    --color: initial;
+
+    height: 100%;
+    color: initial;
+  }
+
+  .controls {
+    padding: 0.5rem;
+    max-height: 50vh;
+    background: #252525;
+    border-top: 1px solid #333;
+    overflow-y: scroll;
+  }
+}

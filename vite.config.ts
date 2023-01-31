@@ -12,9 +12,11 @@ export default defineConfig(({ mode }) => {
         entry: {
           'cam-el': 'src/index.ts',
           button: 'src/button.ts',
+          collapse: 'src/collapse.ts',
           field: 'src/field.ts',
           input: 'src/input.ts',
           icon: 'src/icon.ts',
+          swatch: 'src/swatch.ts',
           theme: 'src/theme/theme.ts',
           grid: 'src/grid.ts',
           zing: 'src/zing/Zing.ts',
