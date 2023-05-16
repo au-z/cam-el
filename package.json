@@ -1,7 +1,7 @@
 {
   "name": "@auzmartist/cam-el",
   "description": "Foundational Web Components with Smooth Character",
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0",
   "type": "module",
   "main": "./dist/cam-el.js",
   "module": "./dist/cam-el.js",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/auzmartist/cam-el.git"
+    "url": "git+https://github.com/au-z/cam-el.git"
   },
   "keywords": [
     "web",
@@ -38,17 +38,17 @@
   "author": "Austin Martin (auz.martin@gmail.com)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/auzmartist/cam-el/issues"
+    "url": "https://github.com/au-z/cam-el/issues"
   },
-  "homepage": "https://github.com/auzmartist/cam-el#readme",
+  "homepage": "https://github.com/au-z/cam-el#readme",
   "dependencies": {
-    "@auzmartist/hybrids-helpers": "^0.3.3",
+    "@auzmartist/hybrids-helpers": "^0.3.6",
     "hybrids": "^8.1.5",
     "three": "^0.149.0",
     "mousetrap": "^1.6.5"
   },
   "devDependencies": {
-    "@auzmartist/route": "link:..\\..\\austinmartin\\libs\\route",
+    "@auzmartist/ferry": "^0.0.2",
     "@types/mousetrap": "^1.6.5",
     "autoprefixer": "^10.4.12",
     "core-js": "^3.26.0",

@@ -16,7 +16,7 @@ export const CamOption = define<OptionElement>({
   value: '',
   _connect: {
     value: undefined,
-    connect: listen((host) => ({
+    connect: listen((host: H) => ({
       click: host._select,
     })),
   },

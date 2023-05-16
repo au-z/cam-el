@@ -52,7 +52,7 @@ export const SbLayout = define<H>({
     Object.entries(props).forEach(([prop, value]) => host.component[prop] = value)
   },
   // prettier-ignore
-  render: (h: H) => html`<route-r>
+  render: (h: H) => html`<route-r debug>
     <cam-grid class="layout" grid="auto 1fr, auto">
       <cam-box class="navbar" direction="column">
         <route-a href="/"><cam-box flex="center"><slot name="logo"></slot></cam-box></route-a>
@@ -64,16 +64,14 @@ export const SbLayout = define<H>({
         </cam-grid>
         <cam-box class="main" flex="center">
           ${h.components ? h.components.map((c) => html`
-            <route-n path="/${c.name}">
+            <route-c path="/${c.name}">
               <slot name="${c.name}"></slot>
 
               ${c.tests?.map((test) => html`
-                <route-n path="/${test.name}"></route-n>
+                <route-c path="./${test.name}"></route-c>
               `)}
-            </route-n>
-          `) : html`
-            <slot></slot>
-          `}
+            </route-c>
+          `) : html``}
         </cam-box>
         <sb-controls class="controls" config="${h.manifest[h.selected]}"
           onupdate="${h.onControlUpdate}"></sb-controls>
